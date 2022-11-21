@@ -28,9 +28,9 @@ end
 # Seed for itinerary
 5.times do
   # Selecting employee from user db
-  employee = User.where("admin == ? LIMIT 1, true")
+  employee = User.find_by(admin: true)
   # Selecting client from user db
-  client = User.where("admin == ? LIMIT 1, false")
+  client = User.where(admin: false).sample
   # Creating a variable with a location in Japan
   location = ["Tokyo", "Kyoto", "Hokkaido", "Okinawa", "Nagoya", "Osaka"].sample
   # Randomly generates a number of days
