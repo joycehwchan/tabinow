@@ -10,3 +10,13 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+main {
+  display: flex;
+  flex-wrap: nowrap;
+  height: -webkit-fill-available;
+  min-height: calc(100vh - 64px); // 100vh - navbar height
+  // max-height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
