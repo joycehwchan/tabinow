@@ -1,32 +1,49 @@
-<div class="sidebar-container d-flex flex-column flex-shrink-0 p-2 bg-white">
-  <h3 class="mt-3 px-2">Name of Itineraryyyyyyyyyy</h3>
-  <hr>
-  <ul class="nav nav-pills flex-column mb-auto">
-    <li class="nav-item">
-      <%= link_to 'Overview', '#', class:"nav-link active", "aria_current": "page" %>
-    </li>
-    <li>
-      <%= link_to 'Day 1', '#', class:"nav-link link-dark" %>
-    </li>
-    <li>
-      <%= link_to 'Day 2', '#', class:"nav-link link-dark" %>
-    </li>
-    <li>
-      <%= link_to 'Day 3', '#', class:"nav-link link-dark" %>
-    </li>
-  </ul>
-  <hr>
-  <div class="dropdown">
-    <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-      <strong>username</strong>
-    </a>
-    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-      <li><%= link_to "User action", '#', class:"dropdown-item" %></li>
-      <li><%= link_to "Settings", '#', class:"dropdown-item" %></li>
-      <li><%= link_to "Profile", '#', class:"dropdown-item" %></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><%= link_to "Sign out", '#', class:"dropdown-item" %></li>
-    </ul>
+<div
+  class="sidebar"
+  data-controller="sidebar"
+  data-action="resize@window->sidebar#collaspe"
+  data-action="open@window->sidebar#collaspe">
+  <button class="btn btn-sm btn-light shadow-sm sidebar-toggle-btn"
+          data-action="click->sidebar#toggle" data-sidebar-target="button">
+    <i class="fa-solid fa-chevron-left"></i>
+  </button>
+  <div class="sidebar-container flex-shrink-0 p-2"
+       data-sidebar-target="content">
+    <div class="mt-4">
+      <h3 class="px-2">3 Days in Tokyo</h3>
+    </div>
+    <hr>
+    <div>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <%= link_to 'Overview', root_path, class:"nav-link sidebar-link py-1 active", "aria_current": "page" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Day 1', root_path, class:"nav-link sidebar-link link-dark py-1" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Day 2', root_path, class:"nav-link sidebar-link link-dark py-1" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Day 3', root_path, class:"nav-link sidebar-link link-dark py-1" %>
+        </li>
+      </ul>
+    </div>
+    <!--
+    <hr>
+    <div class="dropdown">
+      <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+        <strong>username</strong>
+      </a>
+      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+        <li><%= link_to "User action", '#', class:"dropdown-item" %></li>
+        <li><%= link_to "Settings", '#', class:"dropdown-item" %></li>
+        <li><%= link_to "Profile", '#', class:"dropdown-item" %></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><%= link_to "Sign out", '#', class:"dropdown-item" %></li>
+      </ul>
+    </div>
+    -->
   </div>
 </div>

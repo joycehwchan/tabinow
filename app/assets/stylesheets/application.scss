@@ -12,6 +12,7 @@
 @import "pages/index";
 
 main {
+  position: relative; // for sidebar
   display: flex;
   flex-wrap: nowrap;
   height: -webkit-fill-available;
