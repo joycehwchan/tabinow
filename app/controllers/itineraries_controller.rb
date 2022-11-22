@@ -1,13 +1,14 @@
 class ItinerariesController < ApplicationController
   before_action :set_itinerary, except: %i[index new create]
+  skip_before_action :authenticate_user!, only: [:create]
 
   def index
     @itineraries = policy_scope(Itinerary)
   end
 
   def show
-      #this is to create a new day in the itinerary show page
-      @itinerary.day = Day.new
+    # this is to create a new day in the itinerary show page
+    @itinerary.day = Day.new
   end
 
   def new
@@ -16,14 +17,20 @@ class ItinerariesController < ApplicationController
   end
 
   def create
-    set_new_itinerary
+    raise
+    @itinerary = Itinerary.new(itineraries_params)
+    name = "#{params[:number_of_days]} in  #{params[:location]}"
+    generic_password = "tabinow"
+    client = User.new(email: find(params[:email]), password: generic_password)
+    @itinerary.name = name
+    @itineraries.client = client
     authorize @itinerary
-    if @itinerary.save
-      flash[:success] = "Information submitted!"
-      redirect_to root_path
-    else
-      render :new, status: :unprocessable_entity
-    end
+    # if @itinerary.save
+    #   flash[:success] = "Information submitted!"
+    #   redirect_to root_path
+    # else
+    #   render :new, status: :unprocessable_entity
+    # end
   end
 
   def update
@@ -61,13 +68,9 @@ class ItinerariesController < ApplicationController
   end
 
   def set_new_itinerary
-    @itinerary = Itinerary.new(itineraries_params)
-    @itinerary.user = current_user
-    authorize @itinerary
   end
 
   def itineraries_params
-    params.require(:itinerary).permit(:date_from, :date_to, :location, :email)
+    params.require(:itinerary).permit(:name, :location, :status, :employee_id, :client_id)
   end
-
 end
