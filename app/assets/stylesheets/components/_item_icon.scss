@@ -1,6 +1,14 @@
 .items-container {
   display: flex;
+  align-items: center;
   gap: 1rem;
+
+  h2 {
+    font-size: 1.2rem;
+    margin-left: 1rem;
+    margin-bottom: 0;
+    width: 4rem;
+  }
 }
 
 .item-icon {

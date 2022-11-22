@@ -2,7 +2,7 @@
 <div class="my-3 generator-container">
   <div class="middle-container">
     <% @itinerary.days.count do |day| %>
-      <%= render 'itineraries/day' %>
+      <%= render 'itineraries/day', day: day %>
     <% end %>
   </div>
   <div class="right-container">
