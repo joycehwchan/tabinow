@@ -17,22 +17,8 @@ class ItinerariesController < ApplicationController
   end
 
   def create
-    @itinerary = Itinerary.new(itineraries_params)
-    name = "#{params[:number_of_days]} in #{itineraries_params[:location]}"
-    generic_password = "tabinow"
-    client = User.new(email: params[:email], password: generic_password)
-    client.save
-    @itinerary.name = name
-    @itinerary.client = client
-    authorize @itinerary
-    raise
-    @itinerary.save
-    # if @itinerary.save
-    #   flash[:success] = "Information submitted!"
-    #   redirect_to root_path
-    # else
-    #   render :new, status: :unprocessable_entity
-    # end
+    set_new_itinerary
+    set_new_day
   end
 
   def update
@@ -64,6 +50,14 @@ class ItinerariesController < ApplicationController
 
   private
 
+  def set_new_day
+    @days.times do |i|
+      day = Day.new(number: i + 1)
+      day.itinerary = @itinerary
+      day.save
+    end
+  end
+
   def set_itinerary
     @itinerary = Itinerary.find(params[:id])
     authorize @itinerary
@@ -71,8 +65,15 @@ class ItinerariesController < ApplicationController
 
   def set_new_itinerary
     @itinerary = Itinerary.new(itineraries_params)
-    @itinerary.user = current_user
+    @days = params[:number_of_days].to_i
+    name = "#{@days} in #{itineraries_params[:location]}"
+    generic_password = "tabinow"
+    client = User.new(email: params[:email], password: generic_password)
+    client.save
+    @itinerary.name = name
+    @itinerary.client = client
     authorize @itinerary
+    @itinerary.save
   end
 
   def itineraries_params
