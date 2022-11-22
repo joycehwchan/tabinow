@@ -8,25 +8,24 @@
        data-sidebar-target="content">
     <div class="sidebar-top">
       <div class="mt-3 px-2">
-        <%# <h1 class=""><%= pluralize(@itinerary.days.count, 'Day')   %>
-        <%# <h1>in <%= @itinerary.location</h1>  %>
+        <h1 class=""><%= pluralize(@itinerary.days.count, 'Day') %> in <%= @itinerary.location %></h1>
         <p class="sidebar-itinerary-location">
           <i class="fa-solid fa-location-dot"></i>
-          <%# <%= @itinerary.location %> %>
+          <%= @itinerary.location %>
         </p>
       </div>
       <hr>
       <div>
         <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
-            <%= link_to 'Overview', "#", class:"nav-link sidebar-link active", "aria_current": "page" %>
+            <%= link_to 'Overview', itinerary_path(itinerary), class:"nav-link sidebar-link active", "aria_current": "page" %>
           </li>
-          <%# <% itinerary.days.each_with_index do |day, day_num| %> 
-            <%# <li class="nav-item"> %>
-              <%# <%= link_to "Day #{day_num + 1}", '#', class:"nav-link sidebar-link link-dark" %> 
-            <%# </li> %>
-          <%# <% end %> 
-        <%# </ul> %>
+          <% itinerary.days.each_with_index do |day, day_num| %>
+            <li class="nav-item">
+              <%= link_to "Day #{day_num + 1}", '#', class:"nav-link sidebar-link link-dark" %>
+            </li>
+          <% end %>
+        </ul>
       </div>
     </div>
     <div class="sidebar-bottom mb-5">
