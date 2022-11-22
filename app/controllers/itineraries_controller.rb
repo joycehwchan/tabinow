@@ -15,8 +15,9 @@ class ItinerariesController < ApplicationController
 
   def create
     set_new_itinerary
+    authorize @itinerary
     if @itinerary.save
-      # Maybe add a flash to tell the client the info is submitted.
+      flash[:success] = "Information submitted!"
       redirect_to root_path
     else
       render :new, status: :unprocessable_entity
@@ -24,7 +25,8 @@ class ItinerariesController < ApplicationController
   end
 
   def update
-    # Update itinerary
+    @itinerary.update(itinerary_params)
+    redirect_to itineraries_path
   end
 
   def destroy
