@@ -22,6 +22,11 @@
         </tr>
       </thead>
       <tbody>
+      <%# #render table row partial. Create partial called table_row %>
+      <% @itineraries.each do |itinerary| %>
+        <%= render 'table_row', itinerary: itinerary %>
+      <% end %>
+
         <tr>
           <td>Itinerary.name</td>
           <td>
