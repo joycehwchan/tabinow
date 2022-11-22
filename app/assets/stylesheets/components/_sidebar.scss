@@ -4,7 +4,7 @@
   transition: 200ms;
   margin-right: 1rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px, rgba(0, 0, 0, 0.1) 0px 1px 2px;
-  border-radius: 0px 40px 40px 0;
+  border-radius: 0px 24px 24px 0;
   padding-top: 20px;
   background-color: white;
 }
@@ -21,25 +21,15 @@
   position: absolute;
   z-index: 10;
   left: 172px;
-  top: 14px;
-  border-radius: 50px;
+  top: 70px;
+  border-radius: 50px 4px 4px 50px;
   transition: 200ms;
-  //
-  // ========= style 2
-  // position: absolute;
-  // z-index: 10;
-  // left: 0;
-  // top: 72px;
-  // border-radius: 0 50px 50px 0;
-  // transition: 200ms;
-  // width: 13rem;
-  // text-align: end;
 }
 
 .shift-btn {
-  left: 4px;
-  // width: 3rem;
+  left: -4px;
   opacity: 0.8;
+  border-radius: 4px 50px 50px 4px;
 }
 
 .sidebar-container {
