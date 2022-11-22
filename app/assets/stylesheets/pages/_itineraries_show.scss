@@ -1,5 +1,6 @@
 .generator-container {
   display: flex;
+  padding: 8px 0;
   flex-direction: row;
   gap: 8px;
   width: 100%;
@@ -8,7 +9,7 @@
   .left-container {
     padding: 0 12px;
     flex-grow: 1;
-    height: calc(100vh - 64px - 16px);
+    height: calc(100vh - 56px - 16px);
     overflow: auto;
     // max-width: 640px;
     @media (max-width: 1040px) {
@@ -27,7 +28,7 @@
     padding-top: 0;
     background-color: $secondary;
     flex-grow: 1;
-    height: calc(100vh - 64px - 16px);
+    height: calc(100vh - 56px - 16px);
     overflow: auto;
     min-width: 400px;
   }

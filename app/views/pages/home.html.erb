@@ -1,22 +1,43 @@
-<div class="w-100 bg-secondary">
-  <div class="form-container">
-    <h2 class="text-center mb-3">Request an itinerary designed for you now!</h2>
-    <%= simple_form_for @itinerary , data: { turbo: :false } do |f| %>
-      <div class="row">
-        <div class="col-12">
-          <%= label_tag 'Email', nil, class:"form-label" %>
-          <%= text_field_tag :email, nil, class:"form-control" %>
-        </div>
-        <div class="col-3">
-          <%= label_tag 'No. of days', nil, class:"form-label" %>
-          <%= number_field_tag :number_of_days, nil, class:"form-control" %>
-        </div>
-        <div class="col-9">
-          <%= f.input :location %>
-        </div>
-        <div class="col-12">
-          <%= f.submit "Submit request", class: 'btn btn-primary btn-tabinow mt-2 w-100' %>
-        </div>
+<div class="home-container">
+  <div class="home-section top-section">
+    <div class="top-section-left">
+      <h1>Welcom to TabiNow</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore numquam perferendis accusantium voluptatem necessitatibus odit ipsum error vitae corporis nobis, nesciunt enim libero sequi est nisi, quos placeat, tempora vel.</p>
+    </div>
+    <div class="top-section-right">
+      <div class="form-container">
+        <h2 class="text-center mb-3">Request an itinerary now!</h2>
+        <%= simple_form_for @itinerary , data: { turbo: :false } do |f| %>
+          <div class="row">
+            <div class="col-12">
+              <%= label_tag 'Email', nil, class:"form-label" %>
+              <%= text_field_tag :email, nil, class:"form-control" %>
+            </div>
+            <div class="col-12 col-md-4">
+              <%= label_tag 'No. of days', nil, class:"form-label" %>
+              <%= number_field_tag :number_of_days, nil, class:"form-control" %>
+            </div>
+            <div class="col-12 col-md-8">
+              <%= f.input :location %>
+            </div>
+            <div class="col-12">
+              <%= f.submit "Submit request", class: 'btn btn-primary btn-tabinow mt-2 w-100' %>
+            </div>
+          </div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   </div>
+  <div class="home-section">
+    <h2>Home section 2</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae ratione maxime sed enim adipisci eaque. Iste, nemo velit soluta neque deleniti asperiores ea dolor fugiat reprehenderit, perferendis, autem commodi suscipit!</p>
+  </div>
+  <div class="home-section">
+    <h2>Home section 3</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae ratione maxime sed enim adipisci eaque. Iste, nemo velit soluta neque deleniti asperiores ea dolor fugiat reprehenderit, perferendis, autem commodi suscipit!</p>
+  </div>
+  <div class="home-section">
+    <h2>Home section 4</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae ratione maxime sed enim adipisci eaque. Iste, nemo velit soluta neque deleniti asperiores ea dolor fugiat reprehenderit, perferendis, autem commodi suscipit!</p>
+  </div>
+</div>

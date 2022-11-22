@@ -1,1 +1,41 @@
-// Specific CSS for your home-page
+.home-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.home-section {
+  display: flex;
+  flex-direction: column;
+  padding: 64px 32px;
+}
+
+.home-section.top-section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  // height: calc(100vh - 56px);
+  height: 500px;
+  padding: 0;
+
+  .top-section-left {
+    width: 100%;
+    background-color: $light-gray;
+    padding: 64px 32px;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+  }
+  .top-section-right {
+    min-width: fit-content;
+    background-color: $secondary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media (max-width: 1000px) {
+    height: fit-content;
+    flex-direction: column;
+  }
+}
