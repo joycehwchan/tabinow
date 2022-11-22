@@ -68,6 +68,7 @@ end
 puts " - Number of users created: #{User.count} -"
 puts "--------------------------"
 puts " - Removing old Itineraries (days and activities) -"
+
 Itinerary.destroy_all
 Day.destroy_all
 Content.destroy_all
@@ -75,7 +76,7 @@ Content.destroy_all
 puts " - Starting to create Itineraries -"
 
 # Seed for itinerary
-1.times do
+2.times do
   # Selecting employee from user db
   employee = User.find_by(admin: true)
   client = User.where(admin: false).sample
@@ -83,7 +84,7 @@ puts " - Starting to create Itineraries -"
   # Creating a variable with a location in Japan
   location = ["Tokyo", "Kyoto", "Hokkaido", "Okinawa", "Nagoya", "Osaka"].sample
   # Randomly generates a number of days
-  days_number = rand(1..4)
+  days_number = rand(1..2)
   # Createing itinerary
   puts " - #1/5: #{days_number} days in #{location}"
 
