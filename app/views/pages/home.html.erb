@@ -1,43 +1,43 @@
-<%#= render "shared/sidebar" %>
-<div class="container my-3">
-  <h1>This is pages#home</h1>
-  <hr>
-  <h1>This is a heading 1</h1>
-  <h2>This is a heading 2</h2>
-  <h3>This is a heading 3</h3>
-  <h4>This is a heading 4</h4>
-  <hr>
-  <p>This is a paragraph</p>
-  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et perspiciatis assumenda sunt obcaecati est temporibus dolor fuga expedita exercitationem ducimus nulla nihil alias, asperiores saepe eum earum pariatur mollitia, consequuntur architecto. Deleniti vel veritatis voluptatum asperiores minus rerum laudantium aspernatur?</p>
-  <hr>
-  <%= link_to 'CTA button', '#', class:"btn btn-tabinow btn-primary" %>
-  <%= link_to 'CTA button', '#', class:"btn btn-tabinow btn-outline-primary" %>
-  <%= link_to 'CTA button', '#', class:"btn btn-tabinow btn-secondary" %>
-  <%= link_to 'CTA button', '#', class:"btn btn-tabinow btn-outline-secondary" %>
-  <hr>
-  <div class="items-container">
-    <div class="item-icon">
-      <i class="fa-solid fa-camera"></i>
+<div class="home-container">
+  <div class="home-section top-section">
+    <div class="top-section-left">
+      <h1>Welcom to TabiNow</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore numquam perferendis accusantium voluptatem necessitatibus odit ipsum error vitae corporis nobis, nesciunt enim libero sequi est nisi, quos placeat, tempora vel.</p>
     </div>
-    <div class="item-icon">
-      <i class="fa-solid fa-utensils"></i>
-    </div>
-    <div class="item-icon">
-      <i class="fa-solid fa-bed"></i>
-    </div>
-    <div class="item-icon">
-      <i class="fa-solid fa-bus-simple"></i>
+    <div class="top-section-right">
+      <div class="form-container">
+        <h2 class="text-center mb-3">Request an itinerary now!</h2>
+        <%= simple_form_for @itinerary , data: { turbo: :false } do |f| %>
+          <div class="row">
+            <div class="col-12">
+              <%= label_tag 'Email', nil, class:"form-label" %>
+              <%= text_field_tag :email, nil, class:"form-control" %>
+            </div>
+            <div class="col-12 col-md-4">
+              <%= label_tag 'No. of days', nil, class:"form-label" %>
+              <%= number_field_tag :number_of_days, nil, class:"form-control" %>
+            </div>
+            <div class="col-12 col-md-8">
+              <%= f.input :location %>
+            </div>
+            <div class="col-12">
+              <%= f.submit "Submit request", class: 'btn btn-primary btn-tabinow mt-2 w-100' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-  <hr>
-</div>
-<div>
-  <%= simple_form_for @itinerary , data: { turbo: :false } do |f| %>
-    <%= label_tag 'Email' %>
-    <%= text_field_tag :email %>
-    <%= label_tag 'Number of days' %>
-    <%= number_field_tag :number_of_days %>
-    <%= f.input :location %>
-    <%= f.submit class: 'btn btn-primary mt-2' %>
-  <% end %>
+  <div class="home-section">
+    <h2>Home section 2</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae ratione maxime sed enim adipisci eaque. Iste, nemo velit soluta neque deleniti asperiores ea dolor fugiat reprehenderit, perferendis, autem commodi suscipit!</p>
+  </div>
+  <div class="home-section">
+    <h2>Home section 3</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae ratione maxime sed enim adipisci eaque. Iste, nemo velit soluta neque deleniti asperiores ea dolor fugiat reprehenderit, perferendis, autem commodi suscipit!</p>
+  </div>
+  <div class="home-section">
+    <h2>Home section 4</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae ratione maxime sed enim adipisci eaque. Iste, nemo velit soluta neque deleniti asperiores ea dolor fugiat reprehenderit, perferendis, autem commodi suscipit!</p>
+  </div>
 </div>
