@@ -54,8 +54,11 @@ gem 'cloudinary', '~> 1.16.0'
 gem "devise"
 gem 'faker'
 gem "font-awesome-sass", "~> 6.1"
+gem "open-uri"
+gem "openssl"
 gem "pundit"
 gem "simple_form", github: "heartcombo/simple_form"
+gem "uri"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
