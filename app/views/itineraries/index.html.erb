@@ -1,15 +1,6 @@
 <div class="container my-4">
-  <h1>Welcome back to Itineraries#index</h1>
-  <!--
-  <div class="my-5">
-    <form action="#">
-      <input type="text" placeholder="no. of days">
-      <input type="text" placeholder="location">
-      <input type="submit" value="Generate Itinerary">
-    </form>
-  </div>
-  -->
-  <p>You have <%#= pluralize(@itinerary.count, 'itinerary') %> @itinerary.count itineraries.</p>
+  <h1>Welcome back</h1>
+  <p>You have <%= pluralize(@itineraries.count, 'itinerary') %></p>
   <div class="table-responsive">
     <table class="styled-table">
       <thead>
@@ -22,65 +13,11 @@
         </tr>
       </thead>
       <tbody>
-      <%# #render table row partial. Create partial called table_row %>
-      <% @itineraries.each do |itinerary| %>
-        <%= render 'table_row', itinerary: itinerary %>
-      <% end %>
-
-        <tr>
-          <td>Itinerary.name</td>
-          <td>
-            <div class="status-pill pending">
-              <span>pending</span>
-            </div>
-          </td>
-          <td>3</td>
-          <td>4</td>
-          <td>
-            <%= link_to "Edit", '#', class:"btn btn-sm btn-outline-secondary" %>
-          </td>
-        </tr>
-        <tr>
-          <td>Itinerary.name</td>
-          <td>
-            <div class="status-pill confirmed">
-              <span>confirmed</span>
-            </div>
-          </td>
-          <td>3</td>
-          <td>4</td>
-          <td>
-            <%= link_to "Edit", '#', class:"btn btn-sm btn-outline-secondary" %>
-          </td>
-        </tr>
-        <tr>
-          <td>Itinerary.name</td>
-          <td>
-            <div class="status-pill rejected">
-              <span>rejected</span>
-            </div>
-          </td>
-          <td>3</td>
-          <td>4</td>
-          <td>
-            <%= link_to "Edit", '#', class:"btn btn-sm btn-outline-secondary" %>
-          </td>
-        </tr>
-        <tr>
-          <td>Itinerary.name</td>
-          <td>
-            <div class="status-pill draft">
-              <span>draft</span>
-            </div>
-          </td>
-          <td>3</td>
-          <td>4</td>
-          <td>
-            <%= link_to "Edit", '#', class:"btn btn-sm btn-outline-secondary" %>
-          </td>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+        <%# #render table row partial. Create partial called table_row %>
+        <% @itineraries.each do |itinerary| %>
+          <%= render 'table_row', itinerary: itinerary %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
