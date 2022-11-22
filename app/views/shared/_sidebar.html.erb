@@ -20,9 +20,9 @@
           <li class="nav-item">
             <%= link_to 'Overview', itinerary_path(@itinerary), class:"nav-link sidebar-link active", "aria_current": "page" %>
           </li>
-          <% itinerary.days.each do |day_num| %>
+          <% itinerary.days.each do |day| %>
             <li class="nav-item">
-              <%= link_to "Day #{day_num}", '#', class:"nav-link sidebar-link link-dark" %>
+              <%= link_to "Day #{day.number}", '#', class:"nav-link sidebar-link link-dark" %>
             </li>
           <% end %>
         </ul>
