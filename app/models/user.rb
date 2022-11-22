@@ -5,4 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :itineraries_as_employee, class_name: "Itinerary", foreign_key: :employee_id
   has_many :itineraries_as_client, class_name: "Itinerary", foreign_key: :client_id
+  has_many :addresses
+  has_many :itineraries
+  validates :name, presence: true
+  validates :email, format: { with: /\A.*@.*\.com\z/ }, presence: true
+  validates :phone, presence: true
+  validates :admin, presence: true
 end
