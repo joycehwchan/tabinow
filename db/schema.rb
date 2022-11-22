@@ -43,9 +43,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_22_061428) do
   end
 
   create_table "addresses", force: :cascade do |t|
-    t.string "zip_code"
+    t.string "zipcode"
     t.string "street"
-    t.string "street_two"
     t.string "city"
     t.string "country"
     t.bigint "user_id", null: false
@@ -101,7 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_22_061428) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "phone"
-    t.boolean "admin", default: false
+    t.integer "admin"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
