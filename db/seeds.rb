@@ -38,7 +38,7 @@ end
   # Createing itinerary
   itinerary = Itinerary.create!(name: "#{days_number} in #{location}",
                                 location: location,
-                                status: ["draft", "pending", "confirmed", "rejected"].sample,
+                                status: rand(0..3),
                                 client_id: client,
                                 employee_id: employee)
   # Creating a Day db
@@ -57,7 +57,7 @@ end
                         description: Faker::Lorem.paragraph(sentence_count: 2),
                         api_id: rand(1..5),
                         day_id: day,
-                        status: ["draft", "pending", "confirmed", "rejected"].sample)
+                        status: rand(0..3))
     stay.create!
 
     # lunch_restaurant_name = Faker::JapaneseMedia::StudioGhibli.character
@@ -70,7 +70,7 @@ end
                          description: Faker::Restaurant.description,
                          api_id: rand(1..5),
                          day_id: day,
-                         status: ["draft", "pending", "confirmed", "rejected"].sample)
+                         status: rand(0..3))
     lunch.create!
 
     # Generate restuarant for dinner
@@ -82,7 +82,7 @@ end
                           description: Faker::Lorem.paragraph(sentence_count: 2),
                           api_id: rand(1..5),
                           day_id: day,
-                          status: ["draft", "pending", "confirmed", "rejected"].sample)
+                          status: rand(0..3))
     dinner.create!
 
     # Generate morning activity
@@ -94,7 +94,7 @@ end
                                     description: Faker::Lorem.paragraph(sentence_count: 2),
                                     api_id: rand(1..5),
                                     day_id: day,
-                                    status: ["draft", "pending", "confirmed", "rejected"].sample)
+                                    status: rand(0..3))
     morning_activity.create!
 
     # Generate afternoon activity
@@ -106,7 +106,7 @@ end
                                       description: Faker::Lorem.paragraph(sentence_count: 2),
                                       api_id: rand(1..5),
                                       day_id: day,
-                                      status: ["draft", "pending", "confirmed", "rejected"].sample)
+                                      status: rand(0..3))
     afternoon_activity.create!
   end
 end
