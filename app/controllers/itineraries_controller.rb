@@ -1,5 +1,5 @@
 class ItinerariesController < ApplicationController
-  before_action :set_itinerary, except: %i[index new create]
+  before_action :set_itinerary, only: %i[index new]
   skip_before_action :authenticate_user!, only: [:create]
 
   def index
@@ -17,14 +17,16 @@ class ItinerariesController < ApplicationController
   end
 
   def create
-    raise
     @itinerary = Itinerary.new(itineraries_params)
     name = "#{params[:number_of_days]} in  #{params[:location]}"
     generic_password = "tabinow"
-    client = User.new(email: find(params[:email]), password: generic_password)
+    client = User.new(email: params[:email], password: generic_password)
+    client.save
+    
     @itinerary.name = name
-    @itineraries.client = client
+    @itinerary.client = client
     authorize @itinerary
+    @itinerary.save
     # if @itinerary.save
     #   flash[:success] = "Information submitted!"
     #   redirect_to root_path
@@ -67,8 +69,8 @@ class ItinerariesController < ApplicationController
     authorize @itinerary
   end
 
-  def set_new_itinerary
-  end
+  # def set_new_itinerary
+  # end
 
   def itineraries_params
     params.require(:itinerary).permit(:name, :location, :status, :employee_id, :client_id)

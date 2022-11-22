@@ -34,7 +34,7 @@
 <div>
   <%= simple_form_for @itinerary , data: { turbo: :false } do |f| %>
     <%= label_tag 'Email' %>
-    <%= text_field :email , require: true %>
+    <%= text_field_tag :email %>
     <%= label_tag 'Number of days' %>
     <%= number_field_tag :number_of_days %>
     <%= f.input :location %>
