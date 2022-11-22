@@ -46,7 +46,7 @@ client.save
   # Createing itinerary
   itinerary = Itinerary.save(name: "#{days_number} in #{location}",
                                 location: location,
-                                status: ["draft", "pending", "confirmed", "rejected"].sample,
+                                status: rand(0..3),
                                 client_id: client,
                                 employee_id: employee)
   # Creating a Day db
@@ -65,7 +65,7 @@ client.save
                         description: Faker::Lorem.paragraph(sentence_count: 2),
                         api_id: rand(1..5),
                         day_id: day,
-                        status: ["draft", "pending", "confirmed", "rejected"].sample)
+                        status: rand(0..3))
     stay.save
 
     # lunch_restaurant_name = Faker::JapaneseMedia::StudioGhibli.character
@@ -78,7 +78,7 @@ client.save
                          description: Faker::Restaurant.description,
                          api_id: rand(1..5),
                          day_id: day,
-                         status: ["draft", "pending", "confirmed", "rejected"].sample)
+                         status: rand(0..3))
     lunch.save
 
     # Generate restuarant for dinner
@@ -90,7 +90,7 @@ client.save
                           description: Faker::Lorem.paragraph(sentence_count: 2),
                           api_id: rand(1..5),
                           day_id: day,
-                          status: ["draft", "pending", "confirmed", "rejected"].sample)
+                          status: rand(0..3))
     dinner.save
 
     # Generate morning activity
@@ -102,9 +102,10 @@ client.save
                                     description: Faker::Lorem.paragraph(sentence_count: 2),
                                     api_id: rand(1..5),
                                     day_id: day,
-                                    status: ["draft", "pending", "confirmed", "rejected"].sample)
+                                    status: rand(0..3))
+  
     morning_activity.save
-
+    
     # Generate afternoon activity
     afternoon_activity = Content.new(name: "#{Faker::Sports.unusual_sport} at #{Faker::Movies::StarWars.planet}",
                                       price: rand(4000..25_000),
@@ -114,7 +115,7 @@ client.save
                                       description: Faker::Lorem.paragraph(sentence_count: 2),
                                       api_id: rand(1..5),
                                       day_id: day,
-                                      status: ["draft", "pending", "confirmed", "rejected"].sample)
+                                      status: rand(0..3))
     afternoon_activity.save
   end
 end
