@@ -25,7 +25,8 @@ class ItinerariesController < ApplicationController
   end
 
   def update
-    # Update itinerary
+    @itinerary.update(itinerary_params)
+    redirect_to itineraries_path
   end
 
   def destroy
