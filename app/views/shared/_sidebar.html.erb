@@ -18,11 +18,11 @@
       <div>
         <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
-            <%= link_to 'Overview', itinerary_path(itinerary), class:"nav-link sidebar-link active", "aria_current": "page" %>
+            <%= link_to 'Overview', itinerary_path(@itinerary), class:"nav-link sidebar-link active", "aria_current": "page" %>
           </li>
-          <% itinerary.days.each_with_index do |day, day_num| %>
+          <% itinerary.days.each do |day_num| %>
             <li class="nav-item">
-              <%= link_to "Day #{day_num + 1}", '#', class:"nav-link sidebar-link link-dark" %>
+              <%= link_to "Day #{day_num }", '#', class:"nav-link sidebar-link link-dark" %>
             </li>
           <% end %>
         </ul>
