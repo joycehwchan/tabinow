@@ -9,9 +9,20 @@ puts " - Starting to create Users -"
 
 # Creating Employee user:
 employee = User.new(name: "TabiNowEmp",
-                  email: "emp@tabinow.tours",
-                  password: "Password123")
+                    email: "emp@tabinow.tours",
+                    phone: Faker::PhoneNumber.cell_phone_in_e164,
+                    password: "Password123",
+                    admin: true)
 employee.save!
+
+5.times do
+  client = User.new(name: Faker::TvShows::ParksAndRec.character,
+                    email: Faker::Internet.email,
+                    phone: Faker::PhoneNumber.cell_phone_in_e164,
+                    password: "Password123",
+                    admin: false)
+  client.save!
+end
 
 puts " - Number of users created: #{User.count} -"
 puts "--------------------------"
@@ -25,7 +36,8 @@ puts " - Starting to create Itineraries -"
 # Seed for itinerary
 5.times do
   # Selecting employee from user db
-  employee = User.all.sample
+  employee = User.find_by(admin: true)
+  client = User.where(admin: false).sample
   # Selecting client from user db
   # Creating a variable with a location in Japan
   location = ["Tokyo", "Kyoto", "Hokkaido", "Okinawa", "Nagoya", "Osaka"].sample
@@ -34,12 +46,11 @@ puts " - Starting to create Itineraries -"
   # Createing itinerary
   puts " - #1/5: #{days_number} in #{location}"
 
-  itinerary = Itinerary.create!(name: "#{days_number} in #{location}",
+  itinerary = Itinerary.create!(name: "#{days_number} Days in #{location}",
                                 location: location,
                                 status: rand(0..3),
-                                email: Faker::Internet.safe_email,
-                                phone: Faker::PhoneNumber.cell_phone_in_e164,
-                                user: employee)
+                                client: client,
+                                employee: employee)
 
   # Generate stay, restuarants, activities
   days_number.times do |day_number|
