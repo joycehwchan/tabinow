@@ -1,0 +1,79 @@
+<div class="container my-4">
+  <h1>Welcome back to Itineraries#index</h1>
+  <div class="my-5">
+    <form action="#">
+      <input type="text" placeholder="no. of days">
+      <input type="text" placeholder="location">
+      <input type="submit" value="Generate Itinerary">
+    </form>
+  </div>
+  <p>You have <%#= pluralize(@itinerary.count, 'itinerary') %> @itinerary.count itineraries.</p>
+  <div class="table-responsive">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Itinerary name</th>
+          <th>Status</th>
+          <th>Column 3</th>
+          <th>Column 4</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Itinerary.name</td>
+          <td>
+            <div class="status-pill pending">
+              <span>pending</span>
+            </div>
+          </td>
+          <td>3</td>
+          <td>4</td>
+          <td>
+            <%= link_to "Edit", '#', class:"btn btn-sm btn-outline-secondary" %>
+          </td>
+        </tr>
+        <tr>
+          <td>Itinerary.name</td>
+          <td>
+            <div class="status-pill confirmed">
+              <span>confirmed</span>
+            </div>
+          </td>
+          <td>3</td>
+          <td>4</td>
+          <td>
+            <%= link_to "Edit", '#', class:"btn btn-sm btn-outline-secondary" %>
+          </td>
+        </tr>
+        <tr>
+          <td>Itinerary.name</td>
+          <td>
+            <div class="status-pill rejected">
+              <span>rejected</span>
+            </div>
+          </td>
+          <td>3</td>
+          <td>4</td>
+          <td>
+            <%= link_to "Edit", '#', class:"btn btn-sm btn-outline-secondary" %>
+          </td>
+        </tr>
+        <tr>
+          <td>Itinerary.name</td>
+          <td>
+            <div class="status-pill draft">
+              <span>draft</span>
+            </div>
+          </td>
+          <td>3</td>
+          <td>4</td>
+          <td>
+            <%= link_to "Edit", '#', class:"btn btn-sm btn-outline-secondary" %>
+          </td>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>

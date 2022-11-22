@@ -1,0 +1,38 @@
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+  min-width: 100%;
+
+  thead tr {
+    background-color: $primary;
+    color: #ffffff;
+    text-align: left;
+  }
+
+  th,
+  td {
+    padding: 12px 15px;
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #dddddd;
+
+    &:hover {
+      font-weight: normal;
+      color: $primary;
+    }
+  }
+
+  tbody tr:nth-of-type(even) {
+    background-color: $white;
+  }
+
+  tbody tr:last-of-type {
+    border-bottom: 2px solid $primary;
+  }
+}
