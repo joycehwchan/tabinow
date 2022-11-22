@@ -6,16 +6,18 @@ export default class extends Controller {
   connect() {}
 
   toggle(e) {
-    const openIcon = `<i class="fa-solid fa-chevron-left"></i>`;
-    const closeIcon = `<i class="fa-solid fa-chevron-right"></i>`;
+    const openIcon = `<i class="fa-solid fa-chevron-right"></i>`;
+    const closeIcon = `<i class="fa-solid fa-chevron-left"></i>`;
     this.element.classList.toggle("sidebar-hide");
     this.contentTarget.classList.toggle("d-none");
     this.buttonTarget.classList.toggle("shift-btn");
     this.buttonTarget.classList.toggle("btn-light");
     this.buttonTarget.classList.toggle("btn-primary");
-    if (this.buttonTarget.innerHTML != openIcon) {
+    console.log(this.buttonTarget.innerHTML);
+    console.log(closeIcon);
+    if (this.buttonTarget.innerHTML == openIcon) {
       this.buttonTarget.innerHTML = closeIcon;
-    } else {
+    } else if (this.buttonTarget.innerHTML == closeIcon) {
       this.buttonTarget.innerHTML = openIcon;
     }
   }
