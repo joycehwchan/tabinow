@@ -33,11 +33,11 @@
 </div>
 <div>
   <%= simple_form_for @itinerary , data: { turbo: :false } do |f| %>
-    <%= f.input :email , require: true %>
+    <%= label_tag 'Email' %>
+    <%= text_field :email , require: true %>
     <%= label_tag 'Number of days' %>
     <%= number_field_tag :number_of_days %>
-    <%= label_tag 'location' %>
-    <%= text_field_tag :location %>
+    <%= f.input :location %>
     <%= f.submit class: 'btn btn-primary mt-2' %>
   <% end %>
 </div>
