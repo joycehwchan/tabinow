@@ -13,8 +13,6 @@ export default class extends Controller {
     this.buttonTarget.classList.toggle("shift-btn");
     this.buttonTarget.classList.toggle("btn-light");
     this.buttonTarget.classList.toggle("btn-primary");
-    console.log(this.buttonTarget.innerHTML);
-    console.log(closeIcon);
     if (this.buttonTarget.innerHTML == openIcon) {
       this.buttonTarget.innerHTML = closeIcon;
     } else if (this.buttonTarget.innerHTML == closeIcon) {
@@ -29,12 +27,14 @@ export default class extends Controller {
       this.buttonTarget.classList.add("shift-btn");
       this.buttonTarget.classList.remove("btn-light");
       this.buttonTarget.classList.add("btn-primary");
+      this.buttonTarget.innerHTML = closeIcon;
     } else {
       this.element.classList.remove("sidebar-hide");
       this.contentTarget.classList.remove("d-none");
       this.buttonTarget.classList.remove("shift-btn");
       this.buttonTarget.classList.add("btn-light");
       this.buttonTarget.classList.remove("btn-primary");
+      this.buttonTarget.innerHTML = openIcon;
     }
   }
 }
