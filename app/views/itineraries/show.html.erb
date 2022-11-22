@@ -1,4 +1,10 @@
-<%= render "shared/sidebar" %>
-<div class="container my-3">
-  <h1>itineraries#show (overview)</h1>
+<%= render "shared/sidebar", itinerary: @itinerary %>
+<div class="my-3 generator-container">
+  <div class="middle-container">
+    <% @itinerary.days.count do |day| %>
+      <%= render 'itineraries/day' %>
+    <% end %>
+  </div>
+  <div class="right-container">
+  </div>
 </div>

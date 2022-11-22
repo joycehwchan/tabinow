@@ -4,7 +4,7 @@
   transition: 200ms;
   margin-right: 1rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px, rgba(0, 0, 0, 0.1) 0px 1px 2px;
-  border-radius: 0px 24px 24px 0;
+  border-radius: 0;
   padding-top: 20px;
   background-color: white;
 }
@@ -34,6 +34,7 @@
 .sidebar-container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 100%;
   white-space: nowrap;
 

@@ -9,8 +9,9 @@
 
 // Your CSS partials
 @import "components/index";
-@import "pages/index";
 @import "global/fonts";
+@import "pages/index";
+@import "pages/itinerary_show";
 
 main {
   position: relative; // for sidebar

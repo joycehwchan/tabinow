@@ -6,50 +6,30 @@
   <button class="btn btn-sm btn-light shadow-sm sidebar-toggle-btn" data-action="click->sidebar#toggle" data-sidebar-target="button"><i class="fa-solid fa-chevron-left"></i></button>
   <div class="sidebar-container flex-shrink-0 p-2"
        data-sidebar-target="content">
-    <div class="mt-3 px-2">
-      <h1 class="">3 Days in Tokyo</h1>
-      <p class="sidebar-itinerary-location">
-        <i class="fa-solid fa-location-dot"></i>
-        Tokyo, Japan
-      </p>
-    </div>
-    <hr>
-    <div>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-          <%= link_to 'Overview', root_path, class:"nav-link sidebar-link active", "aria_current": "page" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Day 1', root_path, class:"nav-link sidebar-link link-dark" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Day 2', root_path, class:"nav-link sidebar-link link-dark" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Day 3', root_path, class:"nav-link sidebar-link link-dark" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to root_path, class:"nav-link sidebar-link link-dark" do %>
-            <i class="fa-solid fa-plus me-2"></i> Add a Day
+    <div class="sidebar-top">
+      <div class="mt-3 px-2">
+        <h1 class=""><%= pluralize(@itinerary.days.count, 'Day') %> in <%= @itinerary.location %></h1>
+        <p class="sidebar-itinerary-location">
+          <i class="fa-solid fa-location-dot"></i>
+          <%= @itinerary.location %>
+        </p>
+      </div>
+      <hr>
+      <div>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+            <%= link_to 'Overview', itinerary_path(itinerary), class:"nav-link sidebar-link active", "aria_current": "page" %>
+          </li>
+          <% itinerary.days.each_with_index do |day, day_num| %>
+            <li class="nav-item">
+              <%= link_to "Day #{day_num + 1}", '#', class:"nav-link sidebar-link link-dark" %>
+            </li>
           <% end %>
-        </li>
-      </ul>
+        </ul>
+      </div>
     </div>
-    <!--
-    <hr>
-    <div class="dropdown">
-      <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-        <strong>username</strong>
-      </a>
-      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-        <li><%= link_to "User action", '#', class:"dropdown-item" %></li>
-        <li><%= link_to "Settings", '#', class:"dropdown-item" %></li>
-        <li><%= link_to "Profile", '#', class:"dropdown-item" %></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><%= link_to "Sign out", '#', class:"dropdown-item" %></li>
-      </ul>
-    </div>
-    -->
+    <div class="sidebar-bottom mb-5">
+      <hr>
+      <%= link_to 'Back to dashboard', itineraries_path, class:"btn btn-tabinow btn-secondary w-100 float-end" %></div>
   </div>
 </div>

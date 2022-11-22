@@ -21,7 +21,7 @@ export default class extends Controller {
   }
 
   collaspe(e) {
-    if (window.innerWidth <= 992) {
+    if (window.innerWidth <= 1120) {
       this.element.classList.add("sidebar-hide");
       this.contentTarget.classList.add("d-none");
       this.buttonTarget.classList.add("shift-btn");
