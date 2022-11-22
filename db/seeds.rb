@@ -3,8 +3,8 @@
 #
 # Examples:
 #
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+#   movies = Movie.save([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.save(name: "Luke", movie: movies.first)
 
 # Seed for clients
 5.times do
@@ -12,44 +12,52 @@
   client = User.new(name: Faker::FunnyName.two_word_name,
                     email: Faker::Internet.safe_email,
                     password: "Password123",
-                    phonenumber: Faker::PhoneNumber.cell_phone_in_e164)
-  client.create!
+                    phone: Faker::PhoneNumber.cell_phone_in_e164)
+  client.save
 
   # Adding address to client:
   address = Address.new(street: Faker::Address.street_address,
                         street_two: Faker::Address.secondary_address,
-                        zipcode: Faker::Address.zip_code,
+                        zip_code: Faker::Address.zip_code,
                         city: Faker::Address.city,
                         country: Faker::Address.country,
                         user_id: client)
-  address.create!
+  address.save
 end
+# Creating Employee user:
+client = User.new(name: "TabiNowEmp",
+                  email: Faker::Internet.safe_email,
+                  password: "Password123",
+                  admin: true,
+                  phone: Faker::PhoneNumber.cell_phone_in_e164)
+client.save
+
 
 # Seed for itinerary
 5.times do
   # Selecting employee from user db
-  employee = User.where("admin == ? LIMIT 1, true")
+  employee = User.find_by(admin: true)
   # Selecting client from user db
-  client = User.where("admin == ? LIMIT 1, false")
+  client = User.where(admin: false).sample
   # Creating a variable with a location in Japan
   location = ["Tokyo", "Kyoto", "Hokkaido", "Okinawa", "Nagoya", "Osaka"].sample
   # Randomly generates a number of days
   days_number = rand(1..15)
   # Createing itinerary
-  itinerary = Itinerary.create!(name: "#{days_number} in #{location}",
+  itinerary = Itinerary.save(name: "#{days_number} in #{location}",
                                 location: location,
                                 status: rand(0..3),
                                 client_id: client,
                                 employee_id: employee)
   # Creating a Day db
-  Day.create!(days: days_number, itinerary_id: itinerary)
+  Day.save(days: days_number, itinerary_id: itinerary)
 
   # Generate stay, restuarants, activities
   days_number.times do |day|
     # Generate stay
     stay_name = Faker::Games::SuperMario.character
     stay_type = ["Hotel", "Hostel", "Ryokan", "Camping Ground"].sample
-    stay = Contents.new(name: "#{stay_name}'s #{stay_type}",
+    stay = Content.new(name: "#{stay_name}'s #{stay_type}",
                         price: rand(15_000..100_000),
                         location: location,
                         category: "stay",
@@ -58,11 +66,11 @@ end
                         api_id: rand(1..5),
                         day_id: day,
                         status: rand(0..3))
-    stay.create!
+    stay.save
 
     # lunch_restaurant_name = Faker::JapaneseMedia::StudioGhibli.character
     # Generate restuarant for lunch
-    lunch = Contents.new(name: "#{Faker::Restaurant.name} (#{Faker::Restaurant.type})",
+    lunch = Content.new(name: "#{Faker::Restaurant.name} (#{Faker::Restaurant.type})",
                          price: rand(1000..15_000),
                          location: location,
                          category: "lunch",
@@ -71,10 +79,10 @@ end
                          api_id: rand(1..5),
                          day_id: day,
                          status: rand(0..3))
-    lunch.create!
+    lunch.save
 
     # Generate restuarant for dinner
-    dinner = Contents.new(name: "#{Faker::Restaurant.name} (#{Faker::Restaurant.type})",
+    dinner = Content.new(name: "#{Faker::Restaurant.name} (#{Faker::Restaurant.type})",
                           price: rand(5000..55_000),
                           location: location,
                           category: "dinner",
@@ -83,10 +91,10 @@ end
                           api_id: rand(1..5),
                           day_id: day,
                           status: rand(0..3))
-    dinner.create!
+    dinner.save
 
     # Generate morning activity
-    morning_activity = Contents.new(name: "#{Faker::Hobby.activity} with #{Faker::JapaneseMedia::StudioGhibli.character}",
+    morning_activity = Content.new(name: "#{Faker::Hobby.activity} with #{Faker::JapaneseMedia::StudioGhibli.character}",
                                     price: rand(1000..15_000),
                                     location: location,
                                     category: "morning_activity",
@@ -95,10 +103,11 @@ end
                                     api_id: rand(1..5),
                                     day_id: day,
                                     status: rand(0..3))
-    morning_activity.create!
-
+  
+    morning_activity.save
+    
     # Generate afternoon activity
-    afternoon_activity = Contents.new(name: "#{Faker::Sports.unusual_sport} at #{Faker::Movies::StarWars.planet}",
+    afternoon_activity = Content.new(name: "#{Faker::Sports.unusual_sport} at #{Faker::Movies::StarWars.planet}",
                                       price: rand(4000..25_000),
                                       location: location,
                                       category: "afternoon_activity",
@@ -107,6 +116,6 @@ end
                                       api_id: rand(1..5),
                                       day_id: day,
                                       status: rand(0..3))
-    afternoon_activity.create!
+    afternoon_activity.save
   end
 end

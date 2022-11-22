@@ -13,11 +13,8 @@
   <body>
     <%= render "shared/navbar" %>
     <main>
-      <%= render "shared/sidebar" %>
-      <div class="container my-3">
-        <%= render "shared/flashes" %>
-        <%= yield %>
-      </div>
+      <%= render "shared/flashes" %>
+      <%= yield %>
     </main>
   </body>
 </html>
