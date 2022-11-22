@@ -7,6 +7,6 @@ class ItineraryPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    record.employee = user
   end
 end
