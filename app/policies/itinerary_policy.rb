@@ -5,4 +5,8 @@ class ItineraryPolicy < ApplicationPolicy
       scope.all
     end
   end
+
+  def show?
+    record.employee = user
+  end
 end

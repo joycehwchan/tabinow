@@ -6,8 +6,8 @@ class ItinerariesController < ApplicationController
   end
 
   def show
-      #this is to create a new day in the itinerary show page
-      @itinerary.day = Day.new
+    #this is to create a new day in the itinerary show page
+    # @itinerary.day = Day.new
   end
 
   def new
