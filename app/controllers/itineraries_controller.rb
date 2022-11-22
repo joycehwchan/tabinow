@@ -15,6 +15,7 @@ class ItinerariesController < ApplicationController
 
   def create
     set_new_itinerary
+    authorize @itinerary
     if @itinerary.save
       flash[:success] = "Information submitted!"
       redirect_to root_path
