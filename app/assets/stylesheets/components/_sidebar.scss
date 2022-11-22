@@ -17,7 +17,6 @@
 }
 
 .sidebar-toggle-btn {
-  // ========= style 1
   position: absolute;
   z-index: 10;
   left: 172px;
@@ -36,15 +35,14 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  white-space: nowrap;
 
-  h3 {
-    font-size: 1rem;
-    white-space: nowrap;
+  h1 {
+    font-size: 1.04rem;
   }
 
   a {
     font-size: 0.9rem;
-    white-space: nowrap;
   }
 }
 
@@ -54,4 +52,12 @@
   &:hover {
     background-color: lighten($primary, 40%);
   }
+}
+
+.sidebar-itinerary-location {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04rem;
+  font-weight: 600;
+  color: rgba($magenta, 0.8);
 }

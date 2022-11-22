@@ -1,0 +1,29 @@
+.btn-tabinow:hover {
+  scale: 1.02;
+}
+
+.btn-tabinow.btn-primary:hover {
+  background-color: rgba($primary, 0.8);
+  border: 1px solid $primary;
+  box-shadow: rgba($primary, 0.1) 0px 2px 8px;
+}
+
+.btn-tabinow.btn-outline-primary:hover {
+  border: 1px solid $primary;
+  background-color: rgba($primary, 0.2);
+  color: $primary;
+  box-shadow: rgba($primary, 0.1) 0px 2px 8px;
+}
+
+.btn-tabinow.btn-secondary:hover {
+  background-color: rgba($secondary, 0.8);
+  border: 1px solid $secondary;
+  box-shadow: rgba($secondary, 0.1) 0px 2px 8px;
+}
+
+.btn-tabinow.btn-outline-secondary:hover {
+  border: 1px solid $secondary;
+  background-color: rgba($secondary, 0.2);
+  color: $secondary;
+  box-shadow: rgba($secondary, 0.1) 0px 2px 8px;
+}
