@@ -1,4 +1,5 @@
 def accomodation(location)
+  # This method should be moved to a partial or something...
   url = URI("https://hotels4.p.rapidapi.com/locations/v3/search?q=#{location}&locale=en_US&langid=1033&siteid=300000001")
 
   http = Net::HTTP.new(url.host, url.port)
@@ -101,67 +102,67 @@ puts " - Starting to create Itineraries -"
     # Generate stay
 
     stay = Content.new(name: accomodation(location),
-                        price: rand(15_000..100_000),
-                        location: location,
-                        category: "accommodation",
-                        rating: rand(1..5),
-                        description: Faker::Lorem.paragraph(sentence_count: 2),
-                        api: "",
-                        day: day,
-                        status: rand(0..3))
+                       price: rand(15_000..100_000),
+                       location: location,
+                       category: "accommodation",
+                       rating: rand(1..5),
+                       description: Faker::Lorem.paragraph(sentence_count: 2),
+                       api: "",
+                       day: day,
+                       status: rand(0..3))
     stay.save!
     puts "   Stay: #{Content.last.name}"
 
     # Generate restuarant for lunch
     lunch = Content.new(name: "#{Faker::Restaurant.name} (#{Faker::Restaurant.type})",
-                         price: rand(1000..15_000),
-                         location: location,
-                         category: "lunch",
-                         rating: rand(1..5),
-                         description: Faker::Restaurant.description,
-                         api: "",
-                         day: day,
-                         status: rand(0..3))
+                        price: rand(1000..15_000),
+                        location: location,
+                        category: "lunch",
+                        rating: rand(1..5),
+                        description: Faker::Restaurant.description,
+                        api: "",
+                        day: day,
+                        status: rand(0..3))
     lunch.save!
     puts "   Lunch: #{Faker::Restaurant.name} (#{Faker::Restaurant.type})"
 
     # Generate restuarant for dinner
     dinner = Content.new(name: "#{Faker::Restaurant.name} (#{Faker::Restaurant.type})",
-                          price: rand(5000..55_000),
-                          location: location,
-                          category: "dinner",
-                          rating: rand(1..5),
-                          description: Faker::Lorem.paragraph(sentence_count: 2),
-                          api: "",
-                          day: day,
-                          status: rand(0..3))
+                         price: rand(5000..55_000),
+                         location: location,
+                         category: "dinner",
+                         rating: rand(1..5),
+                         description: Faker::Lorem.paragraph(sentence_count: 2),
+                         api: "",
+                         day: day,
+                         status: rand(0..3))
     dinner.save!
     puts "   Dinner: #{Faker::Restaurant.name} (#{Faker::Restaurant.type})"
 
     # Generate morning activity
     morning_activity = Content.new(name: "#{Faker::Hobby.activity} with #{Faker::JapaneseMedia::StudioGhibli.character}",
-                                    price: rand(1000..15_000),
-                                    location: location,
-                                    category: "morning_activity",
-                                    rating: rand(1..5),
-                                    description: Faker::Lorem.paragraph(sentence_count: 2),
-                                    api: "",
-                                    day: day,
-                                    status: rand(0..3))
+                                   price: rand(1000..15_000),
+                                   location: location,
+                                   category: "morning_activity",
+                                   rating: rand(1..5),
+                                   description: Faker::Lorem.paragraph(sentence_count: 2),
+                                   api: "",
+                                   day: day,
+                                   status: rand(0..3))
 
     morning_activity.save!
     puts "   Morning Activity: #{Faker::Hobby.activity} with #{Faker::JapaneseMedia::StudioGhibli.character}"
 
     # Generate afternoon activity
     afternoon_activity = Content.new(name: "#{Faker::Hobby.activity} at #{Faker::Movies::StarWars.planet}",
-                                      price: rand(4000..25_000),
-                                      location: location,
-                                      category: "afternoon_activity",
-                                      rating: rand(1..5),
-                                      description: Faker::Lorem.paragraph(sentence_count: 2),
-                                      api: "",
-                                      day: day,
-                                      status: rand(0..3))
+                                     price: rand(4000..25_000),
+                                     location: location,
+                                     category: "afternoon_activity",
+                                     rating: rand(1..5),
+                                     description: Faker::Lorem.paragraph(sentence_count: 2),
+                                     api: "",
+                                     day: day,
+                                     status: rand(0..3))
     afternoon_activity.save!
     puts "   Afternoon Activity: #{Faker::Hobby.activity} with #{Faker::JapaneseMedia::StudioGhibli.character}"
   end
