@@ -1,5 +1,6 @@
 class Itinerary < ApplicationRecord
-  belongs_to :user
+  belongs_to :employee, class_name: "User"
+  belongs_to :client, class_name: "User"
   has_many :days, dependent: :destroy
   has_many :contents, through: :days
   validates :name, presence: true

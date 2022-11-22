@@ -1,3 +1,8 @@
+.btn-tabinow.btn-primary,
+.btn-tabinow.btn-secondary {
+  color: $light-gray;
+}
+
 .btn-tabinow:hover {
   scale: 1.02;
 }
