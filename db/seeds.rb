@@ -37,6 +37,8 @@ puts " - Starting to create Itineraries -"
   itinerary = Itinerary.create!(name: "#{days_number} in #{location}",
                                 location: location,
                                 status: rand(0..3),
+                                email: Faker::Internet.safe_email,
+                                phone: Faker::PhoneNumber.cell_phone_in_e164,
                                 user: employee)
 
   # Generate stay, restuarants, activities
