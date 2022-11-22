@@ -97,7 +97,7 @@ puts " - Starting to create Itineraries -"
   # Generate stay, restuarants, activities
   days_number.times do |day_number|
     # Creating a Day db
-    day = Day.create!(number: day_number, itinerary: itinerary)
+    day = Day.create!(number: day_number + 1, itinerary: itinerary)
     puts " - Day #{day_number}:"
 
     # Generate stay
