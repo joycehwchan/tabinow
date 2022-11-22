@@ -12,8 +12,7 @@
   client = User.new(name: Faker::FunnyName.two_word_name,
                     email: Faker::Internet.safe_email,
                     password: "Password123",
-                    phone: Faker::PhoneNumber.cell_phone_in_e164,
-                    admin: false)
+                    phone: Faker::PhoneNumber.cell_phone_in_e164)
   client.save!
 
   # Adding address to client:
@@ -22,7 +21,7 @@
                         zip_code: Faker::Address.zip_code,
                         city: Faker::Address.city,
                         country: Faker::Address.country,
-                        user_id: client)
+                        user: client)
   address.save!
 end
 # Creating Employee user:
@@ -48,17 +47,20 @@ client.save!
   itinerary = Itinerary.new(name: "#{days_number} in #{location}",
                             location: location,
                             status: rand(0..3),
-                            client_id: client,
-                            employee_id: employee)
+                            client: client,
+                            employee: employee)
 
   itinerary.save!
 
-  # Creating a Day db
-  days_number = Day.new(number: days_number, itinerary_id: itinerary)
-  days_number.create
+
+
 
   # Generate stay, restuarants, activities
-  days_number.times do |day|
+  days_number.times do |day_number|
+    # Creating a Day db
+    day = Day.new(number: day_number, itinerary: itinerary)
+    day.save!
+
     # Generate stay
     stay_name = Faker::Games::SuperMario.character
     stay_type = ["Hotel", "Hostel", "Ryokan", "Camping Ground"].sample
@@ -69,7 +71,7 @@ client.save!
                        rating: rand(1..5),
                        description: Faker::Lorem.paragraph(sentence_count: 2),
                        api_id: rand(1..5),
-                       day_id: day,
+                       day: day,
                        status: rand(0..3))
     stay.save!
 
@@ -82,7 +84,7 @@ client.save!
                         rating: rand(1..5),
                         description: Faker::Restaurant.description,
                         api_id: rand(1..5),
-                        day_id: day,
+                        day: day,
                         status: rand(0..3))
     lunch.save!
 
@@ -94,7 +96,7 @@ client.save!
                          rating: rand(1..5),
                          description: Faker::Lorem.paragraph(sentence_count: 2),
                          api_id: rand(1..5),
-                         day_id: day,
+                         day: day,
                          status: rand(0..3))
     dinner.save!
 
@@ -106,7 +108,7 @@ client.save!
                                    rating: rand(1..5),
                                    description: Faker::Lorem.paragraph(sentence_count: 2),
                                    api_id: rand(1..5),
-                                   day_id: day,
+                                   day: day,
                                    status: rand(0..3))
 
     morning_activity.save!
