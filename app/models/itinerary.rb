@@ -7,5 +7,6 @@ class Itinerary < ApplicationRecord
   validates :employee, presence: true
   validates :client, presence: true
   validates :status, presence: true
+  enum :status, ["draft", "pending", "confirmed", "rejected"], default: :pending
   validates :location, presence: true
 end
