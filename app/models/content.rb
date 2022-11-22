@@ -6,6 +6,5 @@ class Content < ApplicationRecord
   validates :location, presence: true
   validates :rating, presence: true
   validates :description, presence: true
-  validates :api, presence: true
   validates :day, presence: true
 end
