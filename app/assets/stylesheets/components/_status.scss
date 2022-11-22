@@ -1,0 +1,32 @@
+.status-pill {
+  // background: red;
+  border-radius: 50px;
+  padding: 4px 12px;
+  width: fit-content;
+  color: $gray;
+}
+
+.status-pill.draft {
+  background-color: rgba($gray, 0.3);
+  color: darken(rgba($gray, 0.6), 60);
+  // color: white;
+}
+
+.status-pill.pending {
+  background-color: rgba($yellow, 0.6);
+  color: darken(rgba($yellow, 60), 40);
+}
+.status-pill.confirmed {
+  background-color: rgba($green, 0.6);
+  color: darken(rgba($green, 40), 40);
+}
+.status-pill.rejected {
+  background-color: rgba($red, 0.6);
+  color: darken(rgba($red, 60), 40);
+}
+
+.styled-table tbody tr:hover {
+  .status-pill {
+    opacity: 0.9;
+  }
+}
