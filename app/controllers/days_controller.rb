@@ -1,8 +1,8 @@
 class DaysController < ApplicationController
-
-  def new
-    @day = Day.new
-  end
+  #this new page is in the itinerary show page
+  # def new
+  #   @day = Day.new
+  # end
 
   def create
     @day = Day.new(day_params)
