@@ -7,21 +7,21 @@
 
   .middle-container {
     border-radius: 8px;
-    padding: 8px;
+    padding: 12px;
     background-color: $primary;
     flex-grow: 1;
     min-width: 480px;
     height: calc(100vh - 64px - 16px);
-    overflow: scroll;
+    overflow: auto;
   }
 
   .right-container {
     border-radius: 8px;
-    padding: 8px;
+    padding: 12px;
     background-color: $secondary;
     width: 480px;
     height: calc(100vh - 64px - 16px);
-    overflow: scroll;
+    overflow: auto;
 
     @media (max-width: 1400px) {
       width: 400px;
