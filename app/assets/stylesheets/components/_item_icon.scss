@@ -8,6 +8,7 @@
     margin-left: 1rem;
     margin-bottom: 0;
     width: 4rem;
+    white-space: nowrap;
   }
 }
 
@@ -15,9 +16,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 3.6rem;
-  width: 3.6rem;
-  font-size: 1.6rem;
+  height: 3rem;
+  width: 3rem;
+  font-size: 1.2rem;
+  aspect-ratio: 1 / 1;
   color: $white;
   border-radius: 50px;
   background-color: $secondary;
