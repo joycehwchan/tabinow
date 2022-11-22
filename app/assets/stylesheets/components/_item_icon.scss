@@ -7,29 +7,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  // padding: 1rem;
   height: 3.6rem;
   width: 3.6rem;
-  // aspect-ratio: 1 / 1;
   font-size: 1.6rem;
-  color: white;
+  color: $light-gray;
   border-radius: 50px;
-  background-color: $teal;
+  background-color: $secondary;
 
   &:hover {
-    background-color: lighten($teal, 2);
+    background-color: lighten($secondary, 2);
   }
 }
-
-// .item-icon.activity {
-//   background-color: $blue;
-// }
-// .item-icon.restaurant {
-//   background-color: $green;
-// }
-// .item-icon.hotel {
-//   background-color: $teal;
-// }
-// .item-icon.transport {
-//   background-color: $purple;
-// }
