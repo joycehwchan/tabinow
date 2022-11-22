@@ -1,7 +1,7 @@
 .items-container {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.8rem;
 
   h2 {
     font-size: 1.2rem;
@@ -18,7 +18,7 @@
   height: 3.6rem;
   width: 3.6rem;
   font-size: 1.6rem;
-  color: $light-gray;
+  color: $white;
   border-radius: 50px;
   background-color: $secondary;
 

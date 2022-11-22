@@ -1,6 +1,6 @@
 <%= render "shared/sidebar", itinerary: @itinerary %>
 <div class="my-3 generator-container">
-  <div class="middle-container">
+  <div class="left-container">
     <% @itinerary.days.count do |day| %>
       <%= render 'itineraries/day', day: day %>
     <% end %>
