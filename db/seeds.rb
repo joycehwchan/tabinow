@@ -75,7 +75,7 @@ Content.destroy_all
 puts " - Starting to create Itineraries -"
 
 # Seed for itinerary
-5.times do
+1.times do
   # Selecting employee from user db
   employee = User.find_by(admin: true)
   client = User.where(admin: false).sample
@@ -83,9 +83,9 @@ puts " - Starting to create Itineraries -"
   # Creating a variable with a location in Japan
   location = ["Tokyo", "Kyoto", "Hokkaido", "Okinawa", "Nagoya", "Osaka"].sample
   # Randomly generates a number of days
-  days_number = rand(1..15)
+  days_number = rand(1..4)
   # Createing itinerary
-  puts " - #1/5: #{days_number} in #{location}"
+  puts " - #1/5: #{days_number} days in #{location}"
 
   itinerary = Itinerary.create!(name: "#{days_number} Days in #{location}",
                                 location: location,
