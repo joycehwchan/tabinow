@@ -1,0 +1,32 @@
+<div class="card content-card">
+  <div class="card-body">
+    <div class="d-flex">
+      <div class="me-3">
+        <%= render 'category_icon', category: content.category %>
+      </div>
+      <div class="flex-column flex-grow-1">
+        <div class="d-flex justify-content-between">
+          <h5 class="card-title"><%= content.name %></h5>
+          <%= link_to '#' do %>
+            <div class="btn btn-outline-primary btn-tabinow btn-delete-content">
+              <i class="fa-solid fa-xmark"></i>
+            </div>
+          <% end %>
+        </div>
+        <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-location-dot"></i> <%= content.location %></h6>
+        <p class="card-text"><%= content.description %></p>
+        <div class="d-flex justify-content-between">
+          <p class="m-0 user-select-none">
+            <% content.rating.times do %>
+              <i class="fa-solid fa-star"></i>
+            <% end %>
+            <% (5 - content.rating).times do %>
+              <i class="fa-regular fa-star"></i>
+            <% end %>
+          </p>
+          <h5><%= number_to_currency(content.price, precision: 0, unit: "¥") %></h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
