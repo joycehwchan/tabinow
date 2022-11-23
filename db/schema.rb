@@ -68,7 +68,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_084037) do
     t.integer "price"
     t.string "location"
     t.string "description"
-    t.bigint "day_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
@@ -76,7 +75,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_084037) do
     t.string "rating"
     t.bigint "category_id"
     t.index ["category_id"], name: "index_contents_on_category_id"
-    t.index ["day_id"], name: "index_contents_on_day_id"
   end
 
   create_table "days", force: :cascade do |t|
@@ -118,7 +116,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_084037) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "users"
   add_foreign_key "categories", "days"
-  add_foreign_key "contents", "days"
   add_foreign_key "days", "itineraries"
   add_foreign_key "itineraries", "users", column: "client_id"
   add_foreign_key "itineraries", "users", column: "employee_id"
