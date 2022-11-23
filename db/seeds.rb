@@ -61,12 +61,33 @@ end
 # Setting the location for the API call
 hotels_names = accomodation("tokyo")
 
-# Just a check so that the API gave the hotel names
-puts "Test to see if there's any hotels from the API: #{hotels_names}"
-puts ""
-puts ""
-puts ""
-puts ""
+def restuarants(location)
+  url = URI("https://api.yelp.com/v3/businesses/search?location=#{location},Japan&term=restaurants&limit=50")
+
+  http = Net::HTTP.new(url.host, url.port)
+  http.use_ssl = true
+  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+  request = Net::HTTP::Get.new(url)
+
+  key = 'Bearer SxGC-lIGxglEDFDoPWQVvrfYG_dPbKKsf07_1lv4PPN8QHzYs9PAZSCPvbFONVRzRj4S-08QRXfRjvmhvoKdASJkWApQ_BSM3P037WPDuWvbvJ1knBFBu7Tv-7l9Y3Yx'
+  request['Authorization'] = key
+
+  response = http.request(request)
+
+  restuarants = JSON.parse(response.body)["businesses"]
+
+  return restuarants
+end
+
+search_restuarants = []
+restuarants("tokyo").each do |restuarant|
+  search_restuarants.push(restuarant)
+end
+
+puts "--------------------------"
+puts "--------------------------"
+puts "--------------------------"
 puts "--------------------------"
 puts " --- Seeds for TabiNow ---"
 puts "--------------------------"
@@ -79,18 +100,18 @@ puts " - Starting to create Users -"
 
 # Creating Employee user:
 employee = User.new(name: "TabiNowEmp",
-     email: "emp@tabinow.tours",
-     phone: Faker::PhoneNumber.cell_phone_in_e164,
-     password: "Password123",
-     admin: true)
+                    email: "emp@tabinow.tours",
+                    phone: Faker::PhoneNumber.cell_phone_in_e164,
+                    password: "Password123",
+                    admin: true)
 employee.save!
 
 5.times do
   client = User.new(name: Faker::TvShows::ParksAndRec.character,
-     email: Faker::Internet.email,
-     phone: Faker::PhoneNumber.cell_phone_in_e164,
-     password: "Password123",
-     admin: false)
+                    email: Faker::Internet.email,
+                    phone: Faker::PhoneNumber.cell_phone_in_e164,
+                    password: "Password123",
+                    admin: false)
   client.save!
 end
 
@@ -102,11 +123,13 @@ puts " - Removing old Itineraries (days and activities) -"
 Itinerary.destroy_all
 Day.destroy_all
 Content.destroy_all
+Category.destroy_all
+
 
 puts " - Starting to create Itineraries -"
 
 # Seed for itinerary
-5.times do
+5.times do |index|
   # Selecting employee from user db
   employee = User.find_by(admin: true)
   client = User.where(admin: false).sample
@@ -114,92 +137,117 @@ puts " - Starting to create Itineraries -"
   # Creating a variable with a location in Japan
   location = ["Tokyo", "Kyoto", "Hokkaido", "Okinawa", "Nagoya", "Osaka"].sample
   # Randomly generates a number of days
-  days_number = rand(1..15)
+  days_number = rand(1..5)
   # setting hotel for this itinerary
   set_hotel = hotels_names.sample
 
   # Createing itinerary
-  puts " - #1/5: #{days_number} days in #{location}"
+  puts " - ##{index + 1}/5: #{days_number} days in #{location}"
 
   itinerary = Itinerary.create!(name: "#{days_number} Days in #{location}",
-        location: location,
-        status: rand(0..3),
-        client: client,
-        employee: employee)
+                                location: location,
+                                status: rand(0..3),
+                                client: client,
+                                employee: employee)
 
   # Generate stay, restuarants, activities
   days_number.times do |day_number|
   # Creating a Day db
   # Adding +1
-  day = Day.create!(number: day_number+1, itinerary: itinerary)
-  puts " - Day #{day_number+1}:"
+  day = Day.new(number: day_number + 1, itinerary: itinerary)
+  day.save!
 
- # Generate stay
+  puts " - Creating the Categories -"
+  categories = ["Accommodation", "Restaurant", "Activity"]
 
- stay = Content.new(name: set_hotel,
-        price: rand(15_000..100_000),
-        location: location,
-        category: "accommodation",
-        rating: rand(1..5),
-        description: Faker::Lorem.paragraph(sentence_count: 2),
-        api: "",
-        day: day,
-        status: rand(0..3))
- stay.save!
- puts "   Stay: #{Content.last.name}"
+  categories.each do |category|
+    category_new = Category.new(title: category, sub_category: "123", day: day)
+    category_new.save!
+  end
 
- # Generate restuarant for lunch
- lunch = Content.new(name: "#{Faker::Restaurant.name} (#{Faker::Restaurant.type})",
-      price: rand(1000..15_000),
-      location: location,
-      category: "lunch",
-      rating: rand(1..5),
-      description: Faker::Restaurant.description,
-      api: "",
-      day: day,
-      status: rand(0..3))
- lunch.save!
- puts "   Lunch: #{Faker::Restaurant.name} (#{Faker::Restaurant.type})"
+  puts " - Day #{day_number + 1}:"
 
- # Generate restuarant for dinner
- dinner = Content.new(name: "#{Faker::Restaurant.name} (#{Faker::Restaurant.type})",
-       price: rand(5000..55_000),
-       location: location,
-       category: "dinner",
-       rating: rand(1..5),
-       description: Faker::Lorem.paragraph(sentence_count: 2),
-       api: "",
-       day: day,
-       status: rand(0..3))
- dinner.save!
- puts "   Dinner: #{Faker::Restaurant.name} (#{Faker::Restaurant.type})"
+  # Generate stay
+  stay = Content.new(name: set_hotel,
+                     price: rand(15_000..100_000),
+                     location: location,
+                     category: Category.find_by(title: "Accommodation"),
+                     rating: rand(1..5),
+                     description: Faker::Lorem.paragraph(sentence_count: 2),
+                     api: "",
+                     status: rand(0..3))
+  stay.save!
+  puts "   Stay: #{Content.last.name}"
 
- # Generate morning activity
- morning_activity = Content.new(name: "#{Faker::Hobby.activity} with #{Faker::JapaneseMedia::StudioGhibli.character}",
-           price: rand(1000..15_000),
-           location: location,
-           category: "morning_activity",
-           rating: rand(1..5),
-           description: Faker::Lorem.paragraph(sentence_count: 2),
-           api: "",
-           day: day,
-           status: rand(0..3))
+  # Generate restuarant for lunch
 
- morning_activity.save!
- puts "   Morning Activity: #{Faker::Hobby.activity} with #{Faker::JapaneseMedia::StudioGhibli.character}"
+  def set_price(price_string)
+    case
+    when price_string.nil? || price_string == " " then return 0
+    when price_string == "￥" then return 10
+    when price_string == "￥￥" then return 30
+    when price_string == "￥￥￥" then return 60
+    when price_string == "￥￥￥￥" then return 100
+    end
+  end
 
- # Generate afternoon activity
- afternoon_activity = Content.new(name: "#{Faker::Hobby.activity} at #{Faker::Movies::StarWars.planet}",
-          price: rand(4000..25_000),
-          location: location,
-          category: "afternoon_activity",
-          rating: rand(1..5),
-          description: Faker::Lorem.paragraph(sentence_count: 2),
-          api: "",
-          day: day,
-          status: rand(0..3))
- afternoon_activity.save!
- puts "   Afternoon Activity: #{Faker::Hobby.activity} with #{Faker::JapaneseMedia::StudioGhibli.character}"
+  def check_api_location(api_location, location)
+    case
+    when api_location.nil? then return location
+    when !api_location.nil? then return api_location
+    end
+  end
+
+    # Generate restuarant for lunch
+  set_lunch_restaurant = search_restuarants.sample
+  lunch = Content.new(name: set_lunch_restaurant["name"],
+                      price: set_price(set_lunch_restaurant["price"]),
+                      location: check_api_location(set_lunch_restaurant["display_address"], location),
+                      category: Category.find_by(title: "Restaurant"),
+                      rating: set_lunch_restaurant["rating"],
+                      description: set_lunch_restaurant["categories"].first["title"],
+                      api: "",
+                      status: rand(0..3))
+  lunch.save!
+  puts "   Lunch: #{Content.last.name} (#{Content.last.description})"
+
+  # Generate restuarant for dinner
+  set_dinner_restaurant = search_restuarants.sample
+  dinner = Content.new(name: set_dinner_restaurant["name"],
+                      price: set_price(set_dinner_restaurant["price"]),
+                      location: check_api_location(set_dinner_restaurant["display_address"], location),
+                      category: Category.find_by(title: "Restaurant"),
+                      rating: set_dinner_restaurant["rating"],
+                      description: set_dinner_restaurant["categories"].first["title"],
+                      api: "",
+                      status: rand(0..3))
+  dinner.save!
+  puts "   Dinner: #{Content.last.name} (#{Content.last.description})"
+
+  # Generate morning activity
+  morning_activity = Content.new(name: "#{Faker::Hobby.activity} with #{Faker::JapaneseMedia::StudioGhibli.character}",
+                                 price: rand(1000..15_000),
+                                 location: location,
+                                 category: Category.find_by(title: "Activity"),
+                                 rating: rand(1..5),
+                                 description: Faker::Lorem.paragraph(sentence_count: 2),
+                                 api: "",
+                                 status: rand(0..3))
+
+  morning_activity.save!
+  puts "   Morning Activity: #{Content.last.name} with #{Faker::JapaneseMedia::StudioGhibli.character}"
+
+  # Generate afternoon activity
+  afternoon_activity = Content.new(name: "#{Faker::Hobby.activity} at #{Faker::Movies::StarWars.planet}",
+                                   price: rand(4000..25_000),
+                                   location: location,
+                                   category: Category.find_by(title: "Activity"),
+                                   rating: rand(1..5),
+                                   description: Faker::Lorem.paragraph(sentence_count: 2),
+                                   api: "",
+                                   status: rand(0..3))
+  afternoon_activity.save!
+  puts "   Afternoon Activity: #{Content.last.name} with #{Faker::JapaneseMedia::StudioGhibli.character}"
   end
 end
 puts "--------------------------"
