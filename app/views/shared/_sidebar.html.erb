@@ -17,11 +17,11 @@
       <div class="sidebar-links-container">
         <ul class="nav nav-pills flex-column mb-auto w-100">
           <li class="nav-item">
-            <%= link_to 'Overview', itinerary_path(@itinerary), class:"nav-link sidebar-link active", "aria_current": "page" %>
+            <%= link_to 'Overview', itinerary_path(@itinerary), class:"nav-link sidebar-link #{'active' if !params[:day].present?}", "aria_current": "page" %>
           </li>
           <% itinerary.days.each do |day| %>
             <li class="nav-item">
-              <%= link_to "Day #{day.number}", itinerary_path(@itinerary, day: day.number), class:"nav-link sidebar-link link-dark" %>
+              <%= link_to "Day #{day.number}", itinerary_path(@itinerary, day: day.number), class:"nav-link sidebar-link link-dark #{'active' if params[:day].to_i == day.number}" %>
             </li>
           <% end %>
         </ul>
