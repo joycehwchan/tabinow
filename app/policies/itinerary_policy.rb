@@ -13,4 +13,8 @@ class ItineraryPolicy < ApplicationPolicy
   def show?
     record.employee = user
   end
+
+  def destroy?
+    record.employee = user
+  end
 end
