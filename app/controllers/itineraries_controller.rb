@@ -69,20 +69,12 @@ class ItinerariesController < ApplicationController
   def set_new_itinerary
     @itinerary = Itinerary.new(itineraries_params)
     @days = params[:number_of_days].to_i
-    name = "#{@days} in #{itineraries_params[:location]}"
+    name = "#{@days} in #{itineraries_params[:location].capitalize}"
     set_new_client
     @itinerary.name = name
     authorize @itinerary
-
     if @itinerary.save
-
-      if user_signed_in?
-        @itinerary.employee = current_user
-        redirect_to itinerary_path(@itinerary)
-      else
-        redirect_to root_path
-        flash[:success] = "Information submitted!"
-      end
+      set_employee
     elsif user_signed_in?
       @itineraries = policy_scope(Itinerary)
       render :index, status: :unprocessable_entity
@@ -101,6 +93,16 @@ class ItinerariesController < ApplicationController
     client = User.new(email: params[:email], password: generic_password)
     client.save
     @itinerary.client = client
+  end
+
+  def set_employee
+    if user_signed_in?
+      @itinerary.employee = current_user
+      redirect_to itinerary_path(@itinerary)
+    else
+      redirect_to root_path
+      flash[:success] = "Information submitted!"
+    end
   end
 
   def itineraries_params
