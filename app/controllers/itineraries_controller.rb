@@ -18,6 +18,7 @@ class ItinerariesController < ApplicationController
   end
 
   def create
+    raise
     set_new_itinerary
     set_new_day
     if @itinerary.save
@@ -106,6 +107,6 @@ class ItinerariesController < ApplicationController
   end
 
   def itineraries_params
-    params.require(:itinerary).permit(:name, :location, :status, :employee_id, :client_id)
+    params.require(:itinerary).permit(:name, :location, :status, :employee_id, :client_id, :max_budget, :min_budget)
   end
 end

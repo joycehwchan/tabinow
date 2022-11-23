@@ -4,7 +4,7 @@ class Itinerary < ApplicationRecord
   has_many :days, dependent: :destroy
   validates :name, presence: true
   validates :status, presence: true
-  validate  :min_budget_cannot_be_higher_than_max_budget
+  # validate  :min_budget_cannot_be_higher_than_max_budget
   enum :status, ["draft", "pending", "confirmed", "rejected"], default: :pending
   validates :location, presence: true
 
