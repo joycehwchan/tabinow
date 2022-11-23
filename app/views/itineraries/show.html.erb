@@ -2,13 +2,17 @@
 <div class="generator-container">
   <div class="left-container">
     <!-- days -->
-    <% @itinerary.days.count do |day| %>
-      <%= render 'itineraries/day', day: day %>
+    <% if params[:day].present? %>
+      <%= render 'itineraries/day', day: @day %>
+    <% else %>
+      <% @itinerary.days.count do |day| %>
+        <%= render 'itineraries/day', day: day %>
+      <% end %>
     <% end %>
     <!-- content -->
-    <div class=".content-cards-container">
-      <% @itinerary.days.each do |day| %>
-        <% day.contents.each do |content| %>
+    <div class="content-cards-container">
+      <% if  params[:day].present? %>
+        <% @day.contents.each do |content| %>
           <%= render 'content', content: content %>
         <% end %>
       <% end %>

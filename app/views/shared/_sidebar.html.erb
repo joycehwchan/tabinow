@@ -21,7 +21,7 @@
           </li>
           <% itinerary.days.each do |day| %>
             <li class="nav-item">
-              <%= link_to "Day #{day.number}", '#', class:"nav-link sidebar-link link-dark" %>
+              <%= link_to "Day #{day.number}", itinerary_path(@itinerary, day: day.number), class:"nav-link sidebar-link link-dark" %>
             </li>
           <% end %>
         </ul>
