@@ -24,8 +24,7 @@
       <%= f.input :location %>
     </div>
     <div class="mb-2 col-12">
-      <%= label_tag 'Special request', nil, class:"form-label" %>
-      <%= text_area_tag :special_request, nil, class:"form-control" %>
+      <%= f.input :special_request,  class:"form-control" %>
     </div>
     <div class="col-12">
       <%= f.submit "Submit request", class: 'btn btn-primary btn-tabinow mt-2 w-100' %>
