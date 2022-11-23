@@ -9,11 +9,7 @@ class ItinerariesController < ApplicationController
 
   def show
     @day = @itinerary.days[params[:day].to_i - 1]
-    if params[:query].present?
-      @contents = Content.where('location ILIKE ?', "%#{params[:query]}%")
-      #  itinerary_path(@itinerary, day: params[:day]) if params[:day].present?
-
-    end
+    @contents = Content.where('location ILIKE ?', "%#{params[:query]}%") unless params[:query].present?
   end
 
   def new
@@ -56,12 +52,12 @@ class ItinerariesController < ApplicationController
   private
 
   def set_new_day
-    if @itinerary.save
-      @days.times do |i|
-        day = Day.new(number: i + 1)
-        day.itinerary = @itinerary
-        day.save
-      end
+    return unless @itinerary.save
+
+    @days.times do |i|
+      day = Day.new(number: i + 1)
+      day.itinerary = @itinerary
+      day.save
     end
   end
 
