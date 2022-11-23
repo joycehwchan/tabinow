@@ -73,14 +73,15 @@ class ItinerariesController < ApplicationController
     set_new_client
     @itinerary.name = name
     authorize @itinerary
+
     if @itinerary.save
 
       if user_signed_in?
         @itinerary.employee = current_user
         redirect_to itinerary_path(@itinerary)
       else
-        flash[:success] = "Information submitted!"
         redirect_to root_path
+        flash[:success] = "Information submitted!"
       end
     elsif user_signed_in?
       @itineraries = policy_scope(Itinerary)
