@@ -68,13 +68,23 @@ class ItinerariesController < ApplicationController
     @itinerary = Itinerary.new(itineraries_params)
     @days = params[:number_of_days].to_i
     name = "#{@days} in #{itineraries_params[:location]}"
+    set_new_client
+
+    @itinerary.employee = current_user if user_signed_in?
+    @itinerary.name = name
+
+    authorize @itinerary
+    flash[:success] = "Information submitted!" if @itinerary.save
+  end
+
+  def set_new_client
+    return unless
+     params[:email]
+
     generic_password = "tabinow"
     client = User.new(email: params[:email], password: generic_password)
     client.save
-    @itinerary.name = name
     @itinerary.client = client
-    authorize @itinerary
-    @itinerary.save
   end
 
   def itineraries_params
