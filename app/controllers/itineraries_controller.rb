@@ -72,10 +72,10 @@ class ItinerariesController < ApplicationController
     @itinerary.name = name
     authorize @itinerary
     flash[:success] = "Information submitted!" if @itinerary.save
-    if user_signed_in?
-      @itinerary.employee = current_user
-      redirect_to itinerary_path(@itinerary)
-    end
+    return unless user_signed_in?
+
+    @itinerary.employee = current_user
+    redirect_to itinerary_path(@itinerary)
   end
 
   def set_new_client
