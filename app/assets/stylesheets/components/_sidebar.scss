@@ -47,6 +47,12 @@
   }
 }
 
+.sidebar-links-container {
+  height: calc(100vh - 56px - 240px);
+  overflow: auto;
+  display: flex;
+}
+
 .sidebar-link {
   margin-bottom: 0;
   padding: 4px 8px;

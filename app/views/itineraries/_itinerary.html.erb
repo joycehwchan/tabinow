@@ -1,0 +1,14 @@
+ <%= simple_form_for itinerary , data: { turbo: :false } do |f| %>
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <%= label_tag 'No. of days', nil, class:"form-label" %>
+      <%= number_field_tag :number_of_days, nil, class:"form-control" %>
+    </div>
+    <div class="col-12 col-md-8">
+      <%= f.input :location %>
+    </div>
+    <div class="col-12">
+      <%= f.submit "Create Itinerary", class: 'btn btn-primary btn-tabinow mt-2 w-100' %>
+    </div>
+  </div>
+<% end %>

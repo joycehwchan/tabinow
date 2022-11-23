@@ -1,10 +1,47 @@
 <%= render "shared/sidebar", itinerary: @itinerary %>
 <div class="generator-container">
   <div class="left-container">
-    <% @itinerary.days.count do |day| %>
-      <%= render 'itineraries/day', day: day %>
+    <!-- days -->
+    <% if params[:day].present? %>
+      <%= render 'itineraries/day', day: @day %>
+    <% else %>
+      <% @itinerary.days.count do |day| %>
+        <%= render 'itineraries/day', day: day %>
+      <% end %>
     <% end %>
+    <!-- content -->
+    <div class="content-cards-container">
+      <% if  params[:day].present? %>
+        <% @day.contents.each do |content| %>
+          <%= render 'content', content: content %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
   <div class="right-container">
+    <!-- WORK IN PROGRESS -->
+    <div class="card my-3">
+      <div class="card-body">
+        <%= form_with url: itinerary_path(@itinerary), method: :get, class: "" do %>
+          <div class="d-flex">
+            <%= text_field_tag :query, params[:query], class: "form-control",placeholder: "search"%>
+            <%= button_tag type:"search", class:"btn btn-primary btn-tabinow ms-2" do  %>
+              <i class="fa-solid fa-magnifying-glass"></i>
+            <% end %>
+          </div>
+          <span class="badge rounded-pill text-bg-primary text-white py-2 mt-2">Filter</span>
+          <span class="badge rounded-pill text-bg-primary text-white py-2 mt-2">Another Filter</span>
+          <span class="badge rounded-pill text-bg-primary text-white py-2 mt-2">One More Filter</span>
+        <% end %>
+      </div>
+    </div>
+    <div class="results-container">
+      <% if params[:query].present? %>
+        <% @contents.each do |content| %>
+          <%= render 'content', content: content %>
+        <% end %>
+      <% end %>
+      <!-- WORK IN PROGRESS END -->
+    </div>
   </div>
 </div>
