@@ -9,11 +9,7 @@ class ItinerariesController < ApplicationController
 
   def show
     @day = @itinerary.days[params[:day].to_i - 1]
-    if params[:query].present?
-      @contents = Content.where('location ILIKE ?', "%#{params[:query]}%")
-      #  itinerary_path(@itinerary, day: params[:day]) if params[:day].present?
-
-    end
+    @contents = Content.where('location ILIKE ?', "%#{params[:query]}%") unless params[:query].present?
   end
 
   def new
@@ -24,6 +20,16 @@ class ItinerariesController < ApplicationController
   def create
     set_new_itinerary
     set_new_day
+    if @itinerary.save
+      set_employee
+    elsif user_signed_in?
+      @itineraries = policy_scope(Itinerary)
+      render :index, status: :unprocessable_entity
+      flash[:alert] = @itinerary.errors.full_messages.first
+    else
+      render 'pages/home', status: :unprocessable_entity
+      flash[:alert] = @itinerary.errors.full_messages.first
+    end
   end
 
   def update
@@ -56,12 +62,12 @@ class ItinerariesController < ApplicationController
   private
 
   def set_new_day
-    if @itinerary.save
-      @days.times do |i|
-        day = Day.new(number: i + 1)
-        day.itinerary = @itinerary
-        day.save
-      end
+    return unless @itinerary.save
+
+    @days.times do |i|
+      day = Day.new(number: i + 1)
+      day.itinerary = @itinerary
+      day.save
     end
   end
 
@@ -73,28 +79,10 @@ class ItinerariesController < ApplicationController
   def set_new_itinerary
     @itinerary = Itinerary.new(itineraries_params)
     @days = params[:number_of_days].to_i
-    name = "#{@days} in #{itineraries_params[:location]}"
+    name = "#{@days} in #{itineraries_params[:location].capitalize}"
     set_new_client
     @itinerary.name = name
     authorize @itinerary
-
-    if @itinerary.save
-
-      if user_signed_in?
-        @itinerary.employee = current_user
-        redirect_to itinerary_path(@itinerary)
-      else
-        redirect_to root_path
-        flash[:success] = "Information submitted!"
-      end
-    elsif user_signed_in?
-      @itineraries = policy_scope(Itinerary)
-      render :index, status: :unprocessable_entity
-      flash[:alert] = @itinerary.errors.full_messages.first
-    else
-      render 'pages/home', status: :unprocessable_entity
-      flash[:alert] = @itinerary.errors.full_messages.first
-    end
   end
 
   def set_new_client
@@ -107,7 +95,18 @@ class ItinerariesController < ApplicationController
     @itinerary.client = client
   end
 
+  def set_employee
+    if user_signed_in?
+      @itinerary.employee = current_user
+      redirect_to itinerary_path(@itinerary)
+    else
+      redirect_to root_path
+      flash[:success] = "Information submitted!"
+    end
+  end
+
   def itineraries_params
-    params.require(:itinerary).permit(:name, :location, :status, :employee_id, :client_id)
+    params.require(:itinerary).permit(:name, :location, :status, :employee_id, :client_id, :max_budget, :min_budget,
+                                      :special_request)
   end
 end

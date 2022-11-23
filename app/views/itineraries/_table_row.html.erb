@@ -14,7 +14,7 @@
     <%= link_to '#', class:"btn btn-sm btn-outline-primary btn-tabinow" do %>
       <i class="fa-regular fa-envelope"></i> Send
     <% end %>
-    <%= link_to itinerary_path(itinerary), class:"btn btn-sm btn-outline-dark btn-tabinow", data: { turbo_method: :delete  , turbo_confirm: "Cancel this booking ?" } do %>
+    <%= link_to itinerary_path(itinerary), class:"btn btn-sm btn-outline-dark btn-tabinow", data: { turbo_method: :delete  , turbo_confirm: "Deleting #{itinerary.name} itinerary ?" } do %>
       <i class="fa-solid fa-xmark"></i> Delete
     <% end %>
   </td>
