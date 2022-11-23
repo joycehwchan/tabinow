@@ -6,14 +6,14 @@
       <%= render 'itineraries/day', day: day %>
     <% end %>
     <!-- content -->
-    <div class=".content-cards-container">
-      <%# @itinerary.days.each do |day| %>
+    <div class="content-cards-container">
+      <% if  !params[:day].present? %>
         <% @day.contents.each do |content| %>
           <%= render 'content', content: content %>
         <% end %>
-        <%# end %>
-      </div>
-    </div>
-    <div class="right-container">
+      <% end %>
     </div>
   </div>
+  <div class="right-container">
+  </div>
+</div>
