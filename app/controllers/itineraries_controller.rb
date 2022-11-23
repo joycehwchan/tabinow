@@ -10,6 +10,7 @@ class ItinerariesController < ApplicationController
   def show
     # this is to create a new day in the itinerary show page
     # @itinerary.day = Day.new
+    @day = @itinerary.days[params[:day].to_i - 1]
   end
 
   def new

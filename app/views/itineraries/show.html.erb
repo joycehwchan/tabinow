@@ -7,13 +7,13 @@
     <% end %>
     <!-- content -->
     <div class=".content-cards-container">
-      <% @itinerary.days.each do |day| %>
-        <% day.contents.each do |content| %>
+      <%# @itinerary.days.each do |day| %>
+        <% @day.contents.each do |content| %>
           <%= render 'content', content: content %>
         <% end %>
-      <% end %>
+        <%# end %>
+      </div>
+    </div>
+    <div class="right-container">
     </div>
   </div>
-  <div class="right-container">
-  </div>
-</div>
