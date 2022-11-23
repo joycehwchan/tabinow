@@ -1,9 +1,18 @@
 <%= render "shared/sidebar", itinerary: @itinerary %>
 <div class="generator-container">
   <div class="left-container">
+    <!-- days -->
     <% @itinerary.days.count do |day| %>
       <%= render 'itineraries/day', day: day %>
     <% end %>
+    <!-- content -->
+    <div class=".content-cards-container">
+      <% @itinerary.days.each do |day| %>
+        <% day.contents.each do |content| %>
+          <%= render 'content', content: content %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
   <div class="right-container">
   </div>

@@ -11,7 +11,7 @@
     flex-grow: 1;
     height: calc(100vh - 56px - 16px);
     overflow: auto;
-    // max-width: 640px;
+    max-width: 640px;
     @media (max-width: 1040px) {
       .items-container {
         gap: 0.4rem;
@@ -42,6 +42,7 @@
       height: auto;
       min-height: 300px;
       padding: 0;
+      max-width: none;
     }
     .right-container {
       order: 1;
@@ -63,5 +64,23 @@
 
   .card {
     border-radius: 50px 4px 4px 50px;
+  }
+}
+
+.card.content-card {
+  margin-bottom: 8px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .btn-delete-content {
+    border: 0;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  .category-icon:hover {
+    background-color: $secondary;
   }
 }
