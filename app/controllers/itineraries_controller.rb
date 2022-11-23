@@ -86,8 +86,10 @@ class ItinerariesController < ApplicationController
     elsif user_signed_in?
       @itineraries = policy_scope(Itinerary)
       render :index, status: :unprocessable_entity
+      flash[:alert] = @itinerary.errors.full_messages.first
     else
       render 'pages/home', status: :unprocessable_entity
+      flash[:alert] = @itinerary.errors.full_messages.first
     end
   end
 
