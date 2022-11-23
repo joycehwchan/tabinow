@@ -19,28 +19,29 @@
     </div>
   </div>
   <div class="right-container">
-    <!-- TEMPORARY placeholder stuff START -->
+    <!-- WORK IN PROGRESS -->
     <div class="card my-3">
       <div class="card-body">
         <%= form_with url: itinerary_path(@itinerary), method: :get, class: "" do %>
-          <%= text_field_tag :query, params[:query], class: "form-control",placeholder: "search"%>
-          <%# <input type="text" placeholder="Search" class="form-control"> %>
+          <div class="d-flex">
+            <%= text_field_tag :query, params[:query], class: "form-control",placeholder: "search"%>
+            <%= button_tag type:"search", class:"btn btn-primary btn-tabinow ms-2" do  %>
+              <i class="fa-solid fa-magnifying-glass"></i>
+            <% end %>
+          </div>
           <span class="badge rounded-pill text-bg-primary text-white py-2 mt-2">Filter</span>
           <span class="badge rounded-pill text-bg-primary text-white py-2 mt-2">Another Filter</span>
           <span class="badge rounded-pill text-bg-primary text-white py-2 mt-2">One More Filter</span>
-          <span class="badge rounded-pill text-bg-primary text-white py-2 mt-2"><%= submit_tag "Search" %></span>
         <% end %>
       </div>
     </div>
     <div class="results-container">
-      <%# @itinerary.days.each do |day| %>
-        <% if params[:query].present? %>
-          <% @contents.each do |content| %>
-            <%= render 'content', content: content %>
-          <% end %>
+      <% if params[:query].present? %>
+        <% @contents.each do |content| %>
+          <%= render 'content', content: content %>
         <% end %>
-        <%# end %>
-      </div>
-      <!-- TEMPORARY placeholder stuff ENDS -->
+      <% end %>
+      <!-- WORK IN PROGRESS END -->
     </div>
   </div>
+</div>
