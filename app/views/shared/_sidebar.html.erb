@@ -14,9 +14,8 @@
           <%= @itinerary.location %>
         </p>
       </div>
-      <hr>
-      <div>
-        <ul class="nav nav-pills flex-column mb-auto">
+      <div class="sidebar-links-container">
+        <ul class="nav nav-pills flex-column mb-auto w-100">
           <li class="nav-item">
             <%= link_to 'Overview', itinerary_path(@itinerary), class:"nav-link sidebar-link active", "aria_current": "page" %>
           </li>
