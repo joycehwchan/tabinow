@@ -22,8 +22,9 @@
     <!-- TEMPORARY placeholder stuff START -->
     <div class="card my-3">
       <div class="card-body">
-        <%= form_with url: "#", method: :get, class: "" do %>
-          <input type="text" placeholder="Search" class="form-control">
+        <%= form_with url: itinerary_path(params[:id]), method: :get, class: "" do %>
+          <%= text_field_tag :query, params[:query], class: "form-control",placeholder: "search"%>
+          <%# <input type="text" placeholder="Search" class="form-control"> %>
           <span class="badge rounded-pill text-bg-primary text-white py-2 mt-2">Filter</span>
           <span class="badge rounded-pill text-bg-primary text-white py-2 mt-2">Another Filter</span>
           <span class="badge rounded-pill text-bg-primary text-white py-2 mt-2">One More Filter</span>
