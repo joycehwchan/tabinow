@@ -18,7 +18,6 @@ class ItinerariesController < ApplicationController
   end
 
   def create
-    raise
     set_new_itinerary
     set_new_day
     if @itinerary.save
