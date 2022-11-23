@@ -8,11 +8,8 @@
 
   .left-container {
     padding: 0 12px;
-    // flex-grow: 1;
     height: calc(100vh - 56px - 16px);
     overflow: auto;
-    // max-width: 640px;
-    // min-width: 480px;
     width: 50%;
 
     @media (max-width: 1040px) {
@@ -30,10 +27,8 @@
     padding: 12px;
     padding-top: 0;
     background-color: $secondary;
-    // flex-grow: 1;
     height: calc(100vh - 56px - 16px);
     overflow: auto;
-    // min-width: 400px;
     width: 50%;
   }
 
@@ -60,8 +55,6 @@
 
     .results-container {
       display: none;
-      // display: flex;
-      // gap: 12px;
     }
   }
 }
