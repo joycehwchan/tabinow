@@ -4,6 +4,7 @@ class ItinerariesController < ApplicationController
 
   def index
     @itineraries = policy_scope(Itinerary)
+    @itinerary = Itinerary.new
   end
 
   def show
