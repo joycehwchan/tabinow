@@ -20,6 +20,13 @@
   box-shadow: rgba($primary, 0.1) 0px 2px 8px;
 }
 
+.btn-tabinow.btn-outline-dark:hover {
+  border: 1px solid $gray;
+  background-color: rgba($gray, 0.2);
+  color: $gray;
+  box-shadow: rgba($gray, 0.1) 0px 2px 8px;
+}
+
 .btn-tabinow.btn-secondary:hover {
   background-color: rgba($secondary, 0.8);
   border: 1px solid $secondary;
