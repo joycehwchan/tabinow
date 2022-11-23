@@ -51,6 +51,13 @@
       height: auto;
       min-height: 300px;
       padding: 0;
+      padding: 4px 8px;
+    }
+
+    .results-container {
+      display: none;
+      // display: flex;
+      // gap: 12px;
     }
   }
 }
@@ -63,7 +70,7 @@
   }
 
   .card {
-    border-radius: 50px 4px 4px 50px;
+    border-radius: 50px;
   }
 }
 
@@ -82,5 +89,15 @@
 
   .category-icon:hover {
     background-color: $secondary;
+  }
+
+  .line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+
+  .card-text.line-clamp {
+    overflow: hidden;
   }
 }
