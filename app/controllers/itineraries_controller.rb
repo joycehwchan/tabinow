@@ -69,12 +69,13 @@ class ItinerariesController < ApplicationController
     @days = params[:number_of_days].to_i
     name = "#{@days} in #{itineraries_params[:location]}"
     set_new_client
-
-    @itinerary.employee = current_user if user_signed_in?
     @itinerary.name = name
-
     authorize @itinerary
     flash[:success] = "Information submitted!" if @itinerary.save
+    if user_signed_in?
+      @itinerary.employee = current_user
+      redirect_to itinerary_path(@itinerary)
+    end
   end
 
   def set_new_client
