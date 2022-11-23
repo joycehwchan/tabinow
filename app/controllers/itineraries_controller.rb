@@ -4,6 +4,7 @@ class ItinerariesController < ApplicationController
 
   def index
     @itineraries = policy_scope(Itinerary)
+    @itinerary = Itinerary.new
   end
 
   def show
@@ -51,10 +52,12 @@ class ItinerariesController < ApplicationController
   private
 
   def set_new_day
-    @days.times do |i|
-      day = Day.new(number: i + 1)
-      day.itinerary = @itinerary
-      day.save
+    if @itinerary.save
+      @days.times do |i|
+        day = Day.new(number: i + 1)
+        day.itinerary = @itinerary
+        day.save
+      end
     end
   end
 
@@ -67,13 +70,37 @@ class ItinerariesController < ApplicationController
     @itinerary = Itinerary.new(itineraries_params)
     @days = params[:number_of_days].to_i
     name = "#{@days} in #{itineraries_params[:location]}"
+    set_new_client
+    @itinerary.name = name
+    authorize @itinerary
+
+    if @itinerary.save
+
+      if user_signed_in?
+        @itinerary.employee = current_user
+        redirect_to itinerary_path(@itinerary)
+      else
+        redirect_to root_path
+        flash[:success] = "Information submitted!"
+      end
+    elsif user_signed_in?
+      @itineraries = policy_scope(Itinerary)
+      render :index, status: :unprocessable_entity
+      flash[:alert] = @itinerary.errors.full_messages.first
+    else
+      render 'pages/home', status: :unprocessable_entity
+      flash[:alert] = @itinerary.errors.full_messages.first
+    end
+  end
+
+  def set_new_client
+    return unless
+     params[:email]
+
     generic_password = "tabinow"
     client = User.new(email: params[:email], password: generic_password)
     client.save
-    @itinerary.name = name
     @itinerary.client = client
-    authorize @itinerary
-    @itinerary.save
   end
 
   def itineraries_params
