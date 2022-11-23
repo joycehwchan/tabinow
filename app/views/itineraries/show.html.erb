@@ -22,7 +22,7 @@
     <!-- TEMPORARY placeholder stuff START -->
     <div class="card my-3">
       <div class="card-body">
-        <%= form_with url: itinerary_path(@itinerary), method: :get, class: "" do %>
+        <%= form_with url: itinerary_path(@itinerary,day: params[:day] ), method: :get, class: "" do %>
           <%= text_field_tag :query, params[:query], class: "form-control",placeholder: "search"%>
           <%= hidden_field_tag :day, params[:day] %>
           <%# <input type="text" placeholder="Search" class="form-control"> %>

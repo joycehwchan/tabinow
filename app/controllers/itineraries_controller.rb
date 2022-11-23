@@ -11,7 +11,8 @@ class ItinerariesController < ApplicationController
     @day = @itinerary.days[params[:day].to_i - 1]
     if params[:query].present?
       @contents = Content.where('location ILIKE ?', "%#{params[:query]}%")
-      redirect_to itinerary_path(@itinerary, day: params[:day]) if params[:day].present?
+      #  itinerary_path(@itinerary, day: params[:day]) if params[:day].present?
+
     end
   end
 
