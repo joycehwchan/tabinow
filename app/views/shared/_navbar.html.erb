@@ -12,27 +12,26 @@
           <li class="nav-item">
             <%= link_to "Dashboard", itineraries_path, class: "nav-link" %>
           </li>
-          <li >
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <li>
+            <button type="button" class="btn btn-primary btn-tabinow h-100 me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
               New Itinerary
             </button>
           </li>
+          <!--
           <li class="nav-item">
             <%= link_to "Account", edit_user_registration_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
             <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "nav-link"%>
-          </li>
-          <!--
+          </li>-->
           <li class="nav-item dropdown">
             <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Settings", "#", class: "dropdown-item" %>
-              <%= link_to "Profile", "#", class: "dropdown-item" %>
+              <%= link_to "Account", edit_user_registration_path, class: "dropdown-item" %>
               <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
             </div>
           </li>
-          -->
         <% else %>
           <li class="nav-item">
             <%= link_to "Login", new_user_session_path, class: "nav-link" %>
