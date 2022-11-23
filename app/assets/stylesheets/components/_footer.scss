@@ -1,7 +1,7 @@
 .footer {
   background-color: $tabinow-cyan;
   padding: 0px 0px;
-
+  flex-shrink: 0;
   a {
     color: black;
   }
