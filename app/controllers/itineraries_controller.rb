@@ -52,10 +52,12 @@ class ItinerariesController < ApplicationController
   private
 
   def set_new_day
-    @days.times do |i|
-      day = Day.new(number: i + 1)
-      day.itinerary = @itinerary
-      day.save
+    if @itinerary.save
+      @days.times do |i|
+        day = Day.new(number: i + 1)
+        day.itinerary = @itinerary
+        day.save
+      end
     end
   end
 
@@ -71,11 +73,21 @@ class ItinerariesController < ApplicationController
     set_new_client
     @itinerary.name = name
     authorize @itinerary
-    flash[:success] = "Information submitted!" if @itinerary.save
-    return unless user_signed_in?
+    if @itinerary.save
 
-    @itinerary.employee = current_user
-    redirect_to itinerary_path(@itinerary)
+      if user_signed_in?
+        @itinerary.employee = current_user
+        redirect_to itinerary_path(@itinerary)
+      else
+        flash[:success] = "Information submitted!"
+        redirect_to root_path
+      end
+    elsif user_signed_in?
+      @itineraries = policy_scope(Itinerary)
+      render :index, status: :unprocessable_entity
+    else
+      render 'pages/home', status: :unprocessable_entity
+    end
   end
 
   def set_new_client
