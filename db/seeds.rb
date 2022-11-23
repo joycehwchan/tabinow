@@ -150,20 +150,18 @@ puts " - Starting to create Itineraries -"
   day.save!
 
   puts " - Creating the Categories -"
-  categories = ["Accommodation", "Restaurant", "Activity"]
 
-  categories.each do |category|
-    category_new = Category.new(title: category, sub_category: "123", day: day)
-    category_new.save!
   end
 
   puts " - Day #{day_number + 1}:"
 
   # Generate stay
+  category = Category.new(title: "Accommodation", sub_category: "123", day: day)
+  category.save!
   stay = Content.new(name: set_hotel,
                     price: rand(15_000..100_000),
                     location: location,
-                    category: Category.find_by(title: "Accommodation"),
+                    category: Category.last,
                     rating: rand(1..5),
                     description: Faker::Lorem.paragraph(sentence_count: 2),
                     api: "",
@@ -201,10 +199,12 @@ puts " - Starting to create Itineraries -"
 
   set_lunch_restaurant = restuarants("tokyo").sample
 
+  category = Category.new(title: "Restaurant", sub_category: "Lunch", day: day)
+  category.save!
   lunch = Content.new(name: set_lunch_restaurant["name"],
                       price: set_price(set_lunch_restaurant["price"]),
                       location: check_api_location(set_lunch_restaurant["display_address"], location),
-                      category: Category.find_by(title: "Restaurant"),
+                      category: Category.last,
                       rating: set_lunch_restaurant["rating"],
                       description: set_lunch_restaurant["categories"].first["title"],
                       api: "",
@@ -215,10 +215,12 @@ puts " - Starting to create Itineraries -"
   # Generate restuarant for dinner
   set_dinner_restaurant = restuarants("tokyo").sample
 
+  category = Category.new(title: "Restaurant", sub_category: "Dinner", day: day)
+  category.save!
   dinner = Content.new(name: set_dinner_restaurant["name"],
                       price: set_price(set_dinner_restaurant["price"]),
                       location: check_api_location(set_dinner_restaurant["display_address"], location),
-                      category: Category.find_by(title: "Restaurant"),
+                      category: Category.last,
                       rating: set_dinner_restaurant["rating"],
                       description: set_dinner_restaurant["categories"].first["title"],
                       api: "",
@@ -227,10 +229,12 @@ puts " - Starting to create Itineraries -"
   puts "   Dinner: #{Content.last.name} (#{Content.last.description})"
 
   # Generate morning activity
+  category = Category.new(title: "Activity", sub_category: "Museum", day: day)
+  category.save!
   morning_activity = Content.new(name: "#{Faker::Hobby.activity} with #{Faker::JapaneseMedia::StudioGhibli.character}",
                                 price: rand(1000..15_000),
                                 location: location,
-                                category: Category.find_by(title: "Activity"),
+                                category: Category.last,
                                 rating: rand(1..5),
                                 description: Faker::Lorem.paragraph(sentence_count: 2),
                                 api: "",
@@ -240,10 +244,12 @@ puts " - Starting to create Itineraries -"
   puts "   Morning Activity: #{Content.last.name} with #{Faker::JapaneseMedia::StudioGhibli.character}"
 
   # Generate afternoon activity
+  category = Category.new(title: "Activity", sub_category: "Historic Sites", day: day)
+  category.save!
   afternoon_activity = Content.new(name: "#{Faker::Hobby.activity} at #{Faker::Movies::StarWars.planet}",
                                    price: rand(4000..25_000),
                                    location: location,
-                                   category: Category.find_by(title: "Activity"),
+                                   category: Category.last,
                                    rating: rand(1..5),
                                    description: Faker::Lorem.paragraph(sentence_count: 2),
                                    api: "",
