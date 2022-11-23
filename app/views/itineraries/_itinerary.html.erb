@@ -7,7 +7,15 @@
     <div class="col-12 col-md-8">
       <%= f.input :location %>
     </div>
-    <div class="col-12">
+    <div class="mb-2 col-6">
+      <%= label_tag 'Budget (min)', nil, class:"form-label" %>
+      <%= number_field_tag :min_price, nil, class:"form-control", step:"1000", min:"0", required: true %>
+    </div>
+    <div class="mb-2 col-6">
+      <%= label_tag 'Budget (max)', nil, class:"form-label" %>
+      <%= number_field_tag :max_price, nil, class:"form-control", step:"1000", min:"0", required: true %>
+    </div>
+    <div class="col-12 mt-2">
       <%= f.submit "Create Itinerary", class: 'btn btn-primary btn-tabinow mt-2 w-100' %>
     </div>
   </div>
