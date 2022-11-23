@@ -24,6 +24,7 @@
       <div class="card-body">
         <%= form_with url: itinerary_path(@itinerary), method: :get, class: "" do %>
           <%= text_field_tag :query, params[:query], class: "form-control",placeholder: "search"%>
+          <%= hidden_field_tag :day, params[:day] %>
           <%# <input type="text" placeholder="Search" class="form-control"> %>
           <span class="badge rounded-pill text-bg-primary text-white py-2 mt-2">Filter</span>
           <span class="badge rounded-pill text-bg-primary text-white py-2 mt-2">Another Filter</span>
