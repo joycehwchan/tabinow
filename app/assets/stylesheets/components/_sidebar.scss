@@ -56,9 +56,14 @@
 .sidebar-link {
   margin-bottom: 0;
   padding: 4px 8px;
+  color: $gray;
   &:hover {
     background-color: lighten($primary, 40%);
   }
+}
+
+.active {
+  color: $white;
 }
 
 .sidebar-itinerary-location {
