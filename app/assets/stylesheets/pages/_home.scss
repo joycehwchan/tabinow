@@ -15,11 +15,11 @@
   flex-direction: row;
   width: 100%;
   // height: calc(100vh - 56px);
-  height: 500px;
+  height: fit-content;
   padding: 0;
 
   .top-section-left {
-    width: 100%;
+    width: 50%;
     background-color: $light-gray;
     padding: 64px 32px;
     display: flex;
@@ -27,11 +27,12 @@
     // justify-content: center;
   }
   .top-section-right {
-    min-width: fit-content;
+    width: 50%;
     background-color: $secondary;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: fit-content;
   }
 
   @media (max-width: 1000px) {
