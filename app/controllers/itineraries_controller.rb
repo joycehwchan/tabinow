@@ -20,6 +20,16 @@ class ItinerariesController < ApplicationController
   def create
     set_new_itinerary
     set_new_day
+    if @itinerary.save
+      set_employee
+    elsif user_signed_in?
+      @itineraries = policy_scope(Itinerary)
+      render :index, status: :unprocessable_entity
+      flash[:alert] = @itinerary.errors.full_messages.first
+    else
+      render 'pages/home', status: :unprocessable_entity
+      flash[:alert] = @itinerary.errors.full_messages.first
+    end
   end
 
   def update
@@ -73,16 +83,6 @@ class ItinerariesController < ApplicationController
     set_new_client
     @itinerary.name = name
     authorize @itinerary
-    if @itinerary.save
-      set_employee
-    elsif user_signed_in?
-      @itineraries = policy_scope(Itinerary)
-      render :index, status: :unprocessable_entity
-      flash[:alert] = @itinerary.errors.full_messages.first
-    else
-      render 'pages/home', status: :unprocessable_entity
-      flash[:alert] = @itinerary.errors.full_messages.first
-    end
   end
 
   def set_new_client
