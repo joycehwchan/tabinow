@@ -13,7 +13,7 @@ class ItinerariesController < ApplicationController
   end
 
   def new
-    @itinerary = itinerary.new
+    @itinerary = Itinerary.new
     authorize @itinerary
   end
 
@@ -63,16 +63,16 @@ class ItinerariesController < ApplicationController
 
   def set_new_day
     return unless @itinerary.save
-
+    @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
     @days.times do |i|
       day = Day.new(number: i + 1)
       day.itinerary = @itinerary
       day.save!
-      new_category_and_item("Accomodation")
+      new_category_and_item("Accomodation", day)
     end
   end
 
-  def new_category_and_item(item_category)
+  def new_category_and_item(item_category, day)
     if item_category == "Accomodation"
       category = Category.new(title: "Accomodation",
                               sub_category: "Not Set",
@@ -106,17 +106,34 @@ class ItinerariesController < ApplicationController
     end
   end
 
+  def min_price_generator
+    min_price = @itinerary.min_budget.to_i / 2
+    return min_price
+  end
+
+  def max_price_generator
+    max_price = @itinerary.max_budget.to_i / 2
+    return max_price
+  end
+
   def set_accomodation
     # Need to set price for accomodation.
-    accomodations = AccomodationApiService.new(location: params[:location],
-                                               date_from: params[:date_from],
-                                               date_to: params[:date_to],
-                                               number_people: params[:number_people],
-                                               price_from: accomodation_night_price_min,
-                                               price_to: accomodation_night_price_max)
+    accomodations = AccommodationApiService.new(itineraries_params)
+    accomodations.number_people = 2
+    accomodations.price_from = min_price_generator
+    accomodations.price_to = max_price_generator
+    accomodations.start_date = @itinerary.start_date
+    accomodations.end_date = @itinerary.end_date
     accomodations_results = accomodations.call
-    accomodation = accomodations_results.first
-    accomodation = Item.new(accomodation)
+    accomodation = accomodations_results.sample
+    accomodation = Content.new(name: accomodation["name"],
+                            price: accomodation["price"]["lead"]["amount"],
+                            location: "Tokyo", #call_accomodation_details(accomodation["id"])["location"]["address"]["addressLine"],
+                            category: Category.last,
+                            rating: accomodation["reviews"]["score"],
+                            description: "2343errgg", #call_accomodation_details(accomodation["id"])["tagline"],
+                            api: "",
+                            status: 0)
     accomodation.category = Category.last
     if accomodation.save!
       Category.last.update!(sub_category: "Hotel")
@@ -180,8 +197,7 @@ class ItinerariesController < ApplicationController
 
   def set_new_itinerary
     @itinerary = Itinerary.new(itineraries_params)
-    @days = params[:number_of_days].to_i || @itinerary.total_days
-    name = "#{@days} in #{itineraries_params[:location].capitalize}"
+    name = "#{@itinerary.total_days} in #{itineraries_params[:location].capitalize}"
     set_new_client
     @itinerary.name = name
     authorize @itinerary
