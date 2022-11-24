@@ -126,14 +126,16 @@ class ItinerariesController < ApplicationController
     accomodations.end_date = @itinerary.end_date
     accomodations_results = accomodations.call
     accomodation = accomodations_results.sample
+    accommodation_details = AccommodationDetailsApiService.new(accomodation["id"])
+    accommodation_details = accommodation_details.call
     accomodation = Content.new(name: accomodation["name"],
                             price: accomodation["price"]["lead"]["amount"],
-                            location: "Tokyo", #call_accomodation_details(accomodation["id"])["location"]["address"]["addressLine"],
                             category: Category.last,
                             rating: accomodation["reviews"]["score"],
-                            description: "2343errgg", #call_accomodation_details(accomodation["id"])["tagline"],
                             api: "",
                             status: 0)
+    accomodation.location = accommodation_details["location"]["address"]["addressLine"]
+    accomodation.description = accommodation_details["tagline"]
     accomodation.category = Category.last
     if accomodation.save!
       Category.last.update!(sub_category: "Hotel")
@@ -150,7 +152,7 @@ class ItinerariesController < ApplicationController
                                              price: restaurant_price)
       restaurants_results = restaurants.call
       restaurant = restaurants_results.first
-      restaurant = Item.new(restaurant)
+      restaurant = Content.new(restaurant)
       restaurant.category = Category.last
       if restaurant.save!
         # Saved!
@@ -164,7 +166,7 @@ class ItinerariesController < ApplicationController
                                              price: restaurant_price)
       restaurants_results = restaurants.call
       restaurant = restaurants_results.first
-      restaurant = Item.new(restaurant)
+      restaurant = Content.new(restaurant)
       restaurant.category = Category.last
       if restaurant.save!
         # Saved!
@@ -181,7 +183,7 @@ class ItinerariesController < ApplicationController
                                         price: restaurant_price)
     activities_results = activities.call
     activity = activities_results.first
-    activity = Item.new(activity)
+    activity = Content.new(activity)
     activity.category = Category.last
     if activity.save!
       Category.last.update!(sub_category: activity.description)
