@@ -1,11 +1,10 @@
 class ActivityApiService
 
-  def initialize(date_from, date_to, number_people, price_from, price_to)
-    @date_from = date_from
-    @date_to = date_to
-    @number_people = number_people
-    @price_from = price_from
-    @price_to = price_to
+  def initialize(attr = {})
+    @location = attr[:location]
+    @keyword = attr[:keyword]
+    @number_people = attr[:number_people]
+    @price = attr[:price]
   end
 
   def call
