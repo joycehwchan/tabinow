@@ -1,5 +1,5 @@
 class AccomodationApiService
-  def initialize(attr={})
+  def initialize(attr = {})
     @location = attr[:location]
     @date_from = attr[:date_from]
     @date_to = attr[:date_to]
