@@ -1,4 +1,4 @@
-class ActivitiesApiService
+class ActivityApiService
 
   def initialize(date_from, date_to, number_people, price_from, price_to)
     @date_from = date_from
