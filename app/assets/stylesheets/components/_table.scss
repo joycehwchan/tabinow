@@ -35,4 +35,12 @@
   tbody tr:last-of-type {
     border-bottom: 2px solid $dark;
   }
+
+  .special-request {
+    max-width: 240px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
 }
