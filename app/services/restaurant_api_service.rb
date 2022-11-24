@@ -1,8 +1,13 @@
+require 'uri'
+require 'net/http'
+require 'openssl'
+
 class RestaurantApiService
+  attr_accessor :location, :keyword, :price
+
   def initialize(attr = {})
     @location = attr[:location]
     @keyword = attr[:keyword]
-    @number_people = attr[:number_people]
     @price = attr[:price]
   end
 
