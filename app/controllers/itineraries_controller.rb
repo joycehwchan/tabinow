@@ -68,18 +68,18 @@ class ItinerariesController < ApplicationController
       day = Day.new(number: i + 1)
       day.itinerary = @itinerary
       day.save!
-      new_category_and_item("Accomodation", day)
+      new_category_and_item("Accommodation", day)
       new_category_and_item("Restaurant", day)
     end
   end
 
   def new_category_and_item(item_category, day)
-    if item_category == "Accomodation"
-      category = Category.new(title: "Accomodation",
+    if item_category == "Accommodation"
+      category = Category.new(title: "Accommodation",
                               sub_category: "Not Set",
                               day: day)
       if category.save!
-        set_accomodation
+        set_accommodation
       else
         # Category Failed
       end
@@ -117,30 +117,30 @@ class ItinerariesController < ApplicationController
     return max_price
   end
 
-  def set_accomodation
-    # Need to set price for accomodation.
-    accomodations = AccommodationApiService.new(itineraries_params)
-    accomodations.number_people = 2
-    accomodations.price_from = min_price_generator / 2
-    accomodations.price_to = max_price_generator / 2
-    accomodations.start_date = @itinerary.start_date
-    accomodations.end_date = @itinerary.end_date
-    accomodations_results = accomodations.call
-    accomodation = accomodations_results.sample
-    accommodation_details = AccommodationDetailsApiService.new(accomodation["id"])
+  def set_accommodation
+    # Need to set price for accommodation.
+    accommodations = AccommodationApiService.new(itineraries_params)
+    accommodations.number_people = 2
+    accommodations.price_from = min_price_generator / 2
+    accommodations.price_to = max_price_generator / 2
+    accommodations.start_date = @itinerary.start_date
+    accommodations.end_date = @itinerary.end_date
+    accommodations_results = accommodations.call
+    accommodation = accommodations_results.sample
+    accommodation_details = AccommodationDetailsApiService.new(accommodation["id"])
     accommodation_details = accommodation_details.call
-    accomodation = Content.new(name: accomodation["name"],
-                              price: accomodation["price"]["lead"]["amount"],
+    accommodation = Content.new(name: accommodation["name"],
+                              price: accommodation["price"]["lead"]["amount"],
                               category: Category.last,
-                              rating: accomodation["reviews"]["score"],
+                              rating: accommodation["reviews"]["score"],
                               api: "",
                               status: 0)
-    accomodation.location = accommodation_details["location"]["address"]["addressLine"]
-    accomodation.description = accommodation_details["tagline"]
-    if accomodation.save!
+    accommodation.location = accommodation_details["location"]["address"]["addressLine"]
+    accommodation.description = accommodation_details["tagline"]
+    if accommodation.save!
       Category.last.update!(sub_category: "Hotel")
     else
-      # Accomodation Failed
+      # accommodation Failed
     end
   end
 
@@ -235,7 +235,7 @@ class ItinerariesController < ApplicationController
     if activity.save!
       Category.last.update!(sub_category: activity.description)
     else
-      # Accomodation Failed
+      # accommodation Failed
     end
   end
 
