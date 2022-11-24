@@ -57,15 +57,7 @@ class AccomodationApiService
     # Selecting the accomodations from the results
     search_accomodations = result["data"]["propertySearch"]["properties"]
 
-    # Preparing an empty array to push the accomodation names into
-    accomodations = []
-    # Looping through the accomodations from the api
-    search_accomodations.each do |accomodation|
-      # Pushing the hotel names into the array
-      # Reach values with keys, like: accomodation["name"]
-      accomodations.push(accomodation)
-    end
-
-    return accomodation
+    # Returning the results from the API
+    return search_accomodations
   end
 end
