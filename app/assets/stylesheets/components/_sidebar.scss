@@ -48,7 +48,7 @@
 }
 
 .sidebar-links-container {
-  height: calc(100vh - 56px - 320px);
+  height: calc(100vh - 56px - 360px);
   overflow: auto;
   display: flex;
 }
@@ -73,4 +73,21 @@
   font-weight: 600;
   // color: rgba($primary, 0.8);
   margin-bottom: 0;
+}
+
+.btn-add-day {
+  text-align: left;
+  border-radius: 4px;
+  padding-left: 8px;
+  background-color: rgba($secondary, 0.4);
+  color: darken($secondary, 20);
+  border: transparent;
+  width: 100%;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 0.9;
+    background-color: rgba($secondary, 0.5);
+    color: darken($secondary, 30);
+  }
 }
