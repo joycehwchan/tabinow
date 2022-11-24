@@ -9,7 +9,7 @@ class ItinerariesController < ApplicationController
 
   def show
     @day = @itinerary.days[params[:day].to_i - 1]
-    @contents = Content.where('location ILIKE ?', "%#{params[:query]}%") unless params[:query].present?
+    @contents = params[:query].present? ? Content.where('location ILIKE ?', "%#{params[:query]}%") : []
   end
 
   def new
