@@ -82,6 +82,18 @@ class ItinerariesController < ApplicationController
       else
         # Category Failed
       end
+    elsif item_category == "Restaurant"
+      food_times = ["Lunch", "Dinner"]
+      food_times.each do |food_time|
+        category = Category.new(title: "Restaurant",
+                                sub_category: food_time,
+                                day: day)
+        if category.save!
+          set_restaurant(food_time)
+        else
+        # Category Failed
+        end
+      end
     end
   end
 
@@ -98,10 +110,41 @@ class ItinerariesController < ApplicationController
     accomodation = Item.new(accomodation)
     accomodation.category = Category.last
     if accomodation.save!
-      update_category = Category.last.sub_category = "Hotel"
-      update_category.save!
+      Category.last.update!(sub_category: "Hotel")
     else
       # Accomodation Failed
+    end
+  end
+
+  def set_restaurant(food_time)
+    if food_time == "Lunch"
+      restaurants = RestaurantApiService.new(location: params[:location],
+                                             keyword: "Best Lunch restaurants"
+                                             number_people: params[:number_people],
+                                             price: restaurant_price)
+      restaurants_results = restaurants.call
+      restaurant = restaurants_results.first
+      restaurant = Item.new(restaurant)
+      restaurant.category = Category.last
+      if restaurant.save!
+        # Saved!
+      else
+        # Accomodation Failed
+      end
+    else
+      restaurants = RestaurantApiService.new(location: params[:location],
+                                             keyword: "Best Dinner restaurants"
+                                             number_people: params[:number_people],
+                                             price: restaurant_price)
+      restaurants_results = restaurants.call
+      restaurant = restaurants_results.first
+      restaurant = Item.new(restaurant)
+      restaurant.category = Category.last
+      if restaurant.save!
+        # Saved!
+      else
+        # Accomodation Failed
+      end
     end
   end
 
