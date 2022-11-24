@@ -65,11 +65,8 @@ group :development, :test do
   gem 'bullet'
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "dotenv-rails"
-
 end
 # Custom Gems
-
-
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]

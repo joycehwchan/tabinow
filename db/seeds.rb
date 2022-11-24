@@ -183,7 +183,7 @@ SPECIALREQUESTDATA= ["Mandarin speaking guide", "only vegetarian meals","should 
                               )
 
   # Generate stay, restuarants, activities
-  days_number.times do |day_number|
+  itinerary.total_days.times do |day_number|
   # Creating a Day db
   # Adding +1
   day = Day.new(number: day_number + 1, itinerary: itinerary)

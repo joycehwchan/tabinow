@@ -64,7 +64,7 @@ class ItinerariesController < ApplicationController
   def set_new_day
     return unless @itinerary.save
 
-    @itinerary.days.times do |i|
+    @itinerary.total_days.times do |i|
       day = Day.new(number: i + 1)
       day.itinerary = @itinerary
       day.save
