@@ -80,6 +80,11 @@ def restuarants(location)
   return restuarants
 end
 
+search_restuarants = []
+restuarants("tokyo").each do |restuarant|
+  search_restuarants.push(restuarant)
+end
+
 puts "--------------------------"
 puts " --- Seeds for TabiNow ---"
 puts "--------------------------"
@@ -121,7 +126,7 @@ Category.destroy_all
 puts " - Starting to create Itineraries -"
 
 # Seed for itinerary
-5.times do
+5.times do |index|
   # Selecting employee from user db
   employee = User.find_by(admin: true)
   client = User.where(admin: false).sample
@@ -134,7 +139,7 @@ puts " - Starting to create Itineraries -"
   set_hotel = hotels_names.sample
 
   # Createing itinerary
-  puts " - #1/5: #{days_number} days in #{location}"
+  puts " - ##{index + 1}/5: #{days_number} days in #{location}"
 
   itinerary = Itinerary.create!(name: "#{days_number} Days in #{location}",
                                 location: location,
@@ -149,9 +154,6 @@ puts " - Starting to create Itineraries -"
   day = Day.new(number: day_number + 1, itinerary: itinerary)
   day.save!
 
-  puts " - Creating the Categories -"
-
-  end
 
   puts " - Day #{day_number + 1}:"
 
@@ -172,33 +174,24 @@ puts " - Starting to create Itineraries -"
   # Generate restuarant for lunch
 
   def set_price(price_string)
-    return 0 if price_string.nil?
-
-    if price_string.include?("￥")
-      if price_string == "￥"
-        return 10
-      elsif price_string == "￥￥"
-        return 30
-      elsif price_string == "￥￥￥"
-        return 60
-      elsif price_string == "￥￥￥￥"
-        return 100
-      else
-        return 0
-      end
+    case
+    when price_string.nil? || price_string == " " then return 0
+    when price_string == "￥" then return 10
+    when price_string == "￥￥" then return 30
+    when price_string == "￥￥￥" then return 60
+    when price_string == "￥￥￥￥" then return 100
     end
   end
 
   def check_api_location(api_location, location)
-    if api_location.nil?
-      return location
-    else
-      return api_location
+    case
+    when api_location.nil? then return location
+    when !api_location.nil? then return api_location
     end
   end
 
-  set_lunch_restaurant = restuarants("tokyo").sample
-
+    # Generate restuarant for lunch
+  set_lunch_restaurant = search_restuarants.sample
   category = Category.new(title: "Restaurant", sub_category: "Lunch", day: day)
   category.save!
   lunch = Content.new(name: set_lunch_restaurant["name"],
@@ -213,7 +206,7 @@ puts " - Starting to create Itineraries -"
   puts "   Lunch: #{Content.last.name} (#{Content.last.description})"
 
   # Generate restuarant for dinner
-  set_dinner_restaurant = restuarants("tokyo").sample
+set_dinner_restaurant = search_restuarants.sample
 
   category = Category.new(title: "Restaurant", sub_category: "Dinner", day: day)
   category.save!
@@ -239,8 +232,8 @@ puts " - Starting to create Itineraries -"
                                 description: Faker::Lorem.paragraph(sentence_count: 2),
                                 api: "",
                                 status: rand(0..3))
-
   morning_activity.save!
+
   puts "   Morning Activity: #{Content.last.name} with #{Faker::JapaneseMedia::StudioGhibli.character}"
 
   # Generate afternoon activity
