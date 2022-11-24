@@ -3,7 +3,7 @@
     <div class="category-container p-2">
       <h2>Day <%= day.number %></h2>
       <% day.contents.each do |content| %>
-        <%= render 'category_icon', category: content.category %>
+        <%= render 'category_icon', category: content.category.title %>
       <% end %>
     </div>
   </div>

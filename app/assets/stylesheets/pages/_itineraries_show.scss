@@ -13,6 +13,9 @@
     width: 50%;
 
     @media (max-width: 1040px) {
+      .days-container .category-container {
+        min-height: 2.7rem;
+      }
       .items-container {
         gap: 0.4rem;
       }
@@ -61,6 +64,10 @@
 
 .days-container {
   padding-bottom: 8px;
+
+  .category-container {
+    min-height: 3rem;
+  }
 
   &:last-child {
     padding-bottom: 0;
