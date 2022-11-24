@@ -5,7 +5,6 @@ class ItinerariesController < ApplicationController
   def index
     @itineraries = policy_scope(Itinerary)
     @itinerary = Itinerary.new
-    # @number_of_days = pluralize(@itinerary.days.count, 'Day') || pluralize(@itinerary.total_days, 'Day')
   end
 
   def show
@@ -25,11 +24,11 @@ class ItinerariesController < ApplicationController
       set_employee
     elsif user_signed_in?
       @itineraries = policy_scope(Itinerary)
+      flash[:alert] = @itinerary.errors.full_messages.first
       render :index, status: :unprocessable_entity
-      flash[:alert] = @itinerary.errors.full_messages.first
     else
-      render 'pages/home', status: :unprocessable_entity
       flash[:alert] = @itinerary.errors.full_messages.first
+      render 'pages/home', status: :unprocessable_entity
     end
   end
 
