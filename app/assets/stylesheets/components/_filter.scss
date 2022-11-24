@@ -1,0 +1,13 @@
+.filters-container {
+  margin-top: 8px;
+}
+
+.filter-pill {
+  color: darken($primary, 30);
+  background-color: rgba($primary, 0.4);
+  border-radius: 40px;
+  text-decoration: none;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  margin-top: 8px;
+}

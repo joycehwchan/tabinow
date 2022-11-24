@@ -4,7 +4,7 @@
       <h1>Welcome back</h1>
     </div>
     <div>
-      <button type="button" class="btn btn-primary btn-tabinow float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <button type="button" class="btn btn-primary btn-tabinow float-end" data-bs-toggle="modal" data-bs-target="#createModal">
         New Itinerary
       </button>
     </div>
@@ -16,9 +16,10 @@
         <tr>
           <th>Itinerary name</th>
           <th>Status</th>
-          <th>Column 3</th>
-          <th>Column 4</th>
+          <th>Request from</th>
           <th>Action</th>
+          <th>Special request</th>
+          <th>Last updated</th>
         </tr>
       </thead>
       <tbody>
@@ -30,17 +31,5 @@
     </table>
   </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Create New itinerary</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= render 'itinerary', itinerary: @itinerary %>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- Create Modal -->
+<%= render 'create_modal', itinerary: @itinerary %>

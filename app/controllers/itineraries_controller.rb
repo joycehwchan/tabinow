@@ -9,11 +9,11 @@ class ItinerariesController < ApplicationController
 
   def show
     @day = @itinerary.days[params[:day].to_i - 1]
-    @contents = Content.where('location ILIKE ?', "%#{params[:query]}%") unless params[:query].present?
+    @contents = params[:query].present? ? Content.where('location ILIKE ?', "%#{params[:query]}%") : []
   end
 
   def new
-    @itinerary = Field.new
+    @itinerary = itinerary.new
     authorize @itinerary
   end
 
@@ -24,17 +24,17 @@ class ItinerariesController < ApplicationController
       set_employee
     elsif user_signed_in?
       @itineraries = policy_scope(Itinerary)
+      flash[:alert] = @itinerary.errors.full_messages.first
       render :index, status: :unprocessable_entity
-      flash[:alert] = @itinerary.errors.full_messages.first
     else
-      render 'pages/home', status: :unprocessable_entity
       flash[:alert] = @itinerary.errors.full_messages.first
+      render 'pages/home', status: :unprocessable_entity
     end
   end
 
   def update
-    @itinerary.update(itinerary_params)
-    redirect_to itineraries_path
+    @itinerary.update(itineraries_params)
+    redirect_to itinerary_path(@itinerary)
   end
 
   def destroy
@@ -67,7 +67,84 @@ class ItinerariesController < ApplicationController
     @days.times do |i|
       day = Day.new(number: i + 1)
       day.itinerary = @itinerary
-      day.save
+      day.save!
+      new_category_and_item("Accomodation")
+    end
+  end
+
+  def new_category_and_item(item_category)
+    if item_category == "Accomodation"
+      category = Category.new(title: "Accomodation",
+                              sub_category: "Not Set",
+                              day: day)
+      if category.save!
+        set_accomodation
+      else
+        # Category Failed
+      end
+    elsif item_category == "Restaurant"
+      food_times = ["Lunch", "Dinner"]
+      food_times.each do |food_time|
+        category = Category.new(title: "Restaurant",
+                                sub_category: food_time,
+                                day: day)
+        if category.save!
+          set_restaurant(food_time)
+        else
+        # Category Failed
+        end
+      end
+    end
+  end
+
+  def set_accomodation
+    # Need to set price for accomodation.
+    accomodations = AccomodationApiService.new(location: params[:location],
+                                               date_from: params[:date_from],
+                                               date_to: params[:date_to],
+                                               number_people: params[:number_people],
+                                               price_from: accomodation_night_price_min,
+                                               price_to: accomodation_night_price_max)
+    accomodations_results = accomodations.call
+    accomodation = accomodations_results.first
+    accomodation = Item.new(accomodation)
+    accomodation.category = Category.last
+    if accomodation.save!
+      Category.last.update!(sub_category: "Hotel")
+    else
+      # Accomodation Failed
+    end
+  end
+
+  def set_restaurant(food_time)
+    if food_time == "Lunch"
+      restaurants = RestaurantApiService.new(location: params[:location],
+                                             keyword: "Best Lunch restaurants",
+                                             number_people: params[:number_people],
+                                             price: restaurant_price)
+      restaurants_results = restaurants.call
+      restaurant = restaurants_results.first
+      restaurant = Item.new(restaurant)
+      restaurant.category = Category.last
+      if restaurant.save!
+        # Saved!
+      else
+        # Accomodation Failed
+      end
+    else
+      restaurants = RestaurantApiService.new(location: params[:location],
+                                             keyword: "Best Dinner restaurants",
+                                             number_people: params[:number_people],
+                                             price: restaurant_price)
+      restaurants_results = restaurants.call
+      restaurant = restaurants_results.first
+      restaurant = Item.new(restaurant)
+      restaurant.category = Category.last
+      if restaurant.save!
+        # Saved!
+      else
+        # Accomodation Failed
+      end
     end
   end
 
@@ -78,7 +155,7 @@ class ItinerariesController < ApplicationController
 
   def set_new_itinerary
     @itinerary = Itinerary.new(itineraries_params)
-    @days = params[:number_of_days].to_i
+    @days = params[:number_of_days].to_i || @itinerary.total_days
     name = "#{@days} in #{itineraries_params[:location].capitalize}"
     set_new_client
     @itinerary.name = name
@@ -107,6 +184,6 @@ class ItinerariesController < ApplicationController
 
   def itineraries_params
     params.require(:itinerary).permit(:name, :location, :status, :employee_id, :client_id, :max_budget, :min_budget,
-                                      :special_request)
+                                      :special_request, :start_date, :end_date, :archived)
   end
 end

@@ -13,12 +13,10 @@
       <%= f.input :max_budget, class:"form-control", step:"1000", min:"0", required: true, label: false %>
     </div>
     <div class="mb-2 col-6">
-      <%= label_tag 'Start date', nil, class:"form-label" %>
-      <input type="date" id="start_date" name="start_date" class="form-control">
+      <%= f.input :start_date ,class:"form-control" %>
     </div>
     <div class="mb-2 col-6">
-      <%= label_tag 'End date', nil, class:"form-label" %>
-      <input type="date" id="end_date" name="end_date" class="form-control">
+      <%= f.input :end_date ,class:"form-control" %>
     </div>
     <div class="mb-2 col-12">
       <%= f.input :location %>

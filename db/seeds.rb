@@ -85,6 +85,31 @@ restuarants("tokyo").each do |restuarant|
   search_restuarants.push(restuarant)
 end
 
+
+def activities(location)
+  url = URI("https://api.yelp.com/v3/businesses/search?location=#{location},Japan&term=activities&limit=50")
+
+  http = Net::HTTP.new(url.host, url.port)
+  http.use_ssl = true
+  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+  request = Net::HTTP::Get.new(url)
+
+  key = 'Bearer SxGC-lIGxglEDFDoPWQVvrfYG_dPbKKsf07_1lv4PPN8QHzYs9PAZSCPvbFONVRzRj4S-08QRXfRjvmhvoKdASJkWApQ_BSM3P037WPDuWvbvJ1knBFBu7Tv-7l9Y3Yx'
+  request['Authorization'] = key
+
+  response = http.request(request)
+
+  activities = JSON.parse(response.body)["businesses"]
+
+  return activities
+end
+
+search_activities = []
+activities("tokyo").each do |activity|
+  search_activities.push(activity)
+end
+
 puts "--------------------------"
 puts " --- Seeds for TabiNow ---"
 puts "--------------------------"
@@ -124,7 +149,11 @@ Category.destroy_all
 
 
 puts " - Starting to create Itineraries -"
-
+start_date = Date.today
+end_date = start_date + rand(3..10)
+min_budget = rand(1..10) * 10000
+max_budget = min_budget + (rand(5..10) * [1000 ,10000].sample)
+SPECIALREQUESTDATA= ["Mandarin speaking guide", "only vegetarian meals","should include a Japanese tea ceremony", "should includes Disneyland", "should include Universal studio"]
 # Seed for itinerary
 5.times do |index|
   # Selecting employee from user db
@@ -145,10 +174,16 @@ puts " - Starting to create Itineraries -"
                                 location: location,
                                 status: rand(0..3),
                                 client: client,
-                                employee: employee)
+                                employee: employee,
+                                start_date: start_date,
+                                end_date: end_date,
+                                min_budget: min_budget,
+                                max_budget: max_budget,
+                                special_request: SPECIALREQUESTDATA.sample
+                              )
 
   # Generate stay, restuarants, activities
-  days_number.times do |day_number|
+  itinerary.total_days.times do |day_number|
   # Creating a Day db
   # Adding +1
   day = Day.new(number: day_number + 1, itinerary: itinerary)
@@ -206,7 +241,7 @@ puts " - Starting to create Itineraries -"
   puts "   Lunch: #{Content.last.name} (#{Content.last.description})"
 
   # Generate restuarant for dinner
-set_dinner_restaurant = search_restuarants.sample
+  set_dinner_restaurant = search_restuarants.sample
 
   category = Category.new(title: "Restaurant", sub_category: "Dinner", day: day)
   category.save!
@@ -222,33 +257,35 @@ set_dinner_restaurant = search_restuarants.sample
   puts "   Dinner: #{Content.last.name} (#{Content.last.description})"
 
   # Generate morning activity
+  set_morning_activity = search_activities.sample
   category = Category.new(title: "Activity", sub_category: "Museum", day: day)
   category.save!
-  morning_activity = Content.new(name: "#{Faker::Hobby.activity} with #{Faker::JapaneseMedia::StudioGhibli.character}",
-                                price: rand(1000..15_000),
-                                location: location,
-                                category: Category.last,
-                                rating: rand(1..5),
-                                description: Faker::Lorem.paragraph(sentence_count: 2),
-                                api: "",
-                                status: rand(0..3))
+  morning_activity = Content.new(name: set_morning_activity["name"],
+                                 price: set_price(set_morning_activity["price"]),
+                                 location: check_api_location(set_morning_activity["display_address"], location),
+                                 category: Category.last,
+                                 rating: set_morning_activity["rating"],
+                                 description: set_morning_activity["categories"].first["title"],
+                                 api: "",
+                                 status: rand(0..3))
   morning_activity.save!
 
-  puts "   Morning Activity: #{Content.last.name} with #{Faker::JapaneseMedia::StudioGhibli.character}"
+  puts "   Morning Activity: #{Content.last.name} (#{Content.last.description})"
 
   # Generate afternoon activity
+  set_afternoon_activity = search_activities.sample
   category = Category.new(title: "Activity", sub_category: "Historic Sites", day: day)
   category.save!
-  afternoon_activity = Content.new(name: "#{Faker::Hobby.activity} at #{Faker::Movies::StarWars.planet}",
-                                   price: rand(4000..25_000),
-                                   location: location,
+  afternoon_activity = Content.new(name: set_afternoon_activity["name"],
+                                   price: set_price(set_afternoon_activity["price"]),
+                                   location: check_api_location(set_afternoon_activity["display_address"], location),
                                    category: Category.last,
-                                   rating: rand(1..5),
-                                   description: Faker::Lorem.paragraph(sentence_count: 2),
+                                   rating: set_afternoon_activity["rating"],
+                                   description: set_afternoon_activity["categories"].first["title"],
                                    api: "",
                                    status: rand(0..3))
   afternoon_activity.save!
-  puts "   Afternoon Activity: #{Content.last.name} with #{Faker::JapaneseMedia::StudioGhibli.character}"
+  puts "   Afternoon Activity: #{Content.last.name} (#{Content.last.description})"
   end
 end
 puts "--------------------------"

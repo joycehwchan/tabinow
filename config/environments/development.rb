@@ -2,19 +2,19 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   config.after_initialize do
-    Bullet.enable        = true
-    Bullet.alert         = true
-    Bullet.bullet_logger = true
-    Bullet.console       = true
-    Bullet.rails_logger  = true
-    Bullet.add_footer    = true
+    Bullet.enable        = false
+    Bullet.alert         = false
+    Bullet.bullet_logger = false
+    Bullet.console       = false
+    Bullet.rails_logger  = false
+    Bullet.add_footer    = false
   end
 
   config.after_initialize do
-    Bullet.enable = true
-    Bullet.alert = true
-    Bullet.add_footer = true
-    Bullet.bullet_logger = true
+    Bullet.enable = false
+    Bullet.alert = false
+    Bullet.add_footer = false
+    Bullet.bullet_logger = false
     # If we want to raise a error when a N+1 query is detected
     # Bullet.raise = true
   end
