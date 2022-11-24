@@ -85,6 +85,31 @@ restuarants("tokyo").each do |restuarant|
   search_restuarants.push(restuarant)
 end
 
+
+def activities(location)
+  url = URI("https://api.yelp.com/v3/businesses/search?location=#{location},Japan&term=activities&limit=50")
+
+  http = Net::HTTP.new(url.host, url.port)
+  http.use_ssl = true
+  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+  request = Net::HTTP::Get.new(url)
+
+  key = 'Bearer SxGC-lIGxglEDFDoPWQVvrfYG_dPbKKsf07_1lv4PPN8QHzYs9PAZSCPvbFONVRzRj4S-08QRXfRjvmhvoKdASJkWApQ_BSM3P037WPDuWvbvJ1knBFBu7Tv-7l9Y3Yx'
+  request['Authorization'] = key
+
+  response = http.request(request)
+
+  activities = JSON.parse(response.body)["businesses"]
+
+  return activities
+end
+
+search_activities = []
+activities("tokyo").each do |activity|
+  search_activities.push(activity)
+end
+
 puts "--------------------------"
 puts " --- Seeds for TabiNow ---"
 puts "--------------------------"
@@ -206,7 +231,7 @@ puts " - Starting to create Itineraries -"
   puts "   Lunch: #{Content.last.name} (#{Content.last.description})"
 
   # Generate restuarant for dinner
-set_dinner_restaurant = search_restuarants.sample
+  set_dinner_restaurant = search_restuarants.sample
 
   category = Category.new(title: "Restaurant", sub_category: "Dinner", day: day)
   category.save!
@@ -222,33 +247,35 @@ set_dinner_restaurant = search_restuarants.sample
   puts "   Dinner: #{Content.last.name} (#{Content.last.description})"
 
   # Generate morning activity
+  set_morning_activity = search_activities.sample
   category = Category.new(title: "Activity", sub_category: "Museum", day: day)
   category.save!
-  morning_activity = Content.new(name: "#{Faker::Hobby.activity} with #{Faker::JapaneseMedia::StudioGhibli.character}",
-                                price: rand(1000..15_000),
-                                location: location,
-                                category: Category.last,
-                                rating: rand(1..5),
-                                description: Faker::Lorem.paragraph(sentence_count: 2),
-                                api: "",
-                                status: rand(0..3))
+  morning_activity = Content.new(name: set_morning_activity["name"],
+                                 price: set_price(set_morning_activity["price"]),
+                                 location: check_api_location(set_morning_activity["display_address"], location),
+                                 category: Category.last,
+                                 rating: set_morning_activity["rating"],
+                                 description: set_morning_activity["categories"].first["title"],
+                                 api: "",
+                                 status: rand(0..3))
   morning_activity.save!
 
-  puts "   Morning Activity: #{Content.last.name} with #{Faker::JapaneseMedia::StudioGhibli.character}"
+  puts "   Morning Activity: #{Content.last.name} (#{Content.last.description})"
 
   # Generate afternoon activity
+  set_afternoon_activity = search_activities.sample
   category = Category.new(title: "Activity", sub_category: "Historic Sites", day: day)
   category.save!
-  afternoon_activity = Content.new(name: "#{Faker::Hobby.activity} at #{Faker::Movies::StarWars.planet}",
-                                   price: rand(4000..25_000),
-                                   location: location,
+  afternoon_activity = Content.new(name: set_afternoon_activity["name"],
+                                   price: set_price(set_afternoon_activity["price"]),
+                                   location: check_api_location(set_afternoon_activity["display_address"], location),
                                    category: Category.last,
-                                   rating: rand(1..5),
-                                   description: Faker::Lorem.paragraph(sentence_count: 2),
+                                   rating: set_afternoon_activity["rating"],
+                                   description: set_afternoon_activity["categories"].first["title"],
                                    api: "",
                                    status: rand(0..3))
   afternoon_activity.save!
-  puts "   Afternoon Activity: #{Content.last.name} with #{Faker::JapaneseMedia::StudioGhibli.character}"
+  puts "   Afternoon Activity: #{Content.last.name} (#{Content.last.description})"
   end
 end
 puts "--------------------------"

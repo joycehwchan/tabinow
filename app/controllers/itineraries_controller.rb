@@ -13,7 +13,7 @@ class ItinerariesController < ApplicationController
   end
 
   def new
-    @itinerary = Field.new
+    @itinerary = itinerary.new
     authorize @itinerary
   end
 
