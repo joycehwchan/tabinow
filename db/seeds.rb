@@ -153,6 +153,7 @@ start_date = Date.today
 end_date = start_date + rand(3..10)
 min_budget = rand(1..10) * 10000
 max_budget = min_budget + (rand(5..10) * [1000 ,10000].sample)
+SPECIALREQUESTDATA= ["Mandarin speaking guide", "only vegetarian meals","should include a Japanese tea ceremony", "should includes Disneyland", "should include Universal studio"]
 # Seed for itinerary
 5.times do |index|
   # Selecting employee from user db
@@ -178,11 +179,7 @@ max_budget = min_budget + (rand(5..10) * [1000 ,10000].sample)
                                 end_date: end_date,
                                 min_budget: min_budget,
                                 max_budget: max_budget,
-                                special_request: 
-
-                              
-                              
-                              
+                                special_request: SPECIALREQUESTDATA.sample
                               )
 
   # Generate stay, restuarants, activities
