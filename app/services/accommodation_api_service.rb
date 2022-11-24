@@ -1,11 +1,11 @@
 class AccomodationApiService
-  def initialize(location, date_from, date_to, number_people, price_from, price_to)
-    @location = location
-    @date_from = date_from
-    @date_to = date_to
-    @number_people = number_people
-    @price_from = price_from
-    @price_to = price_to
+  def initialize(attr={})
+    @location = attr[:location]
+    @date_from = attr[:date_from]
+    @date_to = attr[:date_to]
+    @number_people = attr[:number_people]
+    @price_from = attr[:price_from]
+    @price_to = attr[:price_to]
   end
 
   def call
@@ -54,15 +54,16 @@ class AccomodationApiService
     # Converting the reponse body into JSON
     result = JSON.parse(response.body)
 
-    # Selecting the hotels from the results
+    # Selecting the accomodations from the results
     search_accomodations = result["data"]["propertySearch"]["properties"]
 
-    # Preparing an empty array to push the hotel names into
+    # Preparing an empty array to push the accomodation names into
     accomodations = []
-    # Looping through the hotels from the api
+    # Looping through the accomodations from the api
     search_accomodations.each do |accomodation|
-      # Puushing the hotel names into the array
-      accomodations.push(accomodation["name"])
+      # Pushing the hotel names into the array
+      # Reach values with keys, like: accomodation["name"]
+      accomodations.push(accomodation)
     end
 
     return accomodation
