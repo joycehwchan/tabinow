@@ -1,5 +1,5 @@
 <tr>
-  <td><%= pluralize(itinerary.total_days, 'Day') %> in <%= itinerary.location.capitalize %></td>
+  <td><%= link_to itinerary.name, itinerary_path(itinerary) %></td>
   <td>
     <div class="status-pill <%=itinerary.status %>">
       <span><%=itinerary.status %></span>
