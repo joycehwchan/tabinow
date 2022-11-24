@@ -33,8 +33,8 @@ class ItinerariesController < ApplicationController
   end
 
   def update
-    @itinerary.update(itinerary_params)
-    redirect_to itineraries_path
+    @itinerary.update(itineraries_params)
+    redirect_to itinerary_path(@itinerary)
   end
 
   def destroy

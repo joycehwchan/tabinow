@@ -18,9 +18,14 @@
             <%= @itinerary.location %>
           </p>
         </div>
+        <!--
         <%= link_to '#', class:"btn btn-sm btn-outline-secondary btn-tabinow d-block my-2" do %>
           <i class="fa-solid fa-pen-to-square"></i> Edit Itinerary
         <% end %>
+        -->
+        <button type="button" class="btn btn-sm btn-outline-secondary btn-tabinow d-block my-2 w-100" data-bs-toggle="modal" data-bs-target="#editModal">
+          <i class="fa-solid fa-pen-to-square"></i> Edit Itinerary
+        </button>
       </div>
       <div class="sidebar-links-container">
         <ul class="nav nav-pills flex-column mb-auto w-100">
@@ -46,3 +51,5 @@
     </div>
   </div>
 </div>
+<!-- Edit Modal -->
+<%= render 'edit_modal', itinerary: itinerary %>
