@@ -1,7 +1,7 @@
-<div class="days-container">
-  <div class="card rounded-md">
-    <div class="category-container p-2">
-      <h2>Day <%= day.number %></h2>
+<div class="day-container">
+  <div class="card rounded-md d-flex flex-row align-items-center ps-2">
+    <h2 class="text-nowrap">Day <%= day.number %></h2>
+    <div class="category-container">
       <% day.contents.each do |content| %>
         <%= render 'category_icon', category: content.category.title %>
       <% end %>

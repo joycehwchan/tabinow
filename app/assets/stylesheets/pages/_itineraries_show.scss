@@ -13,7 +13,7 @@
     width: 50%;
 
     @media (max-width: 1040px) {
-      .days-container .category-container {
+      .day-container .category-container {
         min-height: 2.7rem;
       }
       .items-container {
@@ -29,7 +29,7 @@
     border-radius: 4px;
     padding: 12px;
     padding-top: 0;
-    background-color: rgba($secondary, 0.8);
+    // background-color: rgba($secondary, 0.8);
     height: calc(100vh - 56px - 16px);
     overflow: auto;
     width: 50%;
@@ -39,7 +39,7 @@
     }
   }
 
-  @media (max-width: 980px) {
+  @media (max-width: 800px) {
     flex-direction: column;
     .left-container {
       order: 2;
@@ -66,8 +66,15 @@
   }
 }
 
-.days-container {
+.day-container {
   padding-bottom: 8px;
+
+  h2 {
+    margin-bottom: 0;
+    padding: 0 8px;
+    min-width: 3rem;
+    min-width: 5rem;
+  }
 
   .category-container {
     min-height: 3rem;
