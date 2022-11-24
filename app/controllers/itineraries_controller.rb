@@ -69,6 +69,7 @@ class ItinerariesController < ApplicationController
       day.itinerary = @itinerary
       day.save!
       new_category_and_item("Accomodation", day)
+      new_category_and_item("Restaurant", day)
     end
   end
 
@@ -107,12 +108,12 @@ class ItinerariesController < ApplicationController
   end
 
   def min_price_generator
-    min_price = @itinerary.min_budget.to_i / 2
+    min_price = @itinerary.min_budget.to_i
     return min_price
   end
 
   def max_price_generator
-    max_price = @itinerary.max_budget.to_i / 2
+    max_price = @itinerary.max_budget.to_i
     return max_price
   end
 
@@ -120,21 +121,22 @@ class ItinerariesController < ApplicationController
     # Need to set price for accomodation.
     accomodations = AccommodationApiService.new(itineraries_params)
     accomodations.number_people = 2
-    accomodations.price_from = min_price_generator
-    accomodations.price_to = max_price_generator
+    accomodations.price_from = min_price_generator / 2
+    accomodations.price_to = max_price_generator / 2
     accomodations.start_date = @itinerary.start_date
     accomodations.end_date = @itinerary.end_date
     accomodations_results = accomodations.call
     accomodation = accomodations_results.sample
+    accommodation_details = AccommodationDetailsApiService.new(accomodation["id"])
+    accommodation_details = accommodation_details.call
     accomodation = Content.new(name: accomodation["name"],
-                            price: accomodation["price"]["lead"]["amount"],
-                            location: "Tokyo", #call_accomodation_details(accomodation["id"])["location"]["address"]["addressLine"],
-                            category: Category.last,
-                            rating: accomodation["reviews"]["score"],
-                            description: "2343errgg", #call_accomodation_details(accomodation["id"])["tagline"],
-                            api: "",
-                            status: 0)
-    accomodation.category = Category.last
+                              price: accomodation["price"]["lead"]["amount"],
+                              category: Category.last,
+                              rating: accomodation["reviews"]["score"],
+                              api: "",
+                              status: 0)
+    accomodation.location = accommodation_details["location"]["address"]["addressLine"]
+    accomodation.description = accommodation_details["tagline"]
     if accomodation.save!
       Category.last.update!(sub_category: "Hotel")
     else
@@ -142,35 +144,82 @@ class ItinerariesController < ApplicationController
     end
   end
 
+  def set_yelp_price(price_string)
+    case
+    when price_string.nil? || price_string == " " then return 0
+    when price_string == "￥" then return 10
+    when price_string == "￥￥" then return 30
+    when price_string == "￥￥￥" then return 60
+    when price_string == "￥￥￥￥" then return 100
+    end
+  end
+
+  def check_restaurant_api_location(api_location, location)
+    case
+    when api_location.nil? then return location
+    when !api_location.nil? then return api_location
+    end
+  end
+
   def set_restaurant(food_time)
     if food_time == "Lunch"
-      restaurants = RestaurantApiService.new(location: params[:location],
+      restaurant_budget = max_price_generator / 10
+      set_restaurant_budget = []
+
+      if restaurant_budget >= 60
+        set_restaurant_budget = "1, 2, 3, 4"
+      elsif restaurant_budget >= 30 && restaurant_budget < 60
+        set_restaurant_budget = "1, 2, 3"
+      elsif restaurant_budget >= 10 && restaurant_budget < 30
+        set_restaurant_budget = "1, 2"
+      else
+        set_restaurant_budget = "1"
+      end
+      restaurants = RestaurantApiService.new(location: @itinerary.location,
                                              keyword: "Best Lunch restaurants",
-                                             number_people: params[:number_people],
-                                             price: restaurant_price)
+                                             price: set_restaurant_budget)
       restaurants_results = restaurants.call
-      restaurant = restaurants_results.first
-      restaurant = Item.new(restaurant)
-      restaurant.category = Category.last
-      if restaurant.save!
-        # Saved!
-      else
-        # Accomodation Failed
-      end
+      restaurants_selected = restaurants_results.sample
+      restaurants_selected["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = restaurants_selected["location"]["display_address"].first
+
+      restaurant = Content.create!(name: restaurants_selected["name"],
+                                   price: set_yelp_price(restaurants_selected["price"]),
+                                   location: restaurant_location,
+                                   rating: restaurants_selected["rating"],
+                                   category: Category.last,
+                                   description: restaurants_selected["categories"].first["title"],
+                                   api: "",
+                                   status: 0)
+
     else
-      restaurants = RestaurantApiService.new(location: params[:location],
-                                             keyword: "Best Dinner restaurants",
-                                             number_people: params[:number_people],
-                                             price: restaurant_price)
-      restaurants_results = restaurants.call
-      restaurant = restaurants_results.first
-      restaurant = Item.new(restaurant)
-      restaurant.category = Category.last
-      if restaurant.save!
-        # Saved!
+      restaurant_budget = max_price_generator / 5
+      set_restaurant_budget = []
+
+      if restaurant_budget >= 60
+        set_restaurant_budget = "1, 2, 3, 4"
+      elsif restaurant_budget >= 30 && restaurant_budget < 60
+        set_restaurant_budget = "1, 2, 3"
+      elsif restaurant_budget >= 10 && restaurant_budget < 30
+        set_restaurant_budget = "1, 2"
       else
-        # Accomodation Failed
+        set_restaurant_budget = "1"
       end
+      restaurants = RestaurantApiService.new(location: @itinerary.location,
+                                             keyword: "Best Dinner restaurants",
+                                             price: set_restaurant_budget)
+      restaurants_results = restaurants.call
+      restaurants_selected = restaurants_results.sample
+
+      restaurants_selected["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = restaurants_selected["location"]["display_address"].first
+
+      restaurant = Content.create!(name: restaurants_selected["name"],
+                                   price: set_yelp_price(restaurants_selected["price"]),
+                                   location: restaurant_location,
+                                   rating: restaurants_selected["rating"],
+                                   category: Category.last,
+                                   description: restaurants_selected["categories"].first["title"],
+                                   api: "",
+                                   status: 0)
     end
   end
 
@@ -181,7 +230,7 @@ class ItinerariesController < ApplicationController
                                         price: restaurant_price)
     activities_results = activities.call
     activity = activities_results.first
-    activity = Item.new(activity)
+    activity = Content.new(activity)
     activity.category = Category.last
     if activity.save!
       Category.last.update!(sub_category: activity.description)

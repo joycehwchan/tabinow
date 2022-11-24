@@ -15,9 +15,9 @@ class AccommodationApiService
   end
 
   def call
-    # Calls the API for accomodation
+    # Calls the API for accommodation
 
-    # The API URL to get the area code for the accomodation search (adding the location to the query)
+    # The API URL to get the area code for the accommodation search (adding the location to the query)
     url = URI("https://hotels4.p.rapidapi.com/locations/v3/search?q=#{@location}%2C%20japan&locale=en_US&langid=1033&siteid=300000001")
 
     http = Net::HTTP.new(url.host, url.port)
@@ -38,7 +38,7 @@ class AccommodationApiService
     # Getting the location id for the hotel seach
     search_location = result["sr"][0]["gaiaId"]
 
-    # The API to get accomodations
+    # The API to get accommodations
     url = URI("https://hotels4.p.rapidapi.com/properties/v2/list")
 
     http = Net::HTTP.new(url.host, url.port)
@@ -59,41 +59,10 @@ class AccommodationApiService
     # Converting the reponse body into JSON
     result = JSON.parse(response.body)
 
-    # Selecting the accomodations from the results
-    search_accomodations = result["data"]["propertySearch"]["properties"]
+    # Selecting the accommodations from the results
+    search_accommodations = result["data"]["propertySearch"]["properties"]
 
     # Returning the results from the API
-    return search_accomodations
-  end
-
-  def call_accomodation_details(property_id)
-    url = URI("https://hotels4.p.rapidapi.com/properties/v2/detail")
-
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-    request = Net::HTTP::Post.new(url)
-    request["content-type"] = 'application/json'
-    request["X-RapidAPI-Key"] = '038544d40bmshdf6c0840f78c795p19f9fcjsnf89b88df833c'
-    request["X-RapidAPI-Host"] = 'hotels4.p.rapidapi.com'
-    request.body = "{
-        \"currency\": \"USD\",
-        \"eapid\": 1,
-        \"locale\": \"en_US\",
-        \"siteId\": 300000001,
-        \"propertyId\": \"#{property_id}\"
-    }"
-
-    response = http.request(request)
-
-    # Converting the reponse body into JSON
-    result = JSON.parse(response.body)
-
-    # Selecting the accomodation from the results
-    accomodation_details = result["data"]["propertyInfo"]["summary"]
-
-    # Returning the results from the API
-    return accomodation_details
+    return search_accommodations
   end
 end
