@@ -64,7 +64,7 @@ class ItinerariesController < ApplicationController
   def set_new_day
     return unless @itinerary.save
 
-    @itinerary.total_days.times do |i|
+    @days.times do |i|
       day = Day.new(number: i + 1)
       day.itinerary = @itinerary
       day.save
@@ -78,7 +78,7 @@ class ItinerariesController < ApplicationController
 
   def set_new_itinerary
     @itinerary = Itinerary.new(itineraries_params)
-    # @days = params[:number_of_days].to_i
+    @days = params[:number_of_days].to_i || @itinerary.total_days
     name = "#{@days} in #{itineraries_params[:location].capitalize}"
     set_new_client
     @itinerary.name = name
