@@ -48,7 +48,7 @@
 }
 
 .sidebar-links-container {
-  height: calc(100vh - 56px - 240px);
+  height: calc(100vh - 56px - 320px);
   overflow: auto;
   display: flex;
 }
@@ -66,10 +66,11 @@
   color: $white;
 }
 
-.sidebar-itinerary-location {
+.sidebar-itinerary-info {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.04rem;
   font-weight: 600;
-  color: rgba($primary, 0.8);
+  // color: rgba($primary, 0.8);
+  margin-bottom: 0;
 }
