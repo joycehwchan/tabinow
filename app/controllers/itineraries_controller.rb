@@ -190,7 +190,6 @@ class ItinerariesController < ApplicationController
                                    description: restaurants_selected["categories"].first["title"],
                                    api: "",
                                    status: 0)
-      puts restaurant
 
     else
       restaurant_budget = max_price_generator / 5
@@ -221,7 +220,6 @@ class ItinerariesController < ApplicationController
                                    description: restaurants_selected["categories"].first["title"],
                                    api: "",
                                    status: 0)
-      puts restaurant
     end
   end
 
