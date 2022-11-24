@@ -7,8 +7,18 @@
   .navbar-collapse {
     flex-grow: 0;
   }
+
+  .navbar-brand {
+    display: flex;
+    align-items: end;
+  }
+
   .navbar-brand img {
-    height: 2rem;
-    width: 2rem;
+    height: 40px;
+    width: 40px;
+  }
+  .logo {
+    font-family: "Handlee", cursive;
+    font-size: 1.4rem;
   }
 }
