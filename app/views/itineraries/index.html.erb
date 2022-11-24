@@ -1,7 +1,7 @@
 <div class="container itineraries-container my-4">
   <div class="d-flex justify-content-between">
     <div>
-      <h1>Welcome back</h1>
+      <h1>Welcome back<%= current_user.name ? ", #{current_user.name}!" : "" %></h1>
     </div>
     <div>
       <button type="button" class="btn btn-primary btn-tabinow float-end" data-bs-toggle="modal" data-bs-target="#createModal">
@@ -9,27 +9,37 @@
       </button>
     </div>
   </div>
-  <p><strong>You have <%= pluralize(@itineraries.count, 'itinerary') %></strong></p>
-  <div class="table-responsive">
-    <table class="styled-table">
-      <thead>
-        <tr>
-          <th>Itinerary name</th>
-          <th>Status</th>
-          <th>Request from</th>
-          <th>Action</th>
-          <th>Special request</th>
-          <th>Last updated</th>
-        </tr>
-      </thead>
-      <tbody>
-        <%# #render table row partial. Create partial called table_row %>
-        <% @itineraries.each do |itinerary| %>
-          <%= render 'table_row', itinerary: itinerary %>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+  <p>
+    <strong>
+      <% if @itineraries.count.zero? %>
+        Create a new itinerary now!
+      <% else %>
+        You have <%= pluralize(@itineraries.count, 'itinerary') %>.
+      <% end %>
+    </strong>
+  </p>
+  <% unless @itineraries.count.zero? %>
+    <div class="table-responsive">
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Itinerary name</th>
+            <th>Status</th>
+            <th>Request from</th>
+            <th>Action</th>
+            <th>Special request</th>
+            <th>Last updated</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%# #render table row partial. Create partial called table_row %>
+          <% @itineraries.each do |itinerary| %>
+            <%= render 'table_row', itinerary: itinerary %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 </div>
 <!-- Create Modal -->
 <%= render 'create_modal', itinerary: @itinerary %>

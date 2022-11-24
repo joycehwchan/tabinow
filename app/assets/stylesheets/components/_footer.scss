@@ -1,26 +1,10 @@
 .footer {
-  background-color: $tabinow-cyan;
-  padding: 0px 0px;
+  background-color: $secondary;
+  padding: 16px 128px;
   flex-shrink: 0;
-  // a {
-  //   color: black;
-  // }
-}
-
-.footer li {
-  color: $tabinow-pink;
-  display: inline;
-  padding: 4px;
-  margin-right: 0px;
-  font-size: 14px;
+  text-align: center;
 }
 
 .copyright {
-  color: $black;
-  font-size: 14px;
-  padding-left: 230px;
-}
-
-.list {
-  padding-right: 210px;
+  color: $white;
 }

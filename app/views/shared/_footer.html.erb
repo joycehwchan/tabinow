@@ -1,17 +1,39 @@
 <div class="footer">
-  <div class="">
-    <div class="d-flex justify-content-between pt-2">
-      <div>
-        <p class="copyright">TabiNow.com © <%= Time.now.year %>
+  <div class="row">
+    <div class="col-12 mb-2">
+      <p class="copyright"><strong>tabinow.tours  © <%= Time.now.year %></strong></p>
+    </div>
+    <div class="col-12 col-6 col-md-3">
+      <%= link_to 'https://github.com/topherikaika', class:"link-light", target: "blank" do %>
+        <p>
+          <i class="fa-brands fa-github"></i>
+          <span>topherikaika</span>
         </p>
-      </div>
-      <div class="list">
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Contact Us</a></li>
-        </ul>
-      </div>
+      <% end %>
+    </div>
+    <div class="col-12 col-6 col-md-3">
+      <%= link_to 'https://github.com/hafid-Qa', class:"link-light", target: "blank" do %>
+        <p>
+          <i class="fa-brands fa-github"></i>
+          <span>hafid-Qa</span>
+        </p>
+      <% end %>
+    </div>
+    <div class="col-12 col-6 col-md-3">
+      <%= link_to 'https://github.com/twk-mn', class:"link-light", target: "blank" do %>
+        <p>
+          <i class="fa-brands fa-github"></i>
+          <span>twk-mn</span>
+        </p>
+      <% end %>
+    </div>
+    <div class="col-12 col-6 col-md-3">
+      <%= link_to 'https://github.com/joycehwchan', class:"link-light", target: "blank" do %>
+        <p>
+          <i class="fa-brands fa-github"></i>
+          <span>joycehwchan</span>
+        </p>
+      <% end %>
     </div>
   </div>
 </div>

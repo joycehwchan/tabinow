@@ -2,21 +2,20 @@
   <div class="home-section top-section">
     <div class="top-section-left">
       <h1>Welcome to <span class="text-primary">Tabi</span>Now</h1>
-      <%# <img class="image-top-left" src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1635&q=80" alt="Travel Plan"> %>
+      <h3 class="mt-4 text-white">Tell us what you need and we will design the perfect Tabi for you!</h3>
     </div>
     <div class="top-section-right">
       <div class="form-container">
-        <h2 class="text-center mb-3">Request an itinerary now!</h2>
+        <h2 class="text-center mb-3">Begin your Tabi now!</h2>
         <%= render 'pages/external_request', itinerary: @itinerary %>
       </div>
     </div>
   </div>
   <div class="middle-section">
-    <h2 class="text-center">How does it work?</h2>
+    <h2 class="text-center text-gray my-4 fs-2">How does it work?</h2>
     <div class="row mt-5">
       <!-- Step 1 -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <!-- Replace this icon div with illustration -->
+      <div class="col-12 col-lg-4 mt-3">
         <div class="illustration-container">
           <div class="illustration-1 illustration">
           </div>
@@ -27,8 +26,7 @@
         </p>
       </div>
       <!-- Step 2 -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <!-- Replace this icon div with illustration -->
+      <div class="col-12 col-lg-4 mt-3">
         <div class="illustration-container">
           <div class="illustration-2 illustration">
           </div>
@@ -39,8 +37,7 @@
         </p>
       </div>
       <!-- Step 3 -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <!-- Replace this icon div with illustration -->
+      <div class="col-12 col-lg-4 mt-3">
         <div class="illustration-container">
           <div class="illustration-3 illustration">
           </div>
@@ -50,17 +47,6 @@
           Job done!
         </p>
       </div>
-      <%# <!-- Step 4 -->
-      <div class="col-12 col-md-6 col-lg-3">
-        <!-- Replace this icon div with illustration -->
-        <div class="icon">
-          <i class="fa-solid fa-arrow-pointer fa-5x"></i>
-        </div>
-        <h3 class="step-title">Step</h3>
-        <p class="text-center w-80">
-          instructions on this step instructions on this step instructions on this step instructions on this step on this step instructions on this step
-        </p>
-      </div> %>
     </div>
   </div>
   <%= render "shared/footer" %>
