@@ -2,19 +2,25 @@
   background-color: $tabinow-cyan;
   padding: 0px 0px;
   flex-shrink: 0;
-  a {
-    color: black;
-  }
+  // a {
+  //   color: black;
+  // }
 }
 
 .footer li {
   color: $tabinow-pink;
   display: inline;
+  padding: 4px;
   margin-right: 0px;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .copyright {
   color: $black;
-  font-size: 18px;
+  font-size: 14px;
+  padding-left: 230px;
+}
+
+.list {
+  padding-right: 210px;
 }

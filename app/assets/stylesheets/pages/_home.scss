@@ -64,6 +64,33 @@
   }
 }
 
+
+
+.illustration {
+  height: 12rem;
+  width: 12rem;
+  // border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.illustration-1 {
+  background-image: asset-url("flight.png");
+ }
+
+.illustration-2 {
+ background-image: asset-url("book.png");
+}
+
+.illustration-3 {
+  background-image: asset-url("pay.png");
+}
+
 .middle-section {
   padding: 32px 16px;
 }
@@ -72,19 +99,7 @@
   border-radius: 50%;
 }
 
-.icon {
-  color: black;
-  background: white;
-  width: 12rem;
-  height: 12rem;
-  // padding:30px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-}
-
 .step-title {
   text-align: center;
+  padding-top: 12px;
 }
