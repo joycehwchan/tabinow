@@ -1,0 +1,37 @@
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editModalLabel">Update itinerary</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for itinerary , data: { turbo: :false } do |f| %>
+          <div class="row">
+            <div class="col-12 mt-2">
+              <%= f.input :name %>
+            </div>
+            <div class="col-12 col-md-4">
+              <%= label_tag 'No. of days', nil, class:"form-label" %>
+              <%= number_field_tag :number_of_days, nil, class:"form-control" %>
+            </div>
+            <div class="col-12 col-md-8">
+              <%= f.input :location %>
+            </div>
+            <div class="mb-2 col-6">
+              <%= f.label  :min_budget,'Budget (min)', class:"form-label" %>
+              <%= f.input :min_budget, class:"form-control", step:"1000", min:"0", required: true, label: false %>
+            </div>
+            <div class="mb-2 col-6">
+              <%= f.label :max_budget ,'Budget (max)', class:"form-label" %>
+              <%= f.input :max_budget, class:"form-control", step:"1000", min:"0", required: true, label: false %>
+            </div>
+            <div class="col-12 mt-2">
+              <%= f.submit "Update Itinerary", class: 'btn btn-primary btn-tabinow mt-2 w-100' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

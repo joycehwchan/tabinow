@@ -1,0 +1,55 @@
+<div
+  class="sidebar"
+  data-controller="sidebar"
+  data-action="resize@window->sidebar#collaspe"
+  data-action="open@window->sidebar#collaspe">
+  <button class="btn btn-sm btn-light shadow-sm sidebar-toggle-btn" data-action="click->sidebar#toggle" data-sidebar-target="button"><i class="fa-solid fa-chevron-left"></i></button>
+  <div class="sidebar-container flex-shrink-0 p-2"
+       data-sidebar-target="content">
+    <div class="sidebar-top">
+      <div class="mb-4">
+        <div class="px-2">
+          <%= link_to itineraries_path, class:"link-secondary text-decoration-none text-uppercase" do %>
+            <i class="fa-solid fa-chevron-left"></i> Dashboard
+          <% end %>
+          <h1 class="mt-4"><%= @itinerary.name %></h1>
+          <p class="sidebar-itinerary-info text-muted">
+            <i class="fa-solid fa-location-dot me-1"></i>
+            <%= @itinerary.location %>
+          </p>
+        </div>
+        <!--
+        <%= link_to '#', class:"btn btn-sm btn-outline-secondary btn-tabinow d-block my-2" do %>
+          <i class="fa-solid fa-pen-to-square"></i> Edit Itinerary
+        <% end %>
+        -->
+        <button type="button" class="btn btn-sm btn-outline-secondary btn-tabinow d-block my-2 w-100" data-bs-toggle="modal" data-bs-target="#editModal">
+          <i class="fa-solid fa-pen-to-square"></i> Edit Itinerary
+        </button>
+      </div>
+      <div class="sidebar-links-container">
+        <ul class="nav nav-pills flex-column mb-auto w-100">
+          <li class="nav-item">
+            <%= link_to 'Overview', itinerary_path(@itinerary), class:"nav-link sidebar-link #{'active' if !params[:day].present?}", "aria_current": "page" %>
+          </li>
+          <% itinerary.days.each do |day| %>
+            <li class="nav-item">
+              <%= link_to "Day #{day.number}", itinerary_path(@itinerary, day: day.number), class:"nav-link sidebar-link #{'active' if params[:day].to_i == day.number}" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="sidebar-bottom mb-5">
+      <hr>
+      <%= link_to '#', class:"btn btn-sm btn-outline-primary btn-tabinow d-block mb-2" do %>
+        <i class="fa-regular fa-envelope"></i> Send Itinerary
+      <% end %>
+      <%= link_to itinerary_path(itinerary), class:"btn btn-sm btn-outline-dark btn-tabinow d-block", data: { turbo_method: :delete  , turbo_confirm: "Deleting #{itinerary.name} itinerary ?" } do %>
+        <i class="fa-solid fa-xmark"></i> Delete Itinerary
+      <% end %>
+    </div>
+  </div>
+</div>
+<!-- Edit Modal -->
+<%= render 'edit_modal', itinerary: itinerary %>
