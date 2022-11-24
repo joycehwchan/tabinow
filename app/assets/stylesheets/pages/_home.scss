@@ -12,7 +12,7 @@
 
 .home-section.top-section {
   display: flex;
-  flex-direction: row;
+  // flex-direction: row;
   width: 100%;
   height: fit-content;
   padding: 0;
@@ -28,7 +28,10 @@
   }
 
   .top-section-left {
-    width: 50%;
+    // width: 50%;
+    text-align: center;
+    min-height: 50vh;
+    width: 100%;
     background-color: $light-gray;
     padding: 64px 32px;
     display: flex;
@@ -43,10 +46,10 @@
       url("https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1635&q=80");
     background-position: center;
     background-size: cover;
-    min-height: 360px;
   }
   .top-section-right {
-    width: 50%;
+    // width: 50%;
+    width: 100%;
     background-color: $secondary;
     display: flex;
     justify-content: center;
