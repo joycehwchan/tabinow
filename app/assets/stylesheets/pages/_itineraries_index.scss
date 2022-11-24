@@ -1,3 +1,11 @@
 .itineraries-container {
-  max-width: 1000px;
+  max-width: 80vw;
+}
+
+td.special-request {
+  max-width: 240px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
