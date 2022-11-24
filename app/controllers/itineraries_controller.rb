@@ -119,7 +119,7 @@ class ItinerariesController < ApplicationController
   def set_restaurant(food_time)
     if food_time == "Lunch"
       restaurants = RestaurantApiService.new(location: params[:location],
-                                             keyword: "Best Lunch restaurants"
+                                             keyword: "Best Lunch restaurants",
                                              number_people: params[:number_people],
                                              price: restaurant_price)
       restaurants_results = restaurants.call
@@ -133,7 +133,7 @@ class ItinerariesController < ApplicationController
       end
     else
       restaurants = RestaurantApiService.new(location: params[:location],
-                                             keyword: "Best Dinner restaurants"
+                                             keyword: "Best Dinner restaurants",
                                              number_people: params[:number_people],
                                              price: restaurant_price)
       restaurants_results = restaurants.call
