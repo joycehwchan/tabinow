@@ -68,27 +68,41 @@ class ItinerariesController < ApplicationController
       day = Day.new(number: i + 1)
       day.itinerary = @itinerary
       day.save!
-      set_new_category_and_item(day)
+      new_category_and_item("Accomodation")
     end
   end
 
-  def set_new_category_and_item(day)
-    category = Category.new(title: "Accomodation",
-                            sub_category: "Hotel",
-                            day: day)
-    category.save!
+  def new_category_and_item(item_category)
+    if item_category == "Accomodation"
+      category = Category.new(title: "Accomodation",
+                              sub_category: "Not Set",
+                              day: day)
+      if category.save!
+        set_accomodation
+      else
+        # Category Failed
+      end
+    end
+  end
 
-    accomodations = AccomodationApiService.new(location: "Tokyo",
+  def set_accomodation
+    # Need to set price for accomodation.
+    accomodations = AccomodationApiService.new(location: params[:location],
                                                date_from: params[:date_from],
                                                date_to: params[:date_to],
                                                number_people: params[:number_people],
-                                               price_from: hotel_price_min,
-                                               price_to: hotel_price_max)
+                                               price_from: accomodation_night_price_min,
+                                               price_to: accomodation_night_price_max)
     accomodations_results = accomodations.call
     accomodation = accomodations_results.first
     accomodation = Item.new(accomodation)
     accomodation.category = Category.last
-    accomodation.save!
+    if accomodation.save!
+      update_category = Category.last.sub_category = "Hotel"
+      update_category.save!
+    else
+      # Accomodation Failed
+    end
   end
 
   def set_itinerary
