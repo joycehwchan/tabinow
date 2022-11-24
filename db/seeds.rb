@@ -275,7 +275,7 @@ set_dinner_restaurant = search_restuarants.sample
                                    api: "",
                                    status: rand(0..3))
   afternoon_activity.save!
-  puts "   Morning Activity: #{Content.last.name} (#{Content.last.description})"
+  puts "   Afternoon Activity: #{Content.last.name} (#{Content.last.description})"
   end
 end
 puts "--------------------------"
