@@ -2,14 +2,14 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="editModalLabel">Edit itinerary</h1>
+        <h1 class="modal-title fs-5" id="editModalLabel">Edit "<%= itinerary.name %>"</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <%= simple_form_for itinerary , data: { turbo: :false } do |f| %>
           <div class="row">
             <div class="col-12 mt-2">
-              <%= f.input :name %>
+              <%= f.input :name, label: "Name of itinerary" %>
             </div>
             <div class="col-12">
               <%= f.input :location %>
@@ -26,7 +26,7 @@
               <%= f.input :special_request %>
             </div>
             <div class="col-12 mt-2">
-              <%= f.submit "Edit Itinerary", class: 'btn btn-primary btn-tabinow mt-2 w-100' %>
+              <%= f.submit "Save changes", class: 'btn btn-primary btn-tabinow mt-2 w-100' %>
             </div>
           </div>
         <% end %>

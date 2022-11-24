@@ -8,7 +8,7 @@
   min-width: 100%;
 
   thead tr {
-    background-color: $secondary;
+    background-color: $dark;
     color: #ffffff;
     text-align: left;
   }
@@ -33,6 +33,6 @@
   }
 
   tbody tr:last-of-type {
-    border-bottom: 2px solid $secondary;
+    border-bottom: 2px solid $dark;
   }
 }
