@@ -106,8 +106,15 @@ class ItinerariesController < ApplicationController
                                                price_from: accomodation_night_price_min,
                                                price_to: accomodation_night_price_max)
     accomodations_results = accomodations.call
-    accomodation = accomodations_results.first
-    accomodation = Item.new(accomodation)
+    accomodation = accomodations_results.sample
+    accomodation = Item.new(name: accomodation["name"],
+                            price: accomodation["price"]["options"].first["strikeOut"]["amount"],
+                            location: call_accomodation_details(accomodation["id"])["location"]["address"]["addressLine"],
+                            category: Category.last,
+                            rating: accomodation["reviews"]["score"],
+                            description: call_accomodation_details(accomodation["id"])["tagline"],
+                            api: "",
+                            status: 0)
     accomodation.category = Category.last
     if accomodation.save!
       Category.last.update!(sub_category: "Hotel")
