@@ -1,0 +1,28 @@
+.card.content-card {
+  margin-bottom: 8px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .btn-add-content,
+  .btn-delete-content {
+    border: 0;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  .category-icon:hover {
+    background-color: $secondary;
+  }
+
+  .line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+
+  .card-text.line-clamp {
+    overflow: hidden;
+  }
+}
