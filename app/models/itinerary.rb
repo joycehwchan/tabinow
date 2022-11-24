@@ -15,7 +15,7 @@ class Itinerary < ApplicationRecord
     errors.add(:max_budget, "Can't be smaller then min budget")
   end
 
-  def days
+  def total_days
     (end_date - start_date).to_i
   end
 
