@@ -24,11 +24,11 @@ class ItinerariesController < ApplicationController
       set_employee
     elsif user_signed_in?
       @itineraries = policy_scope(Itinerary)
+      flash[:alert] = @itinerary.errors.full_messages.first
       render :index, status: :unprocessable_entity
-      flash[:alert] = @itinerary.errors.full_messages.first
     else
-      render 'pages/home', status: :unprocessable_entity
       flash[:alert] = @itinerary.errors.full_messages.first
+      render 'pages/home', status: :unprocessable_entity
     end
   end
 
@@ -78,7 +78,7 @@ class ItinerariesController < ApplicationController
 
   def set_new_itinerary
     @itinerary = Itinerary.new(itineraries_params)
-    @days = params[:number_of_days].to_i
+    @days = params[:number_of_days].to_i || @itinerary.total_days
     name = "#{@days} in #{itineraries_params[:location].capitalize}"
     set_new_client
     @itinerary.name = name
@@ -107,6 +107,6 @@ class ItinerariesController < ApplicationController
 
   def itineraries_params
     params.require(:itinerary).permit(:name, :location, :status, :employee_id, :client_id, :max_budget, :min_budget,
-                                      :special_request)
+                                      :special_request, :start_date, :end_date, :archived)
   end
 end
