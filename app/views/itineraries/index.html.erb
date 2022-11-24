@@ -1,5 +1,14 @@
 <div class="container itineraries-container my-4">
-  <h1>Welcome back</h1>
+  <div class="d-flex justify-content-between">
+    <div>
+      <h1>Welcome back</h1>
+    </div>
+    <div>
+      <button type="button" class="btn btn-primary btn-tabinow float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        New Itinerary
+      </button>
+    </div>
+  </div>
   <p>You have <%= pluralize(@itineraries.count, 'itinerary') %></p>
   <div class="table-responsive">
     <table class="styled-table">
@@ -19,5 +28,19 @@
         <% end %>
       </tbody>
     </table>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Create New itinerary</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= render 'itinerary', itinerary: @itinerary %>
+      </div>
+    </div>
   </div>
 </div>

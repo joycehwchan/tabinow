@@ -4,11 +4,12 @@ class ItinerariesController < ApplicationController
 
   def index
     @itineraries = policy_scope(Itinerary)
+    @itinerary = Itinerary.new
   end
 
   def show
-    # this is to create a new day in the itinerary show page
-    # @itinerary.day = Day.new
+    @day = @itinerary.days[params[:day].to_i - 1]
+    @contents = Content.where('location ILIKE ?', "%#{params[:query]}%") unless params[:query].present?
   end
 
   def new
@@ -19,6 +20,16 @@ class ItinerariesController < ApplicationController
   def create
     set_new_itinerary
     set_new_day
+    if @itinerary.save
+      set_employee
+    elsif user_signed_in?
+      @itineraries = policy_scope(Itinerary)
+      render :index, status: :unprocessable_entity
+      flash[:alert] = @itinerary.errors.full_messages.first
+    else
+      render 'pages/home', status: :unprocessable_entity
+      flash[:alert] = @itinerary.errors.full_messages.first
+    end
   end
 
   def update
@@ -51,6 +62,8 @@ class ItinerariesController < ApplicationController
   private
 
   def set_new_day
+    return unless @itinerary.save
+
     @days.times do |i|
       day = Day.new(number: i + 1)
       day.itinerary = @itinerary
@@ -66,17 +79,34 @@ class ItinerariesController < ApplicationController
   def set_new_itinerary
     @itinerary = Itinerary.new(itineraries_params)
     @days = params[:number_of_days].to_i
-    name = "#{@days} in #{itineraries_params[:location]}"
+    name = "#{@days} in #{itineraries_params[:location].capitalize}"
+    set_new_client
+    @itinerary.name = name
+    authorize @itinerary
+  end
+
+  def set_new_client
+    return unless
+     params[:email]
+
     generic_password = "tabinow"
     client = User.new(email: params[:email], password: generic_password)
     client.save
-    @itinerary.name = name
     @itinerary.client = client
-    authorize @itinerary
-    @itinerary.save
+  end
+
+  def set_employee
+    if user_signed_in?
+      @itinerary.employee = current_user
+      redirect_to itinerary_path(@itinerary)
+    else
+      redirect_to root_path
+      flash[:success] = "Information submitted!"
+    end
   end
 
   def itineraries_params
-    params.require(:itinerary).permit(:name, :location, :status, :employee_id, :client_id)
+    params.require(:itinerary).permit(:name, :location, :status, :employee_id, :client_id, :max_budget, :min_budget,
+                                      :special_request)
   end
 end

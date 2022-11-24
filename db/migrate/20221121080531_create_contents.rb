@@ -8,7 +8,6 @@ class CreateContents < ActiveRecord::Migration[7.0]
       t.integer :rating
       t.string :description
       t.string :api_id
-      t.references :day, null: false, foreign_key: true
       t.timestamps
     end
   end

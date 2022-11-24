@@ -1,8 +1,10 @@
 <div class="days-container">
   <div class="card rounded-md">
-    <div class="items-container p-2">
+    <div class="category-container p-2">
       <h2>Day <%= day.number %></h2>
-      <%= render 'item_icon' %>
+      <% day.contents.each do |content| %>
+        <%= render 'category_icon', category: content.category.title %>
+      <% end %>
     </div>
   </div>
 </div>

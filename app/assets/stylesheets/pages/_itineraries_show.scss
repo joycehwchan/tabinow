@@ -8,11 +8,14 @@
 
   .left-container {
     padding: 0 12px;
-    flex-grow: 1;
     height: calc(100vh - 56px - 16px);
     overflow: auto;
-    // max-width: 640px;
+    width: 50%;
+
     @media (max-width: 1040px) {
+      .days-container .category-container {
+        min-height: 2.7rem;
+      }
       .items-container {
         gap: 0.4rem;
       }
@@ -27,10 +30,9 @@
     padding: 12px;
     padding-top: 0;
     background-color: $secondary;
-    flex-grow: 1;
     height: calc(100vh - 56px - 16px);
     overflow: auto;
-    min-width: 400px;
+    width: 50%;
   }
 
   @media (max-width: 980px) {
@@ -42,6 +44,7 @@
       height: auto;
       min-height: 300px;
       padding: 0;
+      max-width: none;
     }
     .right-container {
       order: 1;
@@ -50,6 +53,11 @@
       height: auto;
       min-height: 300px;
       padding: 0;
+      padding: 4px 8px;
+    }
+
+    .results-container {
+      display: none;
     }
   }
 }
@@ -57,11 +65,43 @@
 .days-container {
   padding-bottom: 8px;
 
+  .category-container {
+    min-height: 3rem;
+  }
+
   &:last-child {
     padding-bottom: 0;
   }
 
   .card {
-    border-radius: 50px 4px 4px 50px;
+    border-radius: 50px;
+  }
+}
+
+.card.content-card {
+  margin-bottom: 8px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .btn-delete-content {
+    border: 0;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  .category-icon:hover {
+    background-color: $secondary;
+  }
+
+  .line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+
+  .card-text.line-clamp {
+    overflow: hidden;
   }
 }

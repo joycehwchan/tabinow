@@ -47,12 +47,23 @@
   }
 }
 
+.sidebar-links-container {
+  height: calc(100vh - 56px - 240px);
+  overflow: auto;
+  display: flex;
+}
+
 .sidebar-link {
   margin-bottom: 0;
   padding: 4px 8px;
+  color: $gray;
   &:hover {
     background-color: lighten($primary, 40%);
   }
+}
+
+.active {
+  color: $white;
 }
 
 .sidebar-itinerary-location {

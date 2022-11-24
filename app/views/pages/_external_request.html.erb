@@ -1,0 +1,39 @@
+ <%= simple_form_for itinerary , data: { turbo: :false } do |f| %>
+  <div class="row">
+    <div class="mb-2 col-12">
+      <%= label_tag 'Email', nil, class:"form-label" %>
+      <%= text_field_tag :email, nil, class:"form-control" %>
+    </div>
+    <div class="mb-2 col-6">
+      <%= f.label  :min_budget,'Budget (min)', class:"form-label" %>
+      <%= f.input :min_budget, class:"form-control", step:"1000", min:"0", required: true, label: false %>
+    </div>
+    <div class="mb-2 col-6">
+      <%= f.label :max_budget ,'Budget (max)', class:"form-label" %>
+      <%= f.input :max_budget, class:"form-control", step:"1000", min:"0", required: true, label: false %>
+    </div>
+    <div class="mb-2 col-6">
+      <%= label_tag 'Start date', nil, class:"form-label" %>
+      <input type="date" id="start_date" name="start_date" class="form-control">
+    </div>
+    <div class="mb-2 col-6">
+      <%= label_tag 'End date', nil, class:"form-label" %>
+      <input type="date" id="end_date" name="end_date" class="form-control">
+    </div>
+    <div class="mb-2 col-12">
+      <%= f.input :location %>
+    </div>
+    <div class="mb-2 col-12">
+      <%= f.input :special_request,  class:"form-control" %>
+    </div>
+    <div class="col-12">
+      <%= f.submit "Submit request", class: 'btn btn-primary btn-tabinow mt-2 w-100' %>
+    </div>
+  </div>
+<% end %>
+<!--
+    <div class="mb-2 col-12 col-md-4">
+      <%= label_tag 'No. of days', nil, class:"form-label" %>
+      <%= number_field_tag :number_of_days, nil, class:"form-control" , required: true %>
+    </div>
+-->

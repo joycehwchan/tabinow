@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_22_034234) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_23_123406) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,19 +54,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_22_034234) do
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string "title"
+    t.string "sub_category"
+    t.bigint "day_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["day_id"], name: "index_categories_on_day_id"
+  end
+
   create_table "contents", force: :cascade do |t|
-    t.string "category"
     t.string "name"
     t.integer "price"
     t.string "location"
-    t.integer "rating"
     t.string "description"
-    t.bigint "day_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
     t.string "api"
-    t.index ["day_id"], name: "index_contents_on_day_id"
+    t.string "rating"
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_contents_on_category_id"
   end
 
   create_table "days", force: :cascade do |t|
@@ -85,6 +93,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_22_034234) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "min_budget"
+    t.integer "max_budget"
+    t.text "special_request"
     t.index ["client_id"], name: "index_itineraries_on_client_id"
     t.index ["employee_id"], name: "index_itineraries_on_employee_id"
   end
@@ -107,7 +118,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_22_034234) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "users"
-  add_foreign_key "contents", "days"
+  add_foreign_key "categories", "days"
   add_foreign_key "days", "itineraries"
   add_foreign_key "itineraries", "users", column: "client_id"
   add_foreign_key "itineraries", "users", column: "employee_id"
