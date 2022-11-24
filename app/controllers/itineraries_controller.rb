@@ -137,7 +137,6 @@ class ItinerariesController < ApplicationController
                               status: 0)
     accomodation.location = accommodation_details["location"]["address"]["addressLine"]
     accomodation.description = accommodation_details["tagline"]
-    accomodation.category = Category.last
     if accomodation.save!
       Category.last.update!(sub_category: "Hotel")
     else
@@ -181,7 +180,7 @@ class ItinerariesController < ApplicationController
                                              price: set_restaurant_budget)
       restaurants_results = restaurants.call
       restaurants_selected = restaurants_results.sample
-      restaurants_selected["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = restaurants_selected["location"]["display_address"]
+      restaurants_selected["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = restaurants_selected["location"]["display_address"].first
 
       restaurant = Content.create!(name: restaurants_selected["name"],
                                    price: set_yelp_price(restaurants_selected["price"]),
@@ -212,7 +211,7 @@ class ItinerariesController < ApplicationController
       restaurants_results = restaurants.call
       restaurants_selected = restaurants_results.sample
 
-      restaurants_selected["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = restaurants_selected["location"]["display_address"]
+      restaurants_selected["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = restaurants_selected["location"]["display_address"].first
 
       restaurant = Content.create!(name: restaurants_selected["name"],
                                    price: set_yelp_price(restaurants_selected["price"]),
