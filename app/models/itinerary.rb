@@ -16,7 +16,7 @@ class Itinerary < ApplicationRecord
   end
 
   def days
-    (date_to - date_from).to_i
+    (end_date - start_date).to_i
   end
 
   def itinerary_duration
