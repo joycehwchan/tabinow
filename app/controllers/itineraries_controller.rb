@@ -130,11 +130,11 @@ class ItinerariesController < ApplicationController
     accommodation_details = AccommodationDetailsApiService.new(accomodation["id"])
     accommodation_details = accommodation_details.call
     accomodation = Content.new(name: accomodation["name"],
-                            price: accomodation["price"]["lead"]["amount"],
-                            category: Category.last,
-                            rating: accomodation["reviews"]["score"],
-                            api: "",
-                            status: 0)
+                              price: accomodation["price"]["lead"]["amount"],
+                              category: Category.last,
+                              rating: accomodation["reviews"]["score"],
+                              api: "",
+                              status: 0)
     accomodation.location = accommodation_details["location"]["address"]["addressLine"]
     accomodation.description = accommodation_details["tagline"]
     accomodation.category = Category.last
@@ -162,63 +162,67 @@ class ItinerariesController < ApplicationController
     end
   end
 
-
   def set_restaurant(food_time)
     if food_time == "Lunch"
-      restaurant_price = max_price_generator / 10
-      case
-      when restaurant_price < 10 then restaurant_price = "1"
-      when restaurant_price < 30 then restaurant_price = "1, 2"
-      when restaurant_price < 60 then restaurant_price = "1, 2, 3"
-      when restaurant_price > 60 then restaurant_price = "1, 2, 3, 4"
-      end
-      restaurants = RestaurantApiService.new(location: params[:location],
-                                             keyword: "Best Lunch restaurants",
-                                             price: restaurant_price)
-      restaurants_results = restaurants.call
-      restaurants_selected = restaurants_results.sample
-      restaurant = Content.new(name: restaurants_selected["name"],
-                               price: set_yelp_price(restaurants_selected["price"]),
+      restaurant_budget = max_price_generator / 10
+      set_restaurant_budget = []
 
-                               category: Category.last,
-                               rating: restaurants_selected["rating"],
-                               description: restaurants_selected["categories"].first["title"],
-                               api: "",
-                               status: 0)
-      restaurant.category = Category.last
-      case
-      when restaurants_selected["display_address"].nil? then return restaurant_location = location
-      when !restaurants_selected["display_address"].nil? then return restaurant_location = restaurants_selected["display_address"]
+      if restaurant_budget >= 60
+        set_restaurant_budget = "1, 2, 3, 4"
+      elsif restaurant_budget >= 30 && restaurant_budget < 60
+        set_restaurant_budget = "1, 2, 3"
+      elsif restaurant_budget >= 10 && restaurant_budget < 30
+        set_restaurant_budget = "1, 2"
+      else
+        set_restaurant_budget = "1"
       end
-      restaurant.location = restaurant_location
-      restaurant.save
-    else
-      restaurant_price = max_price_generator / 5
-      case
-      when restaurant_price < 10 then restaurant_price = "1"
-      when restaurant_price < 30 then restaurant_price = "1, 2"
-      when restaurant_price < 60 then restaurant_price = "1, 2, 3"
-      when restaurant_price > 60 then restaurant_price = "1, 2, 3, 4"
-      end
-      restaurants = RestaurantApiService.new(location: params[:location],
-                                             keyword: "Best Dinner restaurants",
-                                             price: restaurant_price)
+      restaurants = RestaurantApiService.new(location: @itinerary.location,
+                                             keyword: "Best Lunch restaurants",
+                                             price: set_restaurant_budget)
       restaurants_results = restaurants.call
       restaurants_selected = restaurants_results.sample
-      restaurant = Content.new(name: restaurants_selected["name"],
-                               price: set_yelp_price(restaurants_selected["price"]),
-                               category: Category.last,
-                               rating: restaurants_selected["rating"],
-                               description: restaurants_selected["categories"].first["title"],
-                               api: "",
-                               status: 0)
-      restaurant.category = Category.last
-      case
-      when restaurants_selected["display_address"].nil? then return restaurant_location = location
-      when !restaurants_selected["display_address"].nil? then return restaurant_location = restaurants_selected["display_address"]
+      restaurants_selected["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = restaurants_selected["location"]["display_address"]
+
+      restaurant = Content.create!(name: restaurants_selected["name"],
+                                   price: set_yelp_price(restaurants_selected["price"]),
+                                   location: restaurant_location,
+                                   rating: restaurants_selected["rating"],
+                                   category: Category.last,
+                                   description: restaurants_selected["categories"].first["title"],
+                                   api: "",
+                                   status: 0)
+      puts restaurant
+
+    else
+      restaurant_budget = max_price_generator / 5
+      set_restaurant_budget = []
+
+      if restaurant_budget >= 60
+        set_restaurant_budget = "1, 2, 3, 4"
+      elsif restaurant_budget >= 30 && restaurant_budget < 60
+        set_restaurant_budget = "1, 2, 3"
+      elsif restaurant_budget >= 10 && restaurant_budget < 30
+        set_restaurant_budget = "1, 2"
+      else
+        set_restaurant_budget = "1"
       end
-      restaurant.location = restaurant_location
-      restaurant.save!
+      restaurants = RestaurantApiService.new(location: @itinerary.location,
+                                             keyword: "Best Dinner restaurants",
+                                             price: set_restaurant_budget)
+      restaurants_results = restaurants.call
+      restaurants_selected = restaurants_results.sample
+
+      restaurants_selected["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = restaurants_selected["location"]["display_address"]
+
+      restaurant = Content.create!(name: restaurants_selected["name"],
+                                   price: set_yelp_price(restaurants_selected["price"]),
+                                   location: restaurant_location,
+                                   rating: restaurants_selected["rating"],
+                                   category: Category.last,
+                                   description: restaurants_selected["categories"].first["title"],
+                                   api: "",
+                                   status: 0)
+      puts restaurant
     end
   end
 
