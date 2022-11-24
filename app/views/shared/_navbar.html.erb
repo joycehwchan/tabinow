@@ -1,7 +1,8 @@
 <div class="navbar navbar-expand-sm navbar-tabinow">
   <div class="container-fluid px-4">
     <%= link_to ( user_signed_in? ? itineraries_path : root_path ), class: "navbar-brand" do %>
-      <strong>TabiNow</strong>
+      <%= image_tag("logo.svg", class:"logo", alt: "logo") %>
+      <strong><span class="text-primary">Tabi</span><span class="text-secondary">Now</span></strong>
     <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
