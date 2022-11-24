@@ -5,6 +5,7 @@ class ItinerariesController < ApplicationController
   def index
     @itineraries = policy_scope(Itinerary)
     @itinerary = Itinerary.new
+    # @number_of_days = pluralize(@itinerary.days.count, 'Day') || pluralize(@itinerary.total_days, 'Day')
   end
 
   def show

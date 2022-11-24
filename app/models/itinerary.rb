@@ -16,7 +16,11 @@ class Itinerary < ApplicationRecord
   end
 
   def total_days
-    (end_date - start_date).to_i
+    if start_date.nil? || end_date.nil?
+      days.count
+    else
+      (end_date - start_date).to_i
+    end
   end
 
   def itinerary_duration
