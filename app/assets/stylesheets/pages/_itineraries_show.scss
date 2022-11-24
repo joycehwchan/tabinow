@@ -29,10 +29,14 @@
     border-radius: 4px;
     padding: 12px;
     padding-top: 0;
-    background-color: $secondary;
+    background-color: rgba($secondary, 0.8);
     height: calc(100vh - 56px - 16px);
     overflow: auto;
     width: 50%;
+
+    .card.content-card {
+      cursor: grab;
+    }
   }
 
   @media (max-width: 980px) {
@@ -75,33 +79,5 @@
 
   .card {
     border-radius: 50px;
-  }
-}
-
-.card.content-card {
-  margin-bottom: 8px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  .btn-delete-content {
-    border: 0;
-    padding: 4px 10px;
-    border-radius: 20px;
-  }
-
-  .category-icon:hover {
-    background-color: $secondary;
-  }
-
-  .line-clamp {
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-  }
-
-  .card-text.line-clamp {
-    overflow: hidden;
   }
 }

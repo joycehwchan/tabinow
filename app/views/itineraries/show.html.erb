@@ -29,9 +29,11 @@
               <i class="fa-solid fa-magnifying-glass"></i>
             <% end %>
           </div>
-          <span class="badge rounded-pill text-bg-primary text-white py-2 mt-2">Filter</span>
-          <span class="badge rounded-pill text-bg-primary text-white py-2 mt-2">Another Filter</span>
-          <span class="badge rounded-pill text-bg-primary text-white py-2 mt-2">One More Filter</span>
+          <div class="filters-container">
+            <%= link_to 'Hotel', '#', class:"filter-pill" %>
+            <%= link_to 'Activity', '#', class:"filter-pill" %>
+            <%= link_to 'Restaurant', '#', class:"filter-pill" %>
+          </div>
         <% end %>
       </div>
     </div>

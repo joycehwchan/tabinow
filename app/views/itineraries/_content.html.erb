@@ -7,16 +7,25 @@
       <div class="flex-column flex-grow-1">
         <div class="d-flex justify-content-between">
           <h5 class="card-title"><%= content.name %></h5>
-          <%= link_to '#' do %>
-            <div class="btn btn-outline-primary btn-tabinow btn-delete-content">
-              <i class="fa-solid fa-xmark"></i>
-            </div>
+          <!--delete btn-->
+          <% if params[:query].present? %>
+            <%= link_to '#' do %>
+              <div class="btn btn-outline-secondary btn-tabinow btn-add-content">
+                <i class="fa-solid fa-plus"></i>
+              </div>
+            <% end %>
+          <% else %>
+            <%= link_to '#' do %>
+              <div class="btn btn-outline-primary btn-tabinow btn-delete-content">
+                <i class="fa-solid fa-xmark"></i>
+              </div>
+            <% end %>
           <% end %>
         </div>
         <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-location-dot"></i> <%= content.location %></h6>
         <p class="card-text line-clamp"><%= content.description %></p>
         <div class="d-flex justify-content-between">
-          <p class="m-0 user-select-none">
+          <p class="m-0 user-select-none text-info">
             <% content.rating.to_i.times do %>
               <i class="fa-solid fa-star"></i>
             <% end %>
