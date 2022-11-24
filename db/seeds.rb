@@ -206,7 +206,7 @@ puts " - Starting to create Itineraries -"
   puts "   Lunch: #{Content.last.name} (#{Content.last.description})"
 
   # Generate restuarant for dinner
-set_dinner_restaurant = search_restuarants.sample
+  set_dinner_restaurant = search_restuarants.sample
 
   category = Category.new(title: "Restaurant", sub_category: "Dinner", day: day)
   category.save!
