@@ -94,6 +94,15 @@ class ItinerariesController < ApplicationController
         # Category Failed
         end
       end
+    else
+      category = Category.new(title: "Acivity",
+                              sub_category: "Not Set",
+                              day: day)
+      if category.save!
+        set_activity
+      else
+        # Category Failed
+      end
     end
   end
 
@@ -145,6 +154,22 @@ class ItinerariesController < ApplicationController
       else
         # Accomodation Failed
       end
+    end
+  end
+
+  def set_activity
+    activities = ActivityApiService.new(location: params[:location],
+                                        keyword: "Fun Activities",
+                                        number_people: params[:number_people],
+                                        price: restaurant_price)
+    activities_results = activities.call
+    activity = activities_results.first
+    activity = Item.new(activity)
+    activity.category = Category.last
+    if activity.save!
+      Category.last.update!(sub_category: activity.description)
+    else
+      # Accomodation Failed
     end
   end
 
