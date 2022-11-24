@@ -67,8 +67,28 @@ class ItinerariesController < ApplicationController
     @days.times do |i|
       day = Day.new(number: i + 1)
       day.itinerary = @itinerary
-      day.save
+      day.save!
+      set_new_category_and_item(day)
     end
+  end
+
+  def set_new_category_and_item(day)
+    category = Category.new(title: "Accomodation",
+                            sub_category: "Hotel",
+                            day: day)
+    category.save!
+
+    accomodations = AccomodationApiService.new(location: "Tokyo",
+                                               date_from: params[:date_from],
+                                               date_to: params[:date_to],
+                                               number_people: params[:number_people],
+                                               price_from: hotel_price_min,
+                                               price_to: hotel_price_max)
+    accomodations_results = accomodations.call
+    accomodation = accomodations_results.first
+    accomodation = Item.new(accomodation)
+    accomodation.category = Category.last
+    accomodation.save!
   end
 
   def set_itinerary
