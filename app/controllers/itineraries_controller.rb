@@ -232,9 +232,9 @@ class ItinerariesController < ApplicationController
 
     if activity_budget >= 60
       set_activity_budget = "1, 2, 3, 4"
-    elsif activity_budget >= 30 && restaurant_budget < 60
+    elsif activity_budget >= 30 && activity_budget < 60
       set_activity_budget = "1, 2, 3"
-    elsif activity_budget >= 10 && restaurant_budget < 30
+    elsif activity_budget >= 10 && activity_budget < 30
       set_activity_budget = "1, 2"
     else
       set_activity_budget = "1"
