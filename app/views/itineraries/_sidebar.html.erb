@@ -12,7 +12,7 @@
           <%= link_to itineraries_path, class:"link-secondary text-decoration-none text-uppercase" do %>
             <i class="fa-solid fa-chevron-left"></i> Dashboard
           <% end %>
-          <h1 class="mt-4"><%= @itinerary.name %></h1>
+          <h1 class="mt-4"><%= @itinerary.title %></h1>
           <p class="sidebar-itinerary-info text-muted">
             <i class="fa-solid fa-location-dot me-1"></i>
             <%= @itinerary.location %>
@@ -50,7 +50,7 @@
       <%= link_to '#', class:"btn btn-sm btn-outline-primary btn-tabinow d-block mb-2" do %>
         <i class="fa-regular fa-envelope"></i> Send Itinerary
       <% end %>
-      <%= link_to itinerary_path(itinerary), class:"btn btn-sm btn-outline-dark btn-tabinow d-block", data: { turbo_method: :delete  , turbo_confirm: "Deleting #{itinerary.name} itinerary ?" } do %>
+      <%= link_to itinerary_path(itinerary), class:"btn btn-sm btn-outline-dark btn-tabinow d-block", data: { turbo_method: :delete  , turbo_confirm: "Deleting #{itinerary.title} itinerary ?" } do %>
         <i class="fa-solid fa-xmark"></i> Delete Itinerary
       <% end %>
     </div>
