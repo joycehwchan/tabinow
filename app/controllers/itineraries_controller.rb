@@ -74,9 +74,9 @@ class ItinerariesController < ApplicationController
       day = Day.new(number: i + 1)
       day.itinerary = @itinerary
       day.save!
-      new_category_and_item("Accommodation", day)
-      new_category_and_item("Restaurant", day)
-      new_category_and_item("Activity", day)
+      # new_category_and_item("Accommodation", day)
+      # new_category_and_item("Restaurant", day)
+      # new_category_and_item("Activity", day)
     end
   end
 
@@ -169,22 +169,21 @@ class ItinerariesController < ApplicationController
     @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
     title = "#{@days} in #{itineraries_params[:location].capitalize}"
     @itinerary.title = title
-    set_new_client
+    @itinerary.set_new_client(params[:name], params[:email])
     authorize @itinerary
   end
 
-  def set_new_client
-    return unless
-     params[:email]
+  # def set_new_client
+  #   return unless
+  #    params[:email]
 
-    generic_password = "tabinow"
-    client = User.where(email: params[:email]).first_or_initialize
-    client.name = params[:name]
-    client.password = generic_password unless client.id
-    client.save
-    @itinerary.client = client
-    @itinerary
-  end
+  #   generic_password = "tabinow"
+  #   client = User.where(email: params[:email]).first_or_initialize
+  #   client.name = params[:name]
+  #   client.password = generic_password unless client.id
+  #   client.save
+  #   @itinerary.client = client
+  # end
 
   def set_employee
     if user_signed_in?
