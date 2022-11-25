@@ -9,15 +9,15 @@
       <%= text_field_tag :email, nil, class:"form-control" %>
     </div>
     <div class="mb-1 col-6">
-      <%= f.label  :min_budget,'Budget (min USD)', class:"form-label" %>
+      <%= f.label :min_budget, 'Min Budget (USD)', class:"form-label" %>
       <%= f.input :min_budget, class:"form-control", step:"1000", min:"0", required: true, label: false %>
     </div>
     <div class="mb-1 col-6">
-      <%= f.label :max_budget ,'Budget (max USD)', class:"form-label" %>
+      <%= f.label :max_budget, 'Max Budget (USD)', class:"form-label" %>
       <%= f.input :max_budget, class:"form-control", step:"1000", min:"0", required: true, label: false %>
     </div>
     <div class="mb-1 col-12">
-      <%= f.input :start_date ,class:"form-control" %>
+      <%= f.input :start_date, class:"form-control" %>
     </div>
     <div class="mb-1 col-12">
       <%= f.input :end_date ,class:"form-control" %>
