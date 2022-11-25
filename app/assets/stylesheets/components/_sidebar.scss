@@ -34,12 +34,14 @@
 .sidebar-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  // justify-content: space-between;
   height: 100%;
   white-space: nowrap;
 
   h1 {
     font-size: 1.04rem;
+    width: 100%;
+    white-space: break-spaces;
   }
 
   a {
@@ -48,7 +50,7 @@
 }
 
 .sidebar-links-container {
-  height: calc(100vh - 64px - 360px);
+  height: calc(100vh - 64px - 400px);
   overflow: auto;
   display: flex;
 }
