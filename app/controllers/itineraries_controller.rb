@@ -314,7 +314,7 @@ class ItinerariesController < ApplicationController
       redirect_to itinerary_path(@itinerary)
     else
       redirect_to root_path
-      flash[:success] = "Information submitted!"
+      flash[:success] = "Request sent!"
     end
   end
 
