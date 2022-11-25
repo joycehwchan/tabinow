@@ -69,9 +69,9 @@ class ItinerariesController < ApplicationController
       day = Day.new(number: i + 1)
       day.itinerary = @itinerary
       day.save!
-      new_category_and_item("Accommodation", day)
-      new_category_and_item("Restaurant", day)
-      new_category_and_item("Activity", day)
+      # new_category_and_item("Accommodation", day)
+      # new_category_and_item("Restaurant", day)
+      # new_category_and_item("Activity", day)
     end
   end
 
