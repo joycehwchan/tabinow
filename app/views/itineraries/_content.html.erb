@@ -48,11 +48,11 @@
             <% end %>
           </p>
           <h5>
-            <%# if content.category.title == "Restaurant" %>
-            <%#= render 'restaurant_price', price: content.price %>
-            <%# else %>
-            <%= content.price.zero? ? "" : number_to_currency(content.price, precision: 0, unit: "$") %>
-            <%# end %>
+            <% if content.category.title == "Accommodation" %>
+              <%= content.price.zero? ? "" : number_to_currency(content.price, precision: 0, unit: "¥") %>
+            <% else %>
+              <%= content.price.zero? ? "" : number_to_currency(content.price, precision: 0, unit: "$") %>
+            <% end %>
           </h5>
         </div>
       </div>
