@@ -7,14 +7,15 @@
       <div class="flex-column flex-grow-1">
         <div class="d-flex justify-content-between">
           <h5 class="card-title"><%= content.name %></h5>
-          <!--delete btn-->
           <% if params[:query].present? %>
+            <!-- display add btn if content is a search result -->
             <%= link_to '#' do %>
               <div class="btn btn-outline-secondary btn-tabinow btn-add-content">
                 <i class="fa-solid fa-plus"></i>
               </div>
             <% end %>
           <% else %>
+            <!-- display delete btn if content belongs in an itinerary -->
             <%= link_to '#' do %>
               <div class="btn btn-outline-primary btn-tabinow btn-delete-content">
                 <i class="fa-solid fa-xmark"></i>
@@ -22,7 +23,20 @@
             <% end %>
           <% end %>
         </div>
-        <h6 class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-location-dot"></i> <%= content.location %></h6>
+        <h6 class="card-subtitle my-2 text-muted">
+          <i class="fa-solid fa-location-dot"></i> <%= content.location %>
+          <div class="mt-1">
+            <% if content.category.sub_category == "Lunch"%>
+              <i class="fa-solid fa-sun"></i> Lunch
+            <% elsif content.category.sub_category == "Dinner" %>
+              <i class="fa-solid fa-moon"></i> Dinner
+            <% elsif content.category.sub_category == "Museum" %>
+              <i class="fa-solid fa-building-columns"></i> Museum
+            <% elsif content.category.sub_category == "Historic Sites" %>
+              <i class="fa-solid fa-monument"></i> Historic Sites
+            <% end %>
+          </div>
+        </h6>
         <p class="card-text line-clamp"><%= content.description %></p>
         <div class="d-flex justify-content-between">
           <p class="m-0 user-select-none text-info">
