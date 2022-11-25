@@ -5,6 +5,7 @@ ruby "3.1.2"
 
 #CUSTOM
 gem 'meta-tags'
+gem 'javascript', '~> 0.0.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
