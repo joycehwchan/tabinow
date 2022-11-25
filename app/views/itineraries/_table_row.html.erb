@@ -10,16 +10,20 @@
     <%= link_to '#', class:"btn btn-sm btn-outline-secondary btn-tabinow" do %>
       <i class="fa-regular fa-envelope"></i> Send
     <% end %>
-    <%= link_to itinerary_path(itinerary), class:"btn btn-sm btn-outline-primary btn-tabinow", data: { turbo_method: :delete  , turbo_confirm: "Deleting #{itinerary.title} itinerary ?" } do %>
-      <i class="fa-solid fa-xmark"></i> Delete
+    <%= simple_form_for itinerary do |f| %>
+      <%= f.input :archived, as: :hidden , input_html: { value: true} %>
+      <%= f.submit "Archive", class:"btn btn-sm btn-outline-primary btn-tabinow" %>
     <% end %>
-  </td>
-  <td>
-    <div class="special-request text-truncate d-block">
-      <%= itinerary.special_request ? itinerary.special_request : "-" %>
-    </div>
-  </td>
-  <td>
-    <%= time_ago_in_words(itinerary.updated_at, include_seconds: true) %> ago
-  </td>
-</tr>
+    <%#= link_to itinerary_path(itinerary), , data: { turbo_method: :delete  , turbo_confirm: "Deleting #{itinerary.title} itinerary ?" } do %>
+      <%#= <i class="fa-solid fa-xmark"></i> Delete  %>
+      <%# end %>
+    </td>
+    <td>
+      <div class="special-request text-truncate d-block">
+        <%= itinerary.special_request ? itinerary.special_request : "-" %>
+      </div>
+    </td>
+    <td>
+      <%= time_ago_in_words(itinerary.updated_at, include_seconds: true) %> ago
+    </td>
+  </tr>
