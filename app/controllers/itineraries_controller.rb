@@ -81,7 +81,9 @@ class ItinerariesController < ApplicationController
                               sub_category: "Not Set",
                               day:)
       if category.save!
-        set_accommodation
+        # set_accommodation
+        AccommodationApiJob.perform_later(itineraries_params, min_price_generator, max_price_generator, @itinerary, category) # <- The job is queued
+
       else
         # Category Failed
       end
@@ -121,7 +123,7 @@ class ItinerariesController < ApplicationController
     return max_price
   end
 
-  def set_accommodation
+  def set_accommodation(itineraries_params)
     # Need to set price for accommodation.
     accommodations = AccommodationApiService.new(itineraries_params)
     accommodations.number_people = 2
