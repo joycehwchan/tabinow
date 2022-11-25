@@ -21,7 +21,7 @@ class AccommodationApiJob < ApplicationJob
     accommodation = Content.new(name: accommodation["name"],
                                 price: accommodation["price"]["lead"]["amount"],
                                 category:,
-                                rating: accommodation["reviews"]["score"],
+                                rating: accommodation["reviews"]["score"] / 2,
                                 api: "",
                                 status: 0)
     accommodation.location = accommodation_details["location"]["address"]["addressLine"]
