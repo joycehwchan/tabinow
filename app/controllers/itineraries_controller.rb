@@ -70,6 +70,7 @@ class ItinerariesController < ApplicationController
       day.save!
       new_category_and_item("Accommodation", day)
       new_category_and_item("Restaurant", day)
+      new_category_and_item("Activity", day)
     end
   end
 
@@ -96,13 +97,15 @@ class ItinerariesController < ApplicationController
         end
       end
     else
-      category = Category.new(title: "Acivity",
-                              sub_category: "Not Set",
-                              day: day)
-      if category.save!
-        set_activity
-      else
-        # Category Failed
+      2.times do
+        category = Category.new(title: "Activity",
+                                sub_category: "Not Set",
+                                day: day)
+        if category.save!
+          set_activity
+        else
+          # Category Failed
+        end
       end
     end
   end
@@ -130,11 +133,11 @@ class ItinerariesController < ApplicationController
     accommodation_details = AccommodationDetailsApiService.new(accommodation["id"])
     accommodation_details = accommodation_details.call
     accommodation = Content.new(name: accommodation["name"],
-                              price: accommodation["price"]["lead"]["amount"],
-                              category: Category.last,
-                              rating: accommodation["reviews"]["score"],
-                              api: "",
-                              status: 0)
+                                price: accommodation["price"]["lead"]["amount"],
+                                category: Category.last,
+                                rating: accommodation["reviews"]["score"],
+                                api: "",
+                                status: 0)
     accommodation.location = accommodation_details["location"]["address"]["addressLine"]
     accommodation.description = accommodation_details["tagline"]
     if accommodation.save!
@@ -182,14 +185,14 @@ class ItinerariesController < ApplicationController
       restaurants_selected = restaurants_results.sample
       restaurants_selected["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = restaurants_selected["location"]["display_address"].first
 
-      restaurant = Content.create!(name: restaurants_selected["name"],
-                                   price: set_yelp_price(restaurants_selected["price"]),
-                                   location: restaurant_location,
-                                   rating: restaurants_selected["rating"],
-                                   category: Category.last,
-                                   description: restaurants_selected["categories"].first["title"],
-                                   api: "",
-                                   status: 0)
+      Content.create!(name: restaurants_selected["name"],
+                      price: set_yelp_price(restaurants_selected["price"]),
+                      location: restaurant_location,
+                      rating: restaurants_selected["rating"],
+                      category: Category.last,
+                      description: restaurants_selected["categories"].first["title"],
+                      api: "",
+                      status: 0)
 
     else
       restaurant_budget = max_price_generator / 5
@@ -212,31 +215,49 @@ class ItinerariesController < ApplicationController
 
       restaurants_selected["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = restaurants_selected["location"]["display_address"].first
 
-      restaurant = Content.create!(name: restaurants_selected["name"],
-                                   price: set_yelp_price(restaurants_selected["price"]),
-                                   location: restaurant_location,
-                                   rating: restaurants_selected["rating"],
-                                   category: Category.last,
-                                   description: restaurants_selected["categories"].first["title"],
-                                   api: "",
-                                   status: 0)
+      Content.create!(name: restaurants_selected["name"],
+                      price: set_yelp_price(restaurants_selected["price"]),
+                      location: restaurant_location,
+                      rating: restaurants_selected["rating"],
+                      category: Category.last,
+                      description: restaurants_selected["categories"].first["title"],
+                      api: "",
+                      status: 0)
     end
   end
 
   def set_activity
-    activities = ActivityApiService.new(location: params[:location],
-                                        keyword: "Fun Activities",
-                                        number_people: params[:number_people],
-                                        price: restaurant_price)
-    activities_results = activities.call
-    activity = activities_results.first
-    activity = Content.new(activity)
-    activity.category = Category.last
-    if activity.save!
-      Category.last.update!(sub_category: activity.description)
+    activity_budget = max_price_generator / 6
+    set_activity_budget = []
+
+    if activity_budget >= 60
+      set_activity_budget = "1, 2, 3, 4"
+    elsif activity_budget >= 30 && restaurant_budget < 60
+      set_activity_budget = "1, 2, 3"
+    elsif activity_budget >= 10 && restaurant_budget < 30
+      set_activity_budget = "1, 2"
     else
-      # accommodation Failed
+      set_activity_budget = "1"
     end
+
+    activities = ActivityApiService.new(location: params[:location],
+                                        keyword: "activities",
+                                        number_people: params[:number_people],
+                                        price: set_activity_budget)
+    activities_results = activities.call
+    activity_selected = activities_results.sample
+
+    activity_selected["location"]["display_address"].nil? ? activity_location = location : activity_location = activity_selected["location"]["display_address"].first
+
+    Content.create!(name: activity_selected["name"],
+                    price: set_yelp_price(set_activity_budget["price"]),
+                    location: activity_location,
+                    rating: activity_selected["rating"],
+                    category: Category.last,
+                    description: activity_selected["categories"].first["title"],
+                    api: "",
+                    status: 0)
+
   end
 
   def set_itinerary
