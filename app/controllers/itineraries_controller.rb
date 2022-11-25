@@ -289,7 +289,7 @@ class ItinerariesController < ApplicationController
   def set_new_itinerary
     @itinerary = Itinerary.new(itineraries_params)
     @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
-    name = "#{@days} in #{itineraries_params[:location].capitalize}"
+    name = "#{@days} Days in #{itineraries_params[:location].capitalize}"
     @itinerary.name = name
     set_new_client
     authorize @itinerary
