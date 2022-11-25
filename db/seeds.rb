@@ -121,7 +121,7 @@ User.destroy_all
 puts " - Starting to create Users -"
 
 # Creating Employee user:
-employee = User.new(name: "TabiNowEmp",
+employee = User.new(name: "Joyce",
                     email: "emp@tabinow.tours",
                     phone: Faker::PhoneNumber.cell_phone_in_e164,
                     password: "Password123",
@@ -129,7 +129,7 @@ employee = User.new(name: "TabiNowEmp",
 employee.save!
 
 5.times do
-  client = User.new(name: Faker::TvShows::ParksAndRec.character,
+  client = User.new(name: ["Discover Tours", "Luxury Travels Inc", "Adventure Travels", "The Travellers", "Paul Smith", "Amy L."].sample,
                     email: Faker::Internet.email,
                     phone: Faker::PhoneNumber.cell_phone_in_e164,
                     password: "Password123",
@@ -153,7 +153,7 @@ start_date = Date.today
 end_date = start_date + rand(3..10)
 min_budget = rand(1..10) * 10000
 max_budget = min_budget + (rand(5..10) * [1000 ,10000].sample)
-SPECIALREQUESTDATA= ["Mandarin speaking guide", "only vegetarian meals","should include a Japanese tea ceremony", "should includes Disneyland", "should include Universal studio"]
+SPECIALREQUESTDATA= ["Mandarin speaking guide", "Only vegetarian meals", "Should include a Japanese tea ceremony", "Should include Disneyland", "Please add Universal studio!"]
 # Seed for itinerary
 5.times do |index|
   # Selecting employee from user db

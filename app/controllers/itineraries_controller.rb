@@ -129,8 +129,14 @@ class ItinerariesController < ApplicationController
     accommodations.price_to = max_price_generator / 2
     accommodations.start_date = @itinerary.start_date
     accommodations.end_date = @itinerary.end_date
-    accommodations_results = accommodations.call
-    accommodation = accommodations_results.sample
+
+    begin
+      accommodations_results = accommodations.call
+      accommodation = accommodations_results.sample
+    rescue
+      retry
+    end
+
     accommodation_details = AccommodationDetailsApiService.new(accommodation["id"])
     accommodation_details = accommodation_details.call
     accommodation = Content.new(name: accommodation["name"],
@@ -182,8 +188,14 @@ class ItinerariesController < ApplicationController
       restaurants = RestaurantApiService.new(location: @itinerary.location,
                                              keyword: "Best Lunch restaurants",
                                              price: set_restaurant_budget)
-      restaurants_results = restaurants.call
-      restaurants_selected = restaurants_results.sample
+
+      begin
+        restaurants_results = restaurants.call
+        restaurants_selected = restaurants_results.sample
+      rescue
+        retry
+      end
+
       restaurants_selected["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = restaurants_selected["location"]["display_address"].first
 
       Content.create!(name: restaurants_selected["name"],
@@ -211,8 +223,12 @@ class ItinerariesController < ApplicationController
       restaurants = RestaurantApiService.new(location: @itinerary.location,
                                              keyword: "Best Dinner restaurants",
                                              price: set_restaurant_budget)
-      restaurants_results = restaurants.call
-      restaurants_selected = restaurants_results.sample
+      begin
+        restaurants_results = restaurants.call
+        restaurants_selected = restaurants_results.sample
+      rescue
+        retry
+      end
 
       restaurants_selected["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = restaurants_selected["location"]["display_address"].first
 
@@ -233,9 +249,9 @@ class ItinerariesController < ApplicationController
 
     if activity_budget >= 60
       set_activity_budget = "1, 2, 3, 4"
-    elsif activity_budget >= 30 && restaurant_budget < 60
+    elsif activity_budget >= 30 && activity_budget < 60
       set_activity_budget = "1, 2, 3"
-    elsif activity_budget >= 10 && restaurant_budget < 30
+    elsif activity_budget >= 10 && activity_budget < 30
       set_activity_budget = "1, 2"
     else
       set_activity_budget = "1"
@@ -245,8 +261,13 @@ class ItinerariesController < ApplicationController
                                         keyword: "activities",
                                         number_people: params[:number_people],
                                         price: set_activity_budget)
-    activities_results = activities.call
-    activity_selected = activities_results.sample
+
+    begin
+      activities_results = activities.call
+      activity_selected = activities_results.sample
+    rescue
+      retry
+    end
 
     activity_selected["location"]["display_address"].nil? ? activity_location = location : activity_location = activity_selected["location"]["display_address"].first
 

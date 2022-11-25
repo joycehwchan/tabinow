@@ -28,11 +28,15 @@ class AccommodationDetailsApiService
         \"propertyId\": \"#{@property_id}\"
     }"
 
-    response = http.request(request)
+    begin
+      # Making the API call
+      response = http.request(request)
 
-    # Converting the reponse body into JSON
-    result = JSON.parse(response.body)
-
+      # Converting the reponse body into JSON
+      result = JSON.parse(response.body)
+      rescue JSON::ParserError
+      retry
+    end
     # Selecting the accommodation from the results
     accommodation_details = result["data"]["propertyInfo"]["summary"]
 
