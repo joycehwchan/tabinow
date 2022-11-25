@@ -279,9 +279,12 @@ class ItinerariesController < ApplicationController
      params[:email]
 
     generic_password = "tabinow"
-    client = User.new(email: params[:email], password: generic_password)
+    client = User.where(email: params[:email]).first_or_initialize
+    client.name = params[:name]
+    client.password = generic_password unless client.id
     client.save
     @itinerary.client = client
+    @itinerary
   end
 
   def set_employee
