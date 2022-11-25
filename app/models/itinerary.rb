@@ -37,6 +37,16 @@ class Itinerary < ApplicationRecord
     client.password = generic_password unless client.id
     client.save
     self.client = client
-    # self
+  end
+
+  def new_day(total_days)
+    total_days.times do |i|
+      day = Day.new(number: i + 1)
+      day.itinerary = self
+      day.save!
+      # new_category_and_item("Accommodation", day)
+      # new_category_and_item("Restaurant", day)
+      # new_category_and_item("Activity", day)
+    end
   end
 end
