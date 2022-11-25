@@ -128,6 +128,8 @@ employee = User.new(name: "Joyce",
                     admin: true)
 employee.save!
 
+User.create!(name: "Joyce",email: "emp@tabinow.tours",phone: Faker::PhoneNumber.cell_phone_in_e164,password: "Password123",admin: true)
+
 5.times do
   client = User.new(name: ["Discover Tours", "Luxury Travels Inc", "Adventure Travels", "The Travellers", "Paul Smith", "Amy L."].sample,
                     email: Faker::Internet.email,
