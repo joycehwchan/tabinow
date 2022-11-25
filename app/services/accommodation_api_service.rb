@@ -35,8 +35,7 @@ class AccommodationApiService
 
       # Converting the reponse body into JSON
       result = JSON.parse(response.body)
-    rescue
-      raise
+    rescue JSON::ParserError
       retry
     end
 

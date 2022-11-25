@@ -28,8 +28,7 @@ class RestaurantApiService
       response = http.request(request)
 
       restuarants = JSON.parse(response.body)["businesses"]
-    rescue
-      raise
+    rescue JSON::ParserError
       retry
     end
     return restuarants
