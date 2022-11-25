@@ -5,7 +5,7 @@ class Itinerary < ApplicationRecord
   validates :name, presence: true
   validates :status, presence: true
   validate  :min_budget_cannot_be_higher_than_max_budget
-  # validate :itinerary_duration
+  validate :itinerary_duration
   enum :status, ["draft", "pending", "confirmed", "rejected"], default: :pending
   validates :location, presence: true
 
@@ -24,6 +24,8 @@ class Itinerary < ApplicationRecord
   end
 
   def itinerary_duration
-    errors.add(:base, "Minimum itinerary duration 1 Day") if (end_date - start_date_).to_i.zero?
+    return unless start_date.present? && end_date.present? && (end_date - start_date).to_i.zero?
+
+    errors.add(:base, "Minimum itinerary duration 1 Day")
   end
 end
