@@ -1,5 +1,5 @@
  <%= simple_form_for itinerary , data: { turbo: :false } do |f| %>
-  <div class="row external-request-form">
+  <div class="row external-request-form" data-controller="form">
     <div class="mb-1 col-12">
       <%= label_tag 'Full name', nil, class:"form-label" %>
       <%= text_field_tag :name, nil, class:"form-control", placeholder: "Your Name" %>
@@ -17,10 +17,10 @@
       <%= f.input :max_budget, class:"form-control", step:"1000", min:"0", required: true, label: false, placeholder: "250" %>
     </div>
     <div class="mb-1 col-12 col-md-6">
-      <%= f.input :start_date, class:"form-control", html5: true, input_html: { min: "2022-11-26" } %>
+      <%= f.input :start_date, class:"form-control", html5: true, input_html: { min: Time.now.to_s[0...10], data: { form_target:"startDate", action: "change->form#setEndDate" }} %>
     </div>
     <div class="mb-1 col-12 col-md-6">
-      <%= f.input :end_date ,class:"form-control", html5: true, input_html: { min: "#2022-11-27" }  %>
+      <%= f.input :end_date ,class:"form-control", html5: true, input_html: { min: Time.now.to_s[0...10] , data: { form_target:"endDate" }} %>
     </div>
     <div class="mb-1 col-12">
       <%= f.input :location, label: "Tour destination", placeholder: "Tokyo" %>
