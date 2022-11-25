@@ -1,5 +1,5 @@
 <tr>
-  <td><%= link_to itinerary.name, itinerary_path(itinerary) %></td>
+  <td><%= link_to itinerary.title, itinerary_path(itinerary) %></td>
   <td>
     <div class="status-pill <%=itinerary.status %>">
       <span><%=itinerary.status %></span>
@@ -10,7 +10,7 @@
     <%= link_to '#', class:"btn btn-sm btn-outline-secondary btn-tabinow" do %>
       <i class="fa-regular fa-envelope"></i> Send
     <% end %>
-    <%= link_to itinerary_path(itinerary), class:"btn btn-sm btn-outline-primary btn-tabinow", data: { turbo_method: :delete  , turbo_confirm: "Deleting #{itinerary.name} itinerary ?" } do %>
+    <%= link_to itinerary_path(itinerary), class:"btn btn-sm btn-outline-primary btn-tabinow", data: { turbo_method: :delete  , turbo_confirm: "Deleting #{itinerary.title} itinerary ?" } do %>
       <i class="fa-solid fa-xmark"></i> Delete
     <% end %>
   </td>

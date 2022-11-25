@@ -116,7 +116,6 @@ class ItinerariesController < ApplicationController
     return max_price
   end
 
-
   def set_activity
     activity_budget = max_price_generator / 6
     set_activity_budget = []
@@ -139,7 +138,7 @@ class ItinerariesController < ApplicationController
     begin
       activities_results = activities.call
       activity_selected = activities_results.sample
-    rescue
+    rescue StandardError
       retry
     end
 
@@ -163,8 +162,8 @@ class ItinerariesController < ApplicationController
   def set_new_itinerary
     @itinerary = Itinerary.new(itineraries_params)
     @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
-    name = "#{@days} Days in #{itineraries_params[:location].capitalize}"
-    @itinerary.name = name
+    title = "#{@days} in #{itineraries_params[:location].capitalize}"
+    @itinerary.title = title
     set_new_client
     authorize @itinerary
   end
@@ -174,9 +173,12 @@ class ItinerariesController < ApplicationController
      params[:email]
 
     generic_password = "tabinow"
-    client = User.new(email: params[:email], password: generic_password)
+    client = User.where(email: params[:email]).first_or_initialize
+    client.name = params[:name]
+    client.password = generic_password unless client.id
     client.save
     @itinerary.client = client
+    @itinerary
   end
 
   def set_employee
@@ -185,12 +187,12 @@ class ItinerariesController < ApplicationController
       redirect_to itinerary_path(@itinerary)
     else
       redirect_to root_path
-      flash[:success] = "Information submitted!"
+      flash[:success] = "Request sent!"
     end
   end
 
   def itineraries_params
-    params.require(:itinerary).permit(:name, :location, :status, :employee_id, :client_id, :max_budget, :min_budget,
+    params.require(:itinerary).permit(:name, :title, :location, :status, :employee_id, :client_id, :max_budget, :min_budget,
                                       :special_request, :start_date, :end_date, :archived)
   end
 end
