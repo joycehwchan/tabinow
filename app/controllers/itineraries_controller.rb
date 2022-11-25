@@ -34,7 +34,12 @@ class ItinerariesController < ApplicationController
 
   def update
     @itinerary.update(itineraries_params)
-    redirect_to itinerary_path(@itinerary)
+    if @itinerary.archived
+      @itineraries = policy_scope(Itinerary)
+      redirect_to itineraries_path
+    else
+      redirect_to itinerary_path(@itinerary)
+    end
   end
 
   def destroy

@@ -128,7 +128,7 @@ employee = User.new(name: "Joyce",
                     admin: true)
 employee.save!
 
-User.create!(name: "Joyce",email: "emp@tabinow.tours",phone: Faker::PhoneNumber.cell_phone_in_e164,password: "Password123",admin: true)
+#  User.create!(name: "Joyce",email: "emp@tabinow.tours",phone: Faker::PhoneNumber.cell_phone_in_e164,password: "Password123",admin: true)
 
 5.times do
   client = User.new(name: ["Discover Tours", "Luxury Travels Inc", "Adventure Travels", "The Travellers", "Paul Smith", "Amy L."].sample,
@@ -172,7 +172,7 @@ SPECIALREQUESTDATA= ["Mandarin speaking guide", "Only vegetarian meals", "Should
   # Createing itinerary
   puts " - ##{index + 1}/5: #{days_number} days in #{location}"
 
-  itinerary = Itinerary.create!(name: "#{days_number} Days in #{location}",
+  itinerary = Itinerary.create!(title: "#{days_number} Days in #{location}",
                                 location: location,
                                 status: rand(0..3),
                                 client: client,
