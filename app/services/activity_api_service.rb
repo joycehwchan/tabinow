@@ -9,7 +9,7 @@ class ActivityApiService
 
   def call
     # Calls the API
-    url = URI("https://api.yelp.com/v3/businesses/search?location=#{@location},Japan&term=#{@keyword}&price=#{@price}&limit=50")
+    url = URI("https://api.yelp.com/v3/businesses/search?location=#{@location},Japan&term=#{@keyword}&price=#{@price}&sort_by=review_count&limit=50")
 
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
