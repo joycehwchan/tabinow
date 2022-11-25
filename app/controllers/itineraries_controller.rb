@@ -133,7 +133,7 @@ class ItinerariesController < ApplicationController
     begin
       accommodations_results = accommodations.call
       accommodation = accommodations_results.sample
-    rescue
+    rescue StandardError
       retry
     end
 
@@ -192,7 +192,7 @@ class ItinerariesController < ApplicationController
       begin
         restaurants_results = restaurants.call
         restaurants_selected = restaurants_results.sample
-      rescue
+      rescue StandardError
         retry
       end
 
@@ -226,7 +226,7 @@ class ItinerariesController < ApplicationController
       begin
         restaurants_results = restaurants.call
         restaurants_selected = restaurants_results.sample
-      rescue
+      rescue StandardError
         retry
       end
 
@@ -265,7 +265,7 @@ class ItinerariesController < ApplicationController
     begin
       activities_results = activities.call
       activity_selected = activities_results.sample
-    rescue
+    rescue StandardError
       retry
     end
 

@@ -25,6 +25,7 @@
         <%= form_with url: itinerary_path(@itinerary), method: :get, class: "" do %>
           <div class="d-flex">
             <%= text_field_tag :query, params[:query], class: "form-control",placeholder: "search"%>
+            <%= hidden_field_tag :day, params[:day] %>
             <%= button_tag type:"search", class:"btn btn-primary btn-tabinow ms-2" do  %>
               <i class="fa-solid fa-magnifying-glass"></i>
             <% end %>
