@@ -2,31 +2,31 @@
   <div class="row external-request-form">
     <div class="mb-1 col-12">
       <%= label_tag 'Full name', nil, class:"form-label" %>
-      <%= text_field_tag :name, nil, class:"form-control" %>
+      <%= text_field_tag :name, nil, class:"form-control", placeholder: "Your Name" %>
     </div>
     <div class="mb-1 col-12">
       <%= label_tag 'Email', nil, class:"form-label" %>
-      <%= text_field_tag :email, nil, class:"form-control" %>
+      <%= text_field_tag :email, nil, class:"form-control", placeholder: "Email" %>
     </div>
     <div class="mb-1 col-6">
-      <%= f.label :min_budget, 'Min Budget (USD)', class:"form-label" %>
-      <%= f.input :min_budget, class:"form-control", step:"1000", min:"0", required: true, label: false %>
+      <%= f.label :min_budget, 'Min Budget/Day ($USD)', class:"form-label" %>
+      <%= f.input :min_budget, class:"form-control", step:"1000", min:"0", required: true, label: false, placeholder: "100" %>
     </div>
     <div class="mb-1 col-6">
-      <%= f.label :max_budget, 'Max Budget (USD)', class:"form-label" %>
-      <%= f.input :max_budget, class:"form-control", step:"1000", min:"0", required: true, label: false %>
+      <%= f.label :max_budget, 'Max Budget/Day ($USD)', class:"form-label" %>
+      <%= f.input :max_budget, class:"form-control", step:"1000", min:"0", required: true, label: false, placeholder: "250" %>
+    </div>
+    <div class="mb-1 col-12 col-md-6">
+      <%= f.input :start_date, class:"form-control", html5: true, input_html: { min: "2022-11-26" } %>
+    </div>
+    <div class="mb-1 col-12 col-md-6">
+      <%= f.input :end_date ,class:"form-control", html5: true, input_html: { min: "#2022-11-27" }  %>
     </div>
     <div class="mb-1 col-12">
-      <%= f.input :start_date, class:"form-control" %>
+      <%= f.input :location, label: "Tour destination", placeholder: "Tokyo" %>
     </div>
     <div class="mb-1 col-12">
-      <%= f.input :end_date ,class:"form-control" %>
-    </div>
-    <div class="mb-1 col-12">
-      <%= f.input :location %>
-    </div>
-    <div class="mb-1 col-12">
-      <%= f.input :special_request,  class:"form-control" %>
+      <%= f.input :special_request,  class:"form-control", placeholder: "e.g. Include Disneyland." %>
     </div>
     <div class="col-12">
       <%= f.submit "Submit request", class: 'btn btn-primary btn-tabinow mt-2 w-100' %>
