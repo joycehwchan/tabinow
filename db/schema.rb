@@ -43,9 +43,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_024514) do
   end
 
   create_table "addresses", force: :cascade do |t|
-    t.string "zip_code"
+    t.string "zipcode"
     t.string "street"
-    t.string "street_two"
     t.string "city"
     t.string "country"
     t.bigint "user_id", null: false
@@ -68,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_024514) do
     t.integer "price"
     t.string "location"
     t.string "description"
+    t.bigint "day_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
@@ -75,6 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_024514) do
     t.string "rating"
     t.bigint "category_id"
     t.index ["category_id"], name: "index_contents_on_category_id"
+    t.index ["day_id"], name: "index_contents_on_day_id"
   end
 
   create_table "days", force: :cascade do |t|
@@ -93,14 +94,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_024514) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.string "email"
+    t.string "phone"
     t.integer "min_budget"
     t.integer "max_budget"
     t.text "special_request"
     t.boolean "archived", default: false
     t.date "start_date"
     t.date "end_date"
-    t.index ["client_id"], name: "index_itineraries_on_client_id"
-    t.index ["employee_id"], name: "index_itineraries_on_employee_id"
+    t.index ["user_id"], name: "index_itineraries_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -113,7 +116,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_024514) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "phone"
-    t.boolean "admin", default: false
+    t.integer "admin"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -122,6 +125,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_024514) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "users"
   add_foreign_key "categories", "days"
+  add_foreign_key "contents", "days"
   add_foreign_key "days", "itineraries"
   add_foreign_key "itineraries", "users", column: "client_id"
   add_foreign_key "itineraries", "users", column: "employee_id"
