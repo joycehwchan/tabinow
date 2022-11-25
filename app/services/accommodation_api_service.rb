@@ -29,11 +29,15 @@ class AccommodationApiService
     request["X-RapidAPI-Key"] = '2ce7422325msh1413b85402383f0p1d4a08jsn506805417938'
     request["X-RapidAPI-Host"] = 'hotels4.p.rapidapi.com'
 
-    # Making the API call
-    response = http.request(request)
+    begin
+      # Making the API call
+      response = http.request(request)
 
-    # Converting the reponse body into JSON
-    result = JSON.parse(response.body)
+      # Converting the reponse body into JSON
+      result = JSON.parse(response.body)
+    rescue JSON::ParserError
+      retry
+    end
 
     # Getting the location id for the hotel seach
     search_location = result["sr"][0]["gaiaId"]

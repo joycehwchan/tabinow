@@ -24,10 +24,13 @@ class RestaurantApiService
     key = 'Bearer SxGC-lIGxglEDFDoPWQVvrfYG_dPbKKsf07_1lv4PPN8QHzYs9PAZSCPvbFONVRzRj4S-08QRXfRjvmhvoKdASJkWApQ_BSM3P037WPDuWvbvJ1knBFBu7Tv-7l9Y3Yx'
     request['Authorization'] = key
 
-    response = http.request(request)
+    begin
+      response = http.request(request)
 
-    restuarants = JSON.parse(response.body)["businesses"]
-
+      restuarants = JSON.parse(response.body)["businesses"]
+    rescue JSON::ParserError
+      retry
+    end
     return restuarants
   end
 end
