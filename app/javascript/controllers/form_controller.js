@@ -5,8 +5,6 @@ export default class extends Controller {
   static targets = ["startDate", "endDate"];
 
   connect() {
-    console.log(this.element);
-    console.log(this.endDateTarget);
   }
 
   setEndDate() {
