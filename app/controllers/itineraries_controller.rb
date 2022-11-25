@@ -83,9 +83,6 @@ class ItinerariesController < ApplicationController
       if category.save!
         # set_accommodation
         AccommodationApiJob.perform_later(itineraries_params, min_price_generator, max_price_generator, @itinerary, category) # <- The job is queued
-
-      else
-        # Category Failed
       end
     elsif item_category == "Restaurant"
       food_times = ["Lunch", "Dinner"]
@@ -94,11 +91,7 @@ class ItinerariesController < ApplicationController
                                 sub_category: food_time,
                                 day:)
         if category.save!
-          set_restaurant(food_time)
-          AccommodationApiJob.perform_later(food_time, itineraries_params, max_price_generator, @itinerary, category) # <- The job is queued
-
-        else
-          # Category Failed
+          RestaurantApiJob.perform_later(food_time, max_price_generator, @itinerary, category) # <- The job is queued
         end
       end
     else
@@ -107,9 +100,7 @@ class ItinerariesController < ApplicationController
                                 sub_category: "Not Set",
                                 day:)
         if category.save!
-          set_activity
-        else
-          # Category Failed
+          ActivityApiJob.perform_later(max_price_generator, @itinerary, category) # <- The job is queued
         end
       end
     end
@@ -125,44 +116,6 @@ class ItinerariesController < ApplicationController
     return max_price
   end
 
-  def set_accommodation(itineraries_params)
-    # Need to set price for accommodation.
-    accommodations = AccommodationApiService.new(itineraries_params)
-    accommodations.number_people = 2
-    accommodations.price_from = min_price_generator / 2
-    accommodations.price_to = max_price_generator / 2
-    accommodations.start_date = @itinerary.start_date
-    accommodations.end_date = @itinerary.end_date
-
-    begin
-      accommodations_results = accommodations.call
-      accommodation = accommodations_results.sample
-    rescue
-      retry
-    end
-
-    accommodation_details = AccommodationDetailsApiService.new(accommodation["id"])
-    accommodation_details = accommodation_details.call
-    accommodation = Content.new(name: accommodation["name"],
-                                price: accommodation["price"]["lead"]["amount"],
-                                category: Category.last,
-                                rating: accommodation["reviews"]["score"],
-                                api: "",
-                                status: 0)
-    accommodation.location = accommodation_details["location"]["address"]["addressLine"]
-    accommodation.description = accommodation_details["tagline"]
-    if accommodation.save!
-      Category.last.update!(sub_category: "Hotel")
-    else
-      # accommodation Failed
-    end
-  end
-
-  
-
-  def set_restaurant(food_time)
-
-  end
 
   def set_activity
     activity_budget = max_price_generator / 6

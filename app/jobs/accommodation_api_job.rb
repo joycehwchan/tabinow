@@ -20,7 +20,7 @@ class AccommodationApiJob < ApplicationJob
     accommodation_details = accommodation_details.call
     accommodation = Content.new(name: accommodation["name"],
                                 price: accommodation["price"]["lead"]["amount"],
-                                category: category,
+                                category:,
                                 rating: accommodation["reviews"]["score"],
                                 api: "",
                                 status: 0)

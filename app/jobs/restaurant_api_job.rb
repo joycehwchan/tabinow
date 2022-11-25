@@ -33,7 +33,7 @@ class RestaurantApiJob < ApplicationJob
                       price: set_yelp_price(restaurants_selected["price"]),
                       location: restaurant_location,
                       rating: restaurants_selected["rating"],
-                      category: category,
+                      category:,
                       description: restaurants_selected["categories"].first["title"],
                       api: "",
                       status: 0)
@@ -67,7 +67,7 @@ class RestaurantApiJob < ApplicationJob
                       price: set_yelp_price(restaurants_selected["price"]),
                       location: restaurant_location,
                       rating: restaurants_selected["rating"],
-                      category: category,
+                      category:,
                       description: restaurants_selected["categories"].first["title"],
                       api: "",
                       status: 0)
