@@ -9,13 +9,19 @@
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
             <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
           <% end %>
-          <%= f.input :password,
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <%= f.input :password,
                 hint: "leave it blank if you don't want to change it",
                 required: false,
                 input_html: { autocomplete: "new-password" } %>
-          <%= f.input :password_confirmation,
+            </div>
+            <div class="col-12 col-md-6">
+              <%= f.input :password_confirmation,
                 required: false,
                 input_html: { autocomplete: "new-password" } %>
+            </div>
+          </div>
           <%= f.input :current_password,
                 hint: "we need your current password to confirm your changes",
                 required: true,
