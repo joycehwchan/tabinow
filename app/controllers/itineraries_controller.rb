@@ -19,8 +19,8 @@ class ItinerariesController < ApplicationController
 
   def create
     set_new_itinerary
-    set_new_day
     if @itinerary.save
+      set_new_day
       set_employee
     elsif user_signed_in?
       @itineraries = policy_scope(Itinerary)
@@ -63,6 +63,7 @@ class ItinerariesController < ApplicationController
 
   def set_new_day
     return unless @itinerary.save
+
     @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
     @days.times do |i|
       day = Day.new(number: i + 1)
@@ -78,7 +79,7 @@ class ItinerariesController < ApplicationController
     if item_category == "Accommodation"
       category = Category.new(title: "Accommodation",
                               sub_category: "Not Set",
-                              day: day)
+                              day:)
       if category.save!
         set_accommodation
       else
@@ -89,18 +90,18 @@ class ItinerariesController < ApplicationController
       food_times.each do |food_time|
         category = Category.new(title: "Restaurant",
                                 sub_category: food_time,
-                                day: day)
+                                day:)
         if category.save!
           set_restaurant(food_time)
         else
-        # Category Failed
+          # Category Failed
         end
       end
     else
       2.times do
         category = Category.new(title: "Activity",
                                 sub_category: "Not Set",
-                                day: day)
+                                day:)
         if category.save!
           set_activity
         else
@@ -257,7 +258,6 @@ class ItinerariesController < ApplicationController
                     description: activity_selected["categories"].first["title"],
                     api: "",
                     status: 0)
-
   end
 
   def set_itinerary
@@ -267,9 +267,10 @@ class ItinerariesController < ApplicationController
 
   def set_new_itinerary
     @itinerary = Itinerary.new(itineraries_params)
-    name = "#{@itinerary.total_days} in #{itineraries_params[:location].capitalize}"
-    set_new_client
+    @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
+    name = "#{@days} in #{itineraries_params[:location].capitalize}"
     @itinerary.name = name
+    set_new_client
     authorize @itinerary
   end
 
