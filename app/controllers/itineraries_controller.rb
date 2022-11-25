@@ -250,7 +250,7 @@ class ItinerariesController < ApplicationController
     activity_selected["location"]["display_address"].nil? ? activity_location = location : activity_location = activity_selected["location"]["display_address"].first
 
     Content.create!(name: activity_selected["name"],
-                    price: set_yelp_price(activity_location["price"]),
+                    price: set_yelp_price(activity_selected["price"]),
                     location: activity_location,
                     rating: activity_selected["rating"],
                     category: Category.last,
