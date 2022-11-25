@@ -167,9 +167,9 @@ class ItinerariesController < ApplicationController
   def set_new_itinerary
     @itinerary = Itinerary.new(itineraries_params)
     @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
-    title = "#{@days} in #{itineraries_params[:location].capitalize}"
+    title = "#{@days} #{'day'.pluralize(@days)} in #{itineraries_params[:location].capitalize}"
     @itinerary.title = title
-    @itinerary.set_new_client(params[:name], params[:email])
+    @itinerary.set_new_client(name: params[:name], email: params[:email])
     authorize @itinerary
   end
 

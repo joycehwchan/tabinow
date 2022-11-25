@@ -30,15 +30,13 @@ class Itinerary < ApplicationRecord
   end
 
   def set_new_client(client_info = {})
-    binding.break
     return unless client_info[:email]
 
     generic_password = "tabinow"
-    client = User.where(email: params[:email]).first_or_initialize
-    client.name = params[:name]
+    client = User.where(client_info).first_or_initialize
     client.password = generic_password unless client.id
     client.save
     self.client = client
-    self
+    # self
   end
 end
