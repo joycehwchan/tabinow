@@ -12,10 +12,6 @@
     border-radius: 20px;
   }
 
-  .category-icon:hover {
-    background-color: $secondary;
-  }
-
   .line-clamp {
     display: -webkit-box;
     -webkit-line-clamp: 4;
@@ -24,5 +20,16 @@
 
   .card-text.line-clamp {
     overflow: hidden;
+  }
+
+  .available {
+    margin-left: 4px;
+    border-radius: 50px;
+    margin-bottom: 0;
+    padding: 2px 12px;
+    font-size: 0.8rem;
+    width: fit-content;
+    background-color: rgba($green, 0.6);
+    color: darken(rgba($green, 40), 40);
   }
 }

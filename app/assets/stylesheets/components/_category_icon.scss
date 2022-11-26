@@ -31,3 +31,66 @@
     background-color: lighten($secondary, 2);
   }
 }
+
+.category-icon.purple {
+  background-color: $purple;
+  &:hover {
+    background-color: lighten($purple, 2);
+  }
+}
+
+.category-icon.pink {
+  background-color: $pink;
+  &:hover {
+    background-color: lighten($pink, 2);
+  }
+}
+
+.category-icon.magenta {
+  background-color: $magenta;
+  &:hover {
+    background-color: lighten($magenta, 2);
+  }
+}
+
+.category-icon.blue {
+  background-color: $blue;
+  &:hover {
+    background-color: lighten($blue, 2);
+  }
+}
+
+.category-icon.indigo {
+  background-color: $indigo;
+  &:hover {
+    background-color: lighten($indigo, 2);
+  }
+}
+
+.category-icon.dark-blue {
+  background-color: $dark-blue;
+  &:hover {
+    background-color: lighten($dark-blue, 2);
+  }
+}
+
+.category-icon.yellow {
+  background-color: $yellow;
+  &:hover {
+    background-color: lighten($yellow, 2);
+  }
+}
+
+.category-icon.teal {
+  background-color: $teal;
+  &:hover {
+    background-color: lighten($teal, 2);
+  }
+}
+
+.category-icon.cyan {
+  background-color: $cyan;
+  &:hover {
+    background-color: lighten($cyan, 2);
+  }
+}
