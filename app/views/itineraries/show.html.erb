@@ -41,7 +41,7 @@
     <div class="results-container">
       <% if params[:query].present? %>
         <% @contents.each do |content| %>
-          <%= render 'content', content: content %>
+          <%= render 'result', content: content %>
         <% end %>
       <% end %>
       <!-- WORK IN PROGRESS END -->
