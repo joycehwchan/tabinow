@@ -39,20 +39,25 @@
         </h6>
         <p class="card-text line-clamp"><%= content.description %></p>
         <div class="d-flex justify-content-between">
-          <p class="m-0 user-select-none text-info">
-            <% content.rating.to_i.times do %>
-              <i class="fa-solid fa-star"></i>
-            <% end %>
-            <% (5 - content.rating.to_i).times do %>
-              <i class="fa-regular fa-star"></i>
-            <% end %>
-          </p>
-          <h5>
+          <div class="d-flex align-items-center">
+            <p class="m-0 user-select-none text-info">
+              <% content.rating.to_i.times do %>
+                <i class="fa-solid fa-star"></i>
+              <% end %>
+              <% (5 - content.rating.to_i).times do %>
+                <i class="fa-regular fa-star"></i>
+              <% end %>
+            </p>
             <% if content.category.title == "Accommodation" %>
-              <%= content.price.zero? ? "" : number_to_currency(content.price, precision: 0, unit: "¥") %>
-            <% else %>
-              <%= content.price.zero? ? "" : number_to_currency(content.price, precision: 0, unit: "$") %>
+              <p class="available">Available</p>
             <% end %>
+          </div>
+          <h5 class="mb-0">
+            <%# if content.category.title == "Accommodation" %>
+            <%#= content.price.zero? ? "" : number_to_currency(content.price, precision: 0, unit: "¥") %>
+            <%# else %>
+            <%= content.price.zero? ? "" : number_to_currency(content.price, precision: 0, unit: "$") %>
+            <%# end %>
           </h5>
         </div>
       </div>
