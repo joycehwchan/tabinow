@@ -85,6 +85,25 @@
 
 .section-about {
   display: flex;
+  min-height: 40vh;
+
+  .feature {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .about-icon {
+    color: $secondary;
+    font-size: 1.4rem;
+    width: 2.4rem;
+    padding: 0 1rem;
+    border-radius: 40px;
+    margin-right: 1rem;
+  }
 
   .section-about-left,
   .section-about-right {
@@ -93,6 +112,7 @@
 
   .section-about-right {
     max-height: 40rem;
+    align-self: center;
   }
 
   .section-about-left {
@@ -115,6 +135,7 @@
 
   @media (max-width: 1000px) {
     flex-direction: column;
+
     .section-about-left,
     .section-about-right {
       width: 100%;
@@ -129,6 +150,7 @@
     }
     .section-about-img {
       scale: 0.8;
+      align-self: center;
     }
   }
 
@@ -140,7 +162,8 @@
 }
 
 .section-quote {
-  height: 20rem;
+  min-height: 20rem;
+  padding: 4rem 0;
   background-color: $primary;
   color: $white;
   text-align: center;
@@ -150,6 +173,10 @@
   align-items: center;
 
   .quote {
-    font-size: 2.8rem;
+    font-size: 2.4rem;
+  }
+
+  @media (max-width: 1000px) {
+    padding: 2rem 1rem;
   }
 }
