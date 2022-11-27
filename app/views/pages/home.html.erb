@@ -5,37 +5,7 @@
     <%= link_to "Start now", root_path, class:"btn btn-lg btn-primary btn-tabinow mt-4" %>
   </div>
   <div class="section-about">
-    <div class="section-about-left">
-      <h4 class="fs-6 text-secondary text-uppercase mt-5">About Us</h4>
-      <h5 class="fs-1 mb-4">We help you build a trip in <span class="text-primary">seconds</span>.</h5>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum tempora rerum eius commodi! A at dignissimos eius fuga nesciunt illum culpa esse natus aliquid aut dicta nobis voluptate iste autem laboriosam repudiandae, magnam exercitationem. Modi quas maiores suscipit numquam ducimus?</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero ab dolor at sapiente culpa aut dignissimos numquam distinctio doloremque eius.</p>
-      <div class="feature my-3">
-        <i class="fa-solid fa-arrow-pointer about-icon"></i>
-        <div>
-          <strong>Simple</strong>
-          <p class="mb-0">DIY a full travel itinerary with just a few clicks.</p>
-        </div>
-      </div>
-      <div class="feature">
-        <i class="fa-solid fa-dollar-sign about-icon"></i>
-        <div>
-          <strong>Budget</strong>
-          <p class="mb-0">We will make sure you stay within your budget.</p>
-        </div>
-      </div>
-      <div class="feature">
-        <i class="fa-solid fa-file-arrow-down about-icon"></i>
-        <div>
-          <strong>Save</strong>
-          <p class="mb-0">Sign up to save all your itineraries.</p>
-        </div>
-      </div>
-      <%= link_to "Read more", '#', class:"btn btn-outline-primary btn-tabinow mt-4" %>
-    </div>
-    <div class="section-about-right">
-      <%= image_tag "demo.png", alt: "tabinow", class:"section-about-img" %>
-    </div>
+    <%= render 'section_about' %>
   </div>
   <div class="section-quote">
     <i class="fa-solid fa-quote-left quote"></i>
@@ -43,42 +13,10 @@
     <i class="fa-solid fa-quote-right quote"></i>
   </div>
   <div class="section-steps">
-    <h2 class="text-center text-gray my-4 fs-2">How does it work?</h2>
-    <div class="row mt-5">
-      <!-- Step 1 -->
-      <div class="col-12 col-lg-4 mt-3">
-        <div class="illustration-container">
-          <div class="illustration-1 illustration">
-          </div>
-        </div>
-        <h3 class="step-title">Generate</h3>
-        <p class="text-center w-80">
-          Select dates and destination to build an itinerary.
-        </p>
-      </div>
-      <!-- Step 2 -->
-      <div class="col-12 col-lg-4 mt-3">
-        <div class="illustration-container">
-          <div class="illustration-2 illustration">
-          </div>
-        </div>
-        <h3 class="step-title">Customize</h3>
-        <p class="text-center w-80">
-          Tweak the itinerary to make it entirely yours.
-        </p>
-      </div>
-      <!-- Step 3 -->
-      <div class="col-12 col-lg-4 mt-3">
-        <div class="illustration-container">
-          <div class="illustration-3 illustration">
-          </div>
-        </div>
-        <h3 class="step-title">Save</h3>
-        <p class="text-center w-80">
-          Save and download your itinerary!
-        </p>
-      </div>
-    </div>
+    <%= render "section_steps" %>
+  </div>
+  <div class="section-reviews">
+    <%= render "section_reviews" %>
   </div>
   <%= render "shared/footer" %>
 </div>
