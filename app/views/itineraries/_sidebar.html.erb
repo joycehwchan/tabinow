@@ -18,13 +18,8 @@
             <%= @itinerary.location %>
           </p>
         </div>
-        <!--
-        <%= link_to '#', class:"btn btn-sm btn-outline-secondary btn-tabinow d-block my-2" do %>
-          <i class="fa-solid fa-pen-to-square"></i> Edit Itinerary
-        <% end %>
-        -->
         <button type="button" class="btn btn-sm btn-outline-secondary btn-tabinow d-block my-2 w-100" data-bs-toggle="modal" data-bs-target="#editModal">
-          <i class="fa-solid fa-pen-to-square"></i> Edit Itinerary
+          <i class="fa-solid fa-pen-to-square"></i> Edit
         </button>
       </div>
       <div class="sidebar-links-container">
@@ -47,11 +42,18 @@
     </div>
     <div class="sidebar-bottom mb-5">
       <hr>
-      <%= link_to '#', class:"btn btn-sm btn-outline-primary btn-tabinow d-block mb-2" do %>
-        <i class="fa-regular fa-envelope"></i> Send Itinerary
-      <% end %>
-      <%= link_to itinerary_path(itinerary), class:"btn btn-sm btn-outline-dark btn-tabinow d-block", data: { turbo_method: :delete  , turbo_confirm: "Deleting #{itinerary.title} itinerary ?" } do %>
-        <i class="fa-solid fa-xmark"></i> Delete Itinerary
+      <% if user_signed_in? %>
+        <%= link_to '#', class:"btn btn-sm btn-outline-primary btn-tabinow d-block mb-2" do %>
+          <i class="fa-solid fa-download"></i> Download
+        <% end %>
+        <%= link_to itinerary_path(itinerary), class:"btn btn-sm btn-outline-dark btn-tabinow d-block", data: { turbo_method: :delete  , turbo_confirm: "Deleting #{itinerary.title} itinerary ?" } do %>
+          <i class="fa-solid fa-xmark"></i> Delete
+        <% end %>
+      <% else %>
+        <small>Want to save itinerary?</small>
+        <%= link_to '#', class:"btn btn-sm btn-outline-primary btn-tabinow d-block my-2" do %>
+          <i class="fa-solid fa-user-plus"></i> Sign up now
+        <% end %>
       <% end %>
     </div>
   </div>
