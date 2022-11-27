@@ -4,51 +4,19 @@
     <h3 class="mt-4 text-white">Design your next trip to Japan!</h3>
     <%= link_to "Start now", root_path, class:"btn btn-lg btn-primary btn-tabinow mt-4" %>
   </div>
-  <div class="section2">
-    <h2 class="text-center text-gray my-4 fs-2">How does it work?</h2>
-    <div class="row mt-5">
-      <!-- Step 1 -->
-      <div class="col-12 col-lg-4 mt-3">
-        <div class="illustration-container">
-          <div class="illustration-1 illustration">
-          </div>
-        </div>
-        <h3 class="step-title">Generate</h3>
-        <p class="text-center w-80">
-          Select dates and destination to build an itinerary.
-        </p>
-      </div>
-      <!-- Step 2 -->
-      <div class="col-12 col-lg-4 mt-3">
-        <div class="illustration-container">
-          <div class="illustration-2 illustration">
-          </div>
-        </div>
-        <h3 class="step-title">Customize</h3>
-        <p class="text-center w-80">
-          Tweak the itinerary to make it entirely yours.
-        </p>
-      </div>
-      <!-- Step 3 -->
-      <div class="col-12 col-lg-4 mt-3">
-        <div class="illustration-container">
-          <div class="illustration-3 illustration">
-          </div>
-        </div>
-        <h3 class="step-title">Save</h3>
-        <p class="text-center w-80">
-          Save and download your itinerary!
-        </p>
-      </div>
-    </div>
+  <div class="section-about">
+    <%= render 'section_about' %>
   </div>
-  <div class="section3">
-    <div class="section3-left">
-      left section
-    </div>
-    <div class="section3-right">
-      right section
-    </div>
+  <div class="section-quote">
+    <i class="fa-solid fa-quote-left quote"></i>
+    <p class="quote">Design a <span id="word"></span>tour.</p>
+    <i class="fa-solid fa-quote-right quote"></i>
+  </div>
+  <div class="section-steps">
+    <%= render "section_steps" %>
+  </div>
+  <div class="section-reviews">
+    <%= render "section_reviews" %>
   </div>
   <%= render "shared/footer" %>
 </div>

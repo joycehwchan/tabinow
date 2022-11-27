@@ -45,7 +45,7 @@
   }
 }
 
-.section2 {
+.section-steps {
   flex-grow: 1;
   padding: 32px 16px;
 
@@ -83,29 +83,109 @@
   }
 }
 
-.section3 {
+.section-about {
   display: flex;
+  min-height: 40vh;
 
-  .section3-left,
-  .section3-right {
+  .feature {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .about-icon {
+    color: $secondary;
+    font-size: 1.4rem;
+    width: 2.4rem;
+    padding: 0 1rem;
+    border-radius: 40px;
+    margin-right: 1rem;
+  }
+
+  .section-about-left,
+  .section-about-right {
     width: 50%;
-    height: 40rem;
+  }
+
+  .section-about-right {
+    max-height: 40rem;
+    align-self: center;
+  }
+
+  .section-about-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    padding: 4rem;
+    padding-right: 0;
+  }
+
+  .section-about-right {
+    min-height: 28rem;
+    padding: 4rem 0;
+  }
+  .section-about-img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
   }
 
   @media (max-width: 1000px) {
     flex-direction: column;
-    .section3-left,
-    .section3-right {
+
+    .section-about-left,
+    .section-about-right {
       width: 100%;
-      height: 28rem;
+      min-height: fit-content;
+      padding: 4rem;
+    }
+
+    // .section-about-left {
+    //   padding-bottom: 0;
+    // }
+    .section-about-right {
+      // padding: 0;
+      display: none;
+    }
+    // .section-about-img {
+    //   scale: 0.8;
+    //   align-self: center;
+    // }
+  }
+
+  @media (max-width: 500px) {
+    .section-about-left {
+      padding: 4rem 1.2rem;
     }
   }
+}
 
-  .section3-left {
-    background-color: $white;
+.section-quote {
+  min-height: 20rem;
+  padding: 4rem 0;
+  background-color: $primary;
+  color: $white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .quote {
+    font-size: 2.4rem;
   }
 
-  .section3-right {
-    background-color: $primary;
+  @media (max-width: 1000px) {
+    padding: 2rem 1rem;
   }
+}
+
+.section-reviews {
+  // display: flex;
+  // flex-direction: column;
+  padding: 4rem;
 }
