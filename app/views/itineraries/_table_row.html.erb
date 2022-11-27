@@ -7,12 +7,14 @@
       <span><%=itinerary.status %></span>
     </div>
   </td>
+  <!--
   <td>
     <%= itinerary.client ? itinerary.client.name : "-" %>
   </td>
+  -->
   <td>
     <div class="d-flex justify-content-evenly align-items-center">
-      <%= link_to 'Send', '#', class:"btn btn-sm btn-outline-secondary btn-tabinow" %>
+      <%= link_to 'Download', '#', class:"btn btn-sm btn-outline-secondary btn-tabinow" %>
       <%= simple_form_for itinerary , class: "m-0" do |f| %>
         <%#= f.input :archived, as: :hidden , input_html: { value: true} %>
         <div class="hidden itinerary_archived">
