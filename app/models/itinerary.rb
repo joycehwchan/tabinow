@@ -28,4 +28,25 @@ class Itinerary < ApplicationRecord
 
     errors.add(:base, "Minimum itinerary duration 1 Day")
   end
+
+  def set_new_client(client_info = {})
+    return unless client_info[:email]
+
+    generic_password = "tabinow"
+    client = User.where(client_info).first_or_initialize
+    client.password = generic_password unless client.id
+    client.save
+    self.client = client
+  end
+
+  def new_day(total_days)
+    total_days.times do |i|
+      day = Day.new(number: i + 1)
+      day.itinerary = self
+      day.save!
+      # new_category_and_item("Accommodation", day)
+      # new_category_and_item("Restaurant", day)
+      # new_category_and_item("Activity", day)
+    end
+  end
 end

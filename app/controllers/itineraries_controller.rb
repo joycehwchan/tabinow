@@ -20,7 +20,7 @@ class ItinerariesController < ApplicationController
   def create
     set_new_itinerary
     if @itinerary.save
-      set_new_day
+      @itinerary.new_day(@days)
       set_employee
     elsif user_signed_in?
       @itineraries = policy_scope(Itinerary)
@@ -66,19 +66,18 @@ class ItinerariesController < ApplicationController
 
   private
 
-  def set_new_day
-    return unless @itinerary.save
+  # def set_new_day
 
-    @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
-    @days.times do |i|
-      day = Day.new(number: i + 1)
-      day.itinerary = @itinerary
-      day.save!
-      new_category_and_item("Accommodation", day)
-      new_category_and_item("Restaurant", day)
-      new_category_and_item("Activity", day)
-    end
-  end
+  #   @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
+  #   @days.times do |i|
+  #     day = Day.new(number: i + 1)
+  #     day.itinerary = @itinerary
+  #     day.save!
+  #     # new_category_and_item("Accommodation", day)
+  #     # new_category_and_item("Restaurant", day)
+  #     # new_category_and_item("Activity", day)
+  #   end
+  # end
 
   def new_category_and_item(item_category, day)
     if item_category == "Accommodation"
@@ -167,23 +166,10 @@ class ItinerariesController < ApplicationController
   def set_new_itinerary
     @itinerary = Itinerary.new(itineraries_params)
     @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
-    title = "#{@days} in #{itineraries_params[:location].capitalize}"
+    title = "#{@days} #{'day'.pluralize(@days)} in #{itineraries_params[:location].capitalize}"
     @itinerary.title = title
-    set_new_client
+    @itinerary.set_new_client(name: params[:name], email: params[:email])
     authorize @itinerary
-  end
-
-  def set_new_client
-    return unless
-     params[:email]
-
-    generic_password = "tabinow"
-    client = User.where(email: params[:email]).first_or_initialize
-    client.name = params[:name]
-    client.password = generic_password unless client.id
-    client.save
-    @itinerary.client = client
-    @itinerary
   end
 
   def set_employee
