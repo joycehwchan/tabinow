@@ -4,7 +4,24 @@
     <h3 class="mt-4 text-white">Design your next trip to Japan!</h3>
     <%= link_to "Start now", root_path, class:"btn btn-lg btn-primary btn-tabinow mt-4" %>
   </div>
-  <div class="section2">
+  <div class="section-about">
+    <div class="section-about-left">
+      <h4 class="fs-6 text-secondary text-uppercase">About Us</h4>
+      <h5 class="fs-1 mb-4">We help you build a <span class="text-primary">unique</span> travel itinerary in <span class="text-primary">seconds</span>.</h5>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis consequatur minus dolores beatae, quisquam eum et soluta illo dolorem tempore quos delectus, aliquam laudantium voluptatem maiores ullam blanditiis repudiandae qui distinctio quibusdam asperiores voluptates iste itaque cum! Rem, officia quis!</p>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis suscipit maxime perferendis, veniam omnis voluptate tempora odio doloremque nobis facilis?</p>
+      <%= link_to "Read more", '#', class:"btn btn-outline-primary btn-tabinow"  %>
+    </div>
+    <div class="section-about-right">
+      <%= image_tag "demo.png", alt: "tabinow", class:"section-about-img" %>
+    </div>
+  </div>
+  <div class="section-quote">
+    <i class="fa-solid fa-quote-left quote"></i>
+    <p class="quote">An inspirational quote about travelling.</p>
+    <i class="fa-solid fa-quote-right quote"></i>
+  </div>
+  <div class="section-steps">
     <h2 class="text-center text-gray my-4 fs-2">How does it work?</h2>
     <div class="row mt-5">
       <!-- Step 1 -->
@@ -40,14 +57,6 @@
           Save and download your itinerary!
         </p>
       </div>
-    </div>
-  </div>
-  <div class="section3">
-    <div class="section3-left">
-      left section
-    </div>
-    <div class="section3-right">
-      right section
     </div>
   </div>
   <%= render "shared/footer" %>
