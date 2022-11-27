@@ -20,9 +20,7 @@ class RestaurantApiService
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
     request = Net::HTTP::Get.new(url)
-
-    key = 'Bearer SxGC-lIGxglEDFDoPWQVvrfYG_dPbKKsf07_1lv4PPN8QHzYs9PAZSCPvbFONVRzRj4S-08QRXfRjvmhvoKdASJkWApQ_BSM3P037WPDuWvbvJ1knBFBu7Tv-7l9Y3Yx'
-    request['Authorization'] = key
+    request['Authorization'] = "Bearer #{ENV.fetch('YELP_API_KEY')}"
 
     begin
       response = http.request(request)

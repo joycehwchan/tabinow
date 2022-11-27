@@ -18,7 +18,7 @@ class AccommodationDetailsApiService
 
     request = Net::HTTP::Post.new(url)
     request["content-type"] = 'application/json'
-    request["X-RapidAPI-Key"] = '038544d40bmshdf6c0840f78c795p19f9fcjsnf89b88df833c'
+    request["X-RapidAPI-Key"] = ENV.fetch('HOTELS_API_KEY')
     request["X-RapidAPI-Host"] = 'hotels4.p.rapidapi.com'
     request.body = "{
         \"currency\": \"USD\",
