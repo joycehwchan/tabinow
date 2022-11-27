@@ -1,11 +1,11 @@
 <div class="card content-card">
   <div class="card-body">
     <div class="d-flex">
-      <div class="me-3">
+      <div class="content-card-category-icon-container">
         <%= render 'category_icon', category: content.category.title %>
       </div>
       <div class="flex-column flex-grow-1">
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between align-items-center">
           <h5 class="card-title"><%= content.name %></h5>
           <%= link_to '#' do %>
             <div class="btn btn-outline-primary btn-tabinow btn-delete-content">

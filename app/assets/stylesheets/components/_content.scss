@@ -5,6 +5,10 @@
     margin-bottom: 0;
   }
 
+  .content-card-category-icon-container {
+    margin-right: 8px;
+  }
+
   .btn-add-content,
   .btn-delete-content {
     border: 0;
@@ -31,5 +35,31 @@
     width: fit-content;
     background-color: rgba($green, 0.6);
     color: darken(rgba($green, 40), 40);
+  }
+
+  h5 {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 500px) {
+    h5 {
+      font-size: 1rem;
+    }
+    h6.card-subtitle {
+      font-size: 0.8rem;
+    }
+
+    p.card-text {
+      font-size: 0.8rem;
+    }
+
+    .content-card-category-icon-container {
+      margin-right: 8px;
+    }
+
+    .text-info,
+    .available {
+      font-size: 0.7rem;
+    }
   }
 }
