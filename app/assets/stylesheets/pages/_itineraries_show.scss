@@ -75,6 +75,14 @@
 .day-container {
   padding-bottom: 8px;
 
+  .category-icon:hover {
+    cursor: grab;
+  }
+
+  .category-icon:active {
+    cursor: grabbing;
+  }
+
   h2 {
     margin-bottom: 0;
     padding: 0 8px;

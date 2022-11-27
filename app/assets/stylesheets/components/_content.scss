@@ -24,6 +24,7 @@
 
   .card-text.line-clamp {
     overflow: hidden;
+    margin-bottom: 8px;
   }
 
   .available {
@@ -35,6 +36,15 @@
     width: fit-content;
     background-color: rgba($green, 0.6);
     color: darken(rgba($green, 40), 40);
+  }
+
+  .content-img {
+    width: 100%;
+    height: 12rem;
+    margin: 8px 0;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: $light-gray;
   }
 
   h5 {

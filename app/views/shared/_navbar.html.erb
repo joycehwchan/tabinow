@@ -1,39 +1,33 @@
-<div class="navbar navbar-expand-sm navbar-tabinow">
-  <div class="container-fluid px-4">
+<nav class="navbar navbar-expand-lg bg-light navbar-tabinow ">
+  <div class="container-fluid">
     <%= link_to ( user_signed_in? ? itineraries_path : root_path ), class: "navbar-brand" do %>
       <%= image_tag("logo.svg", class:"logo", alt: "logo") %>
       <strong class="logo"><span class="text-primary">Tabi</span><span class="text-secondary">Now</span></strong>
     <% end %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <% if user_signed_in? %>
           <li class="nav-item">
             <%= link_to "Dashboard", itineraries_path, class: "nav-link" %>
           </li>
-          <!--
           <li class="nav-item">
             <%= link_to "Account", edit_user_registration_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
             <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "nav-link"%>
-          </li>-->
-          <li class="nav-item dropdown">
-            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Profile", "#", class: "dropdown-item" %>
-              <%= link_to "Account", edit_user_registration_path, class: "dropdown-item" %>
-              <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
-            </div>
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+            <%= link_to "Login", new_user_session_path, class: "nav-link me-2" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign up", new_user_registration_path, class: "btn btn-secondary btn-tabinow" %>
           </li>
         <% end %>
       </ul>
     </div>
   </div>
-</div>
+</nav>

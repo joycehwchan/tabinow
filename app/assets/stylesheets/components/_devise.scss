@@ -2,8 +2,10 @@
   flex-direction: column;
   max-width: 800px;
   margin: 32px auto;
-  // background-color: white;
   padding: 48px;
   border-radius: 8px;
   height: fit-content;
+  @media (max-width: 840px) {
+    padding: 12px;
+  }
 }
