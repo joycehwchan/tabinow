@@ -1,5 +1,9 @@
 .filters-container {
   margin-top: 8px;
+  display: flex;
+  gap: 4px;
+  width: 100%;
+  overflow: auto;
 }
 
 .filter-pill {

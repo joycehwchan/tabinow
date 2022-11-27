@@ -4,9 +4,10 @@
   flex-direction: row;
   gap: 8px;
   width: 100%;
-  // margin-right: 1rem;
   max-width: 1600px;
   margin: 0 auto;
+  max-height: calc(100vh - 64px);
+  overflow: auto;
 
   .left-container {
     padding: 0 12px;
@@ -43,27 +44,30 @@
 
   @media (max-width: 800px) {
     flex-direction: column;
-    .left-container {
-      order: 2;
+    gap: 16px;
+
+    .left-container,
+    .right-container {
       flex-grow: 0;
       width: 100%;
       height: auto;
-      min-height: 300px;
-      padding: 0;
+      padding: 4px 8px;
+    }
+
+    .left-container {
+      order: 2;
+      height: 60%;
+
       max-width: none;
     }
     .right-container {
       order: 1;
-      flex-grow: 0;
-      width: 100%;
-      height: auto;
-      min-height: 300px;
-      padding: 0;
-      padding: 4px 8px;
+      height: 40%;
     }
 
     .results-container {
-      display: none;
+      max-height: 16rem;
+      overflow: auto;
     }
   }
 }
@@ -88,5 +92,12 @@
 
   .card {
     border-radius: 50px;
+  }
+
+  @media (max-width: 500px) {
+    h2 {
+      font-size: 1.2rem;
+      padding-right: 4px;
+    }
   }
 }
