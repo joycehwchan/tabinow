@@ -1,17 +1,10 @@
 <div class="home-container">
-  <div class="home-section top-section">
-    <div class="top-section-left">
-      <h1>Welcome to <span class="text-primary">Tabi</span>Now</h1>
-      <h3 class="mt-4 text-white">Tell us what you need and we will design the perfect Tabi for you!</h3>
-    </div>
-    <div class="top-section-right">
-      <div class="form-container">
-        <h2 class="text-center mb-3">Begin your Tabi now!</h2>
-        <%= render 'pages/external_request', itinerary: @itinerary %>
-      </div>
-    </div>
+  <div class="top-section">
+    <h1>Welcome to <span class="text-primary">Tabi</span>Now</h1>
+    <h3 class="mt-4 text-white">Design your next trip to Japan!</h3>
+    <%= link_to "Start now", root_path, class:"btn btn-lg btn-primary btn-tabinow mt-4" %>
   </div>
-  <div class="middle-section">
+  <div class="section2">
     <h2 class="text-center text-gray my-4 fs-2">How does it work?</h2>
     <div class="row mt-5">
       <!-- Step 1 -->
@@ -20,9 +13,9 @@
           <div class="illustration-1 illustration">
           </div>
         </div>
-        <h3 class="step-title">Search</h3>
+        <h3 class="step-title">Generate</h3>
         <p class="text-center w-80">
-          Select dates and destination.
+          Select dates and destination to build an itinerary.
         </p>
       </div>
       <!-- Step 2 -->
@@ -31,9 +24,9 @@
           <div class="illustration-2 illustration">
           </div>
         </div>
-        <h3 class="step-title">Request</h3>
+        <h3 class="step-title">Customize</h3>
         <p class="text-center w-80">
-          Make a request for your desired itinerary.
+          Tweak the itinerary to make it entirely yours.
         </p>
       </div>
       <!-- Step 3 -->
@@ -42,11 +35,19 @@
           <div class="illustration-3 illustration">
           </div>
         </div>
-        <h3 class="step-title">Confirm</h3>
+        <h3 class="step-title">Save</h3>
         <p class="text-center w-80">
-          We will send you your itinerary!
+          Save and download your itinerary!
         </p>
       </div>
+    </div>
+  </div>
+  <div class="section3">
+    <div class="section3-left">
+      left section
+    </div>
+    <div class="section3-right">
+      right section
     </div>
   </div>
   <%= render "shared/footer" %>
