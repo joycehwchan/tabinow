@@ -32,7 +32,7 @@ class AccommodationApiJob < ApplicationJob
       accommodation = Content.new(name: accommodation_selected["name"],
                                   price: accommodation_selected["price"]["lead"]["amount"],
                                   location: accommodation_details["summary"]["location"]["address"]["addressLine"],
-                                  category:,
+                                  category: category,
                                   description: accommodation_details["summary"]["tagline"],
                                   rating: accommodation_selected["reviews"]["score"] / 2,
                                   api: accommodation_details["summary"]["id"],
@@ -42,7 +42,9 @@ class AccommodationApiJob < ApplicationJob
       if accommodation_details["propertyGallery"]["images"][0]["image"]["url"].present?
         # Fetching teh image and saving it in ActiveStorage/Cloudinary
         property_image = URI.parse(accommodation_details["propertyGallery"]["images"][0]["image"]["url"]).open
-        accommodation.image.attach(io: property_image, filename: "property_#{accommodation_details['summary']['id']}.png", content_type: "image/png")
+        accommodation.image.attach(io: property_image,
+                                   filename: "property_#{accommodation_details['summary']['id']}.png",
+                                   content_type: "image/png")
       end
       # Updating the sub category for the category
       category.update!(sub_category: "Hotel") if accommodation.save!
@@ -54,19 +56,20 @@ class AccommodationApiJob < ApplicationJob
       accommodation_details_selected = AccommodationDetailsApiService.new(accommodation["id"])
       accommodation_details = accommodation_details_selected.call
       # Loop and save
-      unused_accommodation = UnusedContent.new(name: accommodation_details_selected["name"],
-                        price: accommodation_details_selected["price"]["lead"]["amount"],
-                        location: accommodation_details["summary"]["location"]["address"]["addressLine"],
-                        category: "Accommodation",
-                        sub_category: "Hotel",
-                        description: accommodation_details["summary"]["tagline"],
-                        rating: accommodation_selected["reviews"]["score"] / 2,
-                        api: accommodation_details["summary"]["id"],
-                        status: 0)
+      unused_accommodation = UnusedContent.new(name: accommodation["name"],
+                                              price: accommodation["price"]["lead"]["amount"],
+                                              location: accommodation_details["summary"]["location"]["address"]["addressLine"],
+                                              category_title: "Accommodation",
+                                              category_sub_category: "Hotel",
+                                              description: accommodation_details["summary"]["tagline"],
+                                              rating: accommodation["reviews"]["score"] / 2,
+                                              api: accommodation["id"])
       if accommodation_details["propertyGallery"]["images"][0]["image"]["url"].present?
         # Fetching teh image and saving it in ActiveStorage/Cloudinary
         property_image = URI.parse(accommodation_details["propertyGallery"]["images"][0]["image"]["url"]).open
-        unused_accommodation.image.attach(io: property_image, filename: "property_#{accommodation_details['summary']['id']}.png", content_type: "image/png")
+        unused_accommodation.image.attach(io: property_image,
+                                          filename: "property_#{accommodation["id"]}.png",
+                                          content_type: "image/png")
       end
       unused_accommodation.save!
     end
