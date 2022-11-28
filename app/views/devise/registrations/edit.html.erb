@@ -1,7 +1,7 @@
 <div class="container devise-container">
   <div class="card p-4">
     <div class="card-body">
-      <h2 class="text-center">Edit Account<%#= resource_name.to_s.humanize %></h2>
+      <h2 class="text-center">Edit Account <%#= resource_name.to_s.humanize %></h2>
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
         <%= f.error_notification %>
         <div class="form-inputs">
@@ -15,6 +15,22 @@
             </div>
             <div class="col-12 col-md-6">
               <%= f.input :phone %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <%= f.input :zipcode %>
+            </div>
+            <div class="col-12 col-md-6">
+              <%= f.input :street %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <%= f.input :city %>
+            </div>
+            <div class="col-12 col-md-6">
+              <%= f.input :zipcode %>
             </div>
           </div>
           <div class="row">

@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :itineraries_as_employee, class_name: "Itinerary", foreign_key: :employee_id, dependent: :destroy
   has_many :itineraries_as_client, class_name: "Itinerary", foreign_key: :client_id, dependent: :destroy
   has_many :itineraries
+  has_one :address
   # validates :name, presence: true
   validates :email, presence: true
   # validates :phone, presence: true
