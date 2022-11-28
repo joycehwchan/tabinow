@@ -45,18 +45,25 @@ class RestaurantApiJob < ApplicationJob
 
     restaurants_selected["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = restaurants_selected["location"]["display_address"].first
 
-    
-    Content.create!(name: restaurants_selected["name"],
-                    price: set_yelp_price(restaurants_selected["price"]),
-                    location: restaurant_location,
-                    rating: restaurants_selected["rating"],
-                    category:,
-                    description: restaurants_selected["categories"].first["title"],
-                    api: restaurants_selected["id"],
-                    status: 0)
+    restaurant = Content.new(name: restaurants_selected["name"],
+                             price: yelp_price(restaurants_selected["price"]),
+                             location: restaurant_location,
+                             rating: restaurants_selected["rating"],
+                             category:,
+                             description: restaurants_selected["categories"].first["title"],
+                             api: restaurants_selected["id"],
+                             status: 0)
+
+    if restaurants_selected["image_url"].present?
+      restaurant_image = URI.parse(restaurants_selected["image_url"]).open
+      restaurant.image.attach(io: restaurant_image,
+                              filename: "restaurant_#{restaurants_selected['id']}.png",
+                              content_type: "image/png")
+    end
+    restaurant.save!
   end
 
-  def set_yelp_price(price_string)
+  def yelp_price(price_string)
     case
     when price_string.nil? || price_string == " " then return 0
     when price_string == "￥" then return 10
