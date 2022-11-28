@@ -46,6 +46,30 @@ class ActivityApiJob < ApplicationJob
                             content_type: "image/png")
     end
     activity.save!
+
+    activities_results.delete(activity_selected)
+
+    activities_results.take(12).each do |unused_activity|
+      unused_activity["location"]["display_address"].nil? ? activity_location = location : activity_location = unused_activity["location"]["display_address"].first
+
+      # Loop and save
+      new_unused_activities = UnusedContent.new(name: unused_activity["name"],
+                                                price: yelp_price(unused_activity["price"]),
+                                                location: activity_location,
+                                                category_title: "Activity",
+                                                category_sub_category: unused_activity["categories"].first["title"],
+                                                description: unused_activity["categories"].first["title"],
+                                                rating: unused_activity["rating"],
+                                                api: unused_activity["id"])
+      if unused_activity["image_url"].present?
+        # Fetching teh image and saving it in ActiveStorage/Cloudinary
+        activity_image = URI.parse(unused_activity["image_url"]).open
+        new_unused_activities.image.attach(io: activity_image,
+                                           filename: "restaurant_#{unused_activity['id']}.png",
+                                           content_type: "image/png")
+      end
+      new_unused_activities.save!
+    end
   end
 
   def yelp_price(price_string)
