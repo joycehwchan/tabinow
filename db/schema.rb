@@ -60,6 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_28_013847) do
     t.bigint "day_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position"
     t.index ["day_id"], name: "index_categories_on_day_id"
   end
 
