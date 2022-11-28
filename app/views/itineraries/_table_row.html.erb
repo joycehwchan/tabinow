@@ -2,31 +2,31 @@
   <td>
     <%= link_to itinerary.title, itinerary_path(itinerary) %>
   </td>
+  <!-- status
   <td>
     <div class="status-pill <%=itinerary.status %>">
       <span><%=itinerary.status %></span>
     </div>
   </td>
-  <!--
+  -->
+  <!-- client name
   <td>
     <%= itinerary.client ? itinerary.client.name : "-" %>
   </td>
   -->
   <td>
-    <div class="d-flex align-items-center">
-      <%= link_to 'Download', '#', class:"btn btn-sm btn-outline-secondary btn-tabinow" %>
-      <%= simple_form_for itinerary , class: "m-0" do |f| %>
-        <%#= f.input :archived, as: :hidden , input_html: { value: true} %>
-        <div class="hidden itinerary_archived">
-          <input class="form-contnrol hidden" value="true" autocomplete="off" type="hidden" name="itinerary[archived]" id="itinerary_archived">
-        </div>
-        <%= f.submit "Archive", class:"btn btn-sm btn-outline-primary btn-tabinow ms-1" %>
-      <% end %>
+    <div class="special-request text-truncate d-block">
+      <%= itinerary.special_request ? itinerary.special_request : "-" %>
     </div>
   </td>
   <td>
-    <div class="special-request text-truncate d-block">
-      <%= itinerary.special_request ? itinerary.special_request : "-" %>
+    <div class="d-flex align-items-center">
+      <%= link_to '#', class:"btn btn-sm btn-outline-secondary btn-tabinow" do %>
+        <i class="fa-solid fa-download"></i> Download
+      <% end %>
+      <%= link_to itinerary_path(itinerary), class:"btn btn-sm btn-outline-dark btn-tabinow ms-2", data: { turbo_method: :delete  , turbo_confirm: "Deleting #{itinerary.title} itinerary ?" } do %>
+        <i class="fa-solid fa-xmark"></i> Delete
+      <% end %>
     </div>
   </td>
   <td>
