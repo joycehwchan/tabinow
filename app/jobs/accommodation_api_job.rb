@@ -11,23 +11,28 @@ class AccommodationApiJob < ApplicationJob
 
     begin
       accommodations_results = accommodations.call
-      accommodation = accommodations_results.sample
+      accommodation_selected = accommodations_results.sample
     rescue
       retry
     end
 
-    accommodation_details = AccommodationDetailsApiService.new(accommodation["id"])
-    accommodation_details = accommodation_details.call
-    accommodation = Content.new(name: accommodation["name"],
-                                price: accommodation["price"]["lead"]["amount"],
+    accommodation_details_selected = AccommodationDetailsApiService.new(accommodation_selected["id"])
+    accommodation_details = accommodation_details_selected.call
+    accommodation = Content.new(name: accommodation_selected["name"],
+                                price: accommodation_selected["price"]["lead"]["amount"],
                                 category:,
-                                rating: accommodation["reviews"]["score"] / 2,
-                                api: "",
+                                rating: accommodation_selected["reviews"]["score"] / 2,
+                                api: accommodation_selected["id"],
                                 status: 0)
-    accommodation.location = accommodation_details["location"]["address"]["addressLine"]
-    accommodation.description = accommodation_details["tagline"]
+    accommodation.location = accommodation_details_selected["location"]["address"]["addressLine"]
+    accommodation.description = accommodation_details_selected["tagline"]
     if accommodation.save!
       Category.last.update!(sub_category: "Hotel")
+
+      # Getting the image
+      property_image = URI.open(accommodation_details_selected["propertyImage"]["image"]["url"])
+      accommodation.image.attach(io: property_image, filename: "property_#{accommodation_selected['id']}.png", content_type: "image/png")
+      accommodation.save!
     else
       # accommodation Failed
     end
