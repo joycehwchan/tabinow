@@ -7,6 +7,9 @@ class CreateUnusedContents < ActiveRecord::Migration[7.0]
       t.string :description
       t.string :api
       t.string :rating
+      t.string :category_title
+      t.string :category_type
+      t.string :category_sub_category
 
       t.timestamps
     end
