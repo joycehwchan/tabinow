@@ -1,5 +1,5 @@
 class DaysController < ApplicationController
-  #this new page is in the itinerary show page
+  # this new page is in the itinerary show page
   # def new
   #   @day = Day.new
   # end
@@ -13,6 +13,10 @@ class DaysController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def update
+    raise
   end
 
   private
