@@ -40,30 +40,25 @@ class Itinerary < ApplicationRecord
   end
 
   def new_day(total_days)
-    day_array = []
+    category_array = []
     total_days.times do |i|
       day = Day.new(number: i + 1)
       day.itinerary = self
-      day_array.push(day)
       next unless day.save!
-
-
-      new_category_and_item("Restaurant", day)
-      new_category_and_item("Activity", day)
-    end
-    day_array.each do |day|
 
       category = Category.new(title: "Accommodation",
         sub_category: "Not Set",
         day:)
         category.save!
+        category_array.push(category)
+      new_category_and_item("Restaurant", day)
+      new_category_and_item("Activity", day)
     end
+    accommodation(category_array)
   end
 
-  accommodation("Accommodation", day)
-
-  def
-    AccommodationApiJob.perform_later(self, min_price_generator, max_price_generator, category) # <- The job is queued
+  def accommodation(category_array)
+    AccommodationApiJob.perform_later(self, min_price_generator, max_price_generator, category_array) # <- The job is queued
   end
   def new_category_and_item(item_category, day)
     if item_category == "Restaurant"
