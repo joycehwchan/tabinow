@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_28_013847) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_28_074251) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -74,6 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_28_013847) do
     t.string "api"
     t.string "rating"
     t.bigint "category_id"
+    t.integer "position"
     t.index ["category_id"], name: "index_contents_on_category_id"
   end
 
@@ -104,6 +105,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_28_013847) do
   end
 
   create_table "profiles", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "unused_contents", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.string "location"
+    t.string "description"
+    t.string "api"
+    t.string "rating"
+    t.string "category_title"
+    t.string "category_type"
+    t.string "category_sub_category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

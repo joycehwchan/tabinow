@@ -1,5 +1,5 @@
 class DaysController < ApplicationController
-  #this new page is in the itinerary show page
+  # this new page is in the itinerary show page
   # def new
   #   @day = Day.new
   # end
@@ -13,6 +13,16 @@ class DaysController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def update
+    itinerary = Itinerary.find(params[:id].to_i)
+    day = itinerary.days[params[:day].to_i - 1]
+    content = Content.find(params[:content].to_i)
+    day.content_ids << content.id
+    day.save!
+    authorize day
+    redirect_to itinerary_path(itinerary, day: params[:day].to_i)
   end
 
   private
