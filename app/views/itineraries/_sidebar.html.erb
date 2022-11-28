@@ -41,6 +41,8 @@
       </div>
     </div>
     <div class="sidebar-bottom mb-5">
+      <h3>Estimated total:</h3>
+      <p class="text-end me-2 fs-4">≈ $<%= itinerary.total_budget %></p>
       <hr>
       <% if user_signed_in? %>
         <%= link_to '#', class:"btn btn-sm btn-outline-primary btn-tabinow d-block mb-2" do %>
