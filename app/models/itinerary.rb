@@ -43,14 +43,13 @@ class Itinerary < ApplicationRecord
     total_days.times do |i|
       day = Day.new(number: i + 1)
       day.itinerary = self
-      if day.save!
-        # new_category_and_item("Accommodation", day)
-        # new_category_and_item("Restaurant", day)
-        # new_category_and_item("Activity", day)
-      end
+      next unless day.save!
+
+      new_category_and_item("Accommodation", day)
+      new_category_and_item("Restaurant", day)
+      new_category_and_item("Activity", day)
     end
   end
-
 
   def new_category_and_item(item_category, day)
     if item_category == "Accommodation"
@@ -129,5 +128,4 @@ class Itinerary < ApplicationRecord
                     api: "",
                     status: 0)
   end
-
 end
