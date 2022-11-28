@@ -1,3 +1,5 @@
+require "open-uri"
+
 class AccommodationApiJob < ApplicationJob
   queue_as :default
 
@@ -22,19 +24,17 @@ class AccommodationApiJob < ApplicationJob
                                 price: accommodation_selected["price"]["lead"]["amount"],
                                 category:,
                                 rating: accommodation_selected["reviews"]["score"] / 2,
-                                api: accommodation_selected["id"],
+                                api: accommodation_details["summary"]["id"],
                                 status: 0)
-    accommodation.location = accommodation_details_selected["location"]["address"]["addressLine"]
-    accommodation.description = accommodation_details_selected["tagline"]
-    if accommodation.save!
-      Category.last.update!(sub_category: "Hotel")
-
-      # Getting the image
-      property_image = URI.open(accommodation_details_selected["propertyImage"]["image"]["url"])
-      accommodation.image.attach(io: property_image, filename: "property_#{accommodation_selected['id']}.png", content_type: "image/png")
-      accommodation.save!
+    accommodation.location = accommodation_details["summary"]["location"]["address"]["addressLine"]
+    accommodation.description = accommodation_details["summary"]["tagline"]
+    # Getting the image
+    if accommodation_details["propertyGallery"]["images"][0]["image"]["url"].present?
+      property_image = URI.parse(accommodation_details["propertyGallery"]["images"][0]["image"]["url"]).open
+      accommodation.image.attach(io: property_image, filename: "property_#{accommodation_details['summary']['id']}.png", content_type: "image/png")
+      Category.last.update!(sub_category: "Hotel") if accommodation.save!
     else
-      # accommodation Failed
+      Category.last.update!(sub_category: "Hotel") if accommodation.save!
     end
   end
 end
