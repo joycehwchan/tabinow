@@ -1,4 +1,4 @@
-<div class="card content-card">
+<div class="card content-card" data-filter-target="<%= content.category.title.downcase %>">
   <div class="card-body">
     <div class="d-flex">
       <div class="me-3">
@@ -16,7 +16,7 @@
         <h6 class="card-subtitle my-2 text-muted">
           <i class="fa-solid fa-location-dot"></i> <%= content.location %>
           <div class="mt-1">
-            <% if content.category.sub_category == "Lunch"%>
+            <% if content.category.sub_category == "Lunch" %>
               <i class="fa-solid fa-sun"></i> Lunch
             <% elsif content.category.sub_category == "Dinner" %>
               <i class="fa-solid fa-moon"></i> Dinner
