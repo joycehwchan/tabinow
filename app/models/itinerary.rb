@@ -49,8 +49,8 @@ class Itinerary < ApplicationRecord
       category = Category.new(title: "Accommodation",
                               sub_category: "Not Set",
                               day:)
-        category.save!
-        category_array.push(category)
+      category.save!
+      category_array.push(category)
       new_category_and_item("Restaurant", day)
       new_category_and_item("Activity", day)
     end
