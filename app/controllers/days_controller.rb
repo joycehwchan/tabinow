@@ -16,7 +16,14 @@ class DaysController < ApplicationController
   end
 
   def update
+    itinerary = Itinerary.find(params[:id].to_i)
+    day = itinerary.days[params[:day].to_i - 1]
+    content = Content.find(params[:content].to_i)
+    day.content_ids << content.id
+    day.save!
+    authorize day
     raise
+    redirect_to itinerary_path(itinerary, day: params[:day].to_i)
   end
 
   private

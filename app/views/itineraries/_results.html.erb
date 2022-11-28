@@ -9,8 +9,8 @@
           <div class="d-flex justify-content-between align-items-center">
             <h5 class="card-title"><%= content.name %></h5>
             <%= form_tag day_path , method: :patch do %>
-              <%= hidden_field_tag :content %>
-              <%= hidden_field_tag :day, value: params[:day] %>
+              <%= hidden_field_tag :content , content.id %>
+              <%= hidden_field_tag :day, params[:day]  %>
               <%= submit_tag("add") %>
             <% end %>
             <%#= link_to '#' do %>
