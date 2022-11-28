@@ -22,11 +22,11 @@ class ItinerariesController < ApplicationController
     if @itinerary.save
       @itinerary.new_day(@days)
       redirect_to itinerary_path(@itinerary)
-    # set_employee
-    # elsif user_signed_in?
-    #   @itineraries = policy_scope(Itinerary)
-    #   flash[:alert] = @itinerary.errors.full_messages.first
-    #   render :index, status: :unprocessable_entity
+      # set_employee
+    elsif user_signed_in?
+      @itineraries = policy_scope(Itinerary)
+      flash[:alert] = @itinerary.errors.full_messages.first
+      render :index, status: :unprocessable_entity
     else
       flash[:alert] = @itinerary.errors.full_messages.first
       render 'pages/home', status: :unprocessable_entity
@@ -90,7 +90,8 @@ class ItinerariesController < ApplicationController
     @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
     title = "#{@days} #{'day'.pluralize(@days)} in #{itineraries_params[:location].capitalize}"
     @itinerary.title = title
-    @itinerary.set_new_client(name: params[:name], email: params[:email])
+    # @itinerary.set_new_client(name: params[:name], email: params[:email])
+    @itinerary.client = current_user if user_signed_in?
     authorize @itinerary
   end
 

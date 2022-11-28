@@ -2,7 +2,11 @@ class ItineraryPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
-      scope.where(archived: false)
+      # if record.user == user
+      scope.where(client_id: user.id)
+      # else
+      #   ""
+      # end
     end
   end
 
