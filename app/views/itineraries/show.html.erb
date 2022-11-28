@@ -18,14 +18,18 @@
       <% end %>
     </div>
   </div>
-  <div class="right-container" data-controller="filter">
+  <div class="right-container" data-controller="filter search">
     <!-- WORK IN PROGRESS -->
     <div class="card mb-3">
       <div class="card-body">
-        <%= form_with url: itinerary_path(@itinerary), method: :get, class: "" do %>
+        <%= form_with url: itinerary_path(@itinerary), method: :get,
+                      data: {
+                        search_target: "form",
+                        action: "submit->search#search"
+                      } do %>
           <div class="d-flex">
-            <%= text_field_tag :query, params[:query], class: "form-control",placeholder: "search"%>
-            <%= hidden_field_tag :day, params[:day] %>
+            <%= text_field_tag :query, params[:query], class: "form-control",placeholder: "search", data: {search_target: "query", action: "keyup->search#search"}%>
+            <%= hidden_field_tag :day, params[:day], data: {search_target: "day"} %>
             <%= button_tag type:"search", class:"btn btn-primary btn-tabinow ms-2" do  %>
               <i class="fa-solid fa-magnifying-glass"></i>
             <% end %>
@@ -34,20 +38,13 @@
             <div class="filter-pill selected" data-action="click->filter#filterHotels">Hotel</div>
             <div class="filter-pill selected" data-action="click->filter#filterActivities">Activity</div>
             <div class="filter-pill selected" data-action="click->filter#filterRestaurants">Restaurant</div>
-            <!--
-            <%= link_to 'Hotel', '#', class:"filter-pill selected", data: { action:"click->form#filter" } %>
-            <%= link_to 'Activity', '#', class:"filter-pill", data: { action:"click->form#filter" }  %>
-            <%= link_to 'Restaurant', '#', class:"filter-pill", data: { action:"click->form#filter" }  %>
-            -->
           </div>
         <% end %>
       </div>
     </div>
-    <div class="results-container">
+    <div class="results-container" data-search-target="results">
       <% if params[:query].present? %>
-        <% @contents.each do |content| %>
-          <%= render 'result', content: content %>
-        <% end %>
+        <%= render 'results', contents: @contents, params: params %>
       <% end %>
     </div>
   </div>
