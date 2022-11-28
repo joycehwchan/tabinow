@@ -30,15 +30,24 @@ class ActivityApiJob < ApplicationJob
 
     activity_selected["location"]["display_address"].nil? ? activity_location = location : activity_location = activity_selected["location"]["display_address"].first
 
-    Content.create!(name: activity_selected["name"],
-                    price: yelp_price(activity_selected["price"]),
-                    location: activity_location,
-                    rating: activity_selected["rating"],
-                    category:,
-                    description: activity_selected["categories"].first["title"],
-                    api: "",
-                    status: 0)
+    activity = Content.new(name: activity_selected["name"],
+                           price: yelp_price(activity_selected["price"]),
+                           location: activity_location,
+                           rating: activity_selected["rating"],
+                           category:,
+                           description: activity_selected["categories"].first["title"],
+                           api: activity_selected["id"],
+                           status: 0)
+
+    if activity_selected["image_url"].present?
+      activity_image = URI.parse(activity_selected["image_url"]).open
+      activity.image.attach(io: activity_image,
+                            filename: "restaurant_#{activity_selected['id']}.png",
+                            content_type: "image/png")
+    end
+    activity.save!
   end
+
   def yelp_price(price_string)
     case
     when price_string.nil? || price_string == " " then return 0
