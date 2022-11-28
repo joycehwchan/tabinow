@@ -16,6 +16,11 @@
           <%= f.input :password_confirmation,
                 required: true,
                 input_html: { autocomplete: "new-password" } %>
+          <%= f.input :itinerary_id,
+                required: false, as: :hidden,
+                input_html: { value: 
+                params[:itinerary_id]
+                 } %>
         </div>
         <div class="form-actions">
           <%= f.button :submit, "Sign up", class:"btn btn-primary", class:"btn btn-primary btn-tabinow" %>

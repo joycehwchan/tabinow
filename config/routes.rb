@@ -6,7 +6,9 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  devise_for :users
+  devise_for :users, controllers: {
+        registrations: 'users/registrations'
+      }
   root to: "pages#home"
 
   resources :itineraries, only: [:index, :show, :create, :update, :destroy] do
