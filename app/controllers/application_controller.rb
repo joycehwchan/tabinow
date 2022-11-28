@@ -9,13 +9,13 @@ class ApplicationController < ActionController::Base
 
   # before_action :configure_permitted_parameters, if: :devise_controller?
 
-  # def configure_permitted_parameters
+  #def configure_permitted_parameters
   #   # For additional fields in app/views/devise/registrations/new.html.erb
   #   devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name])
 
   #   # For additional in app/views/devise/registrations/edit.html.erb
-  #   devise_parameter_sanitizer.permit(:account_update, keys: %i[first_name last_name])
-  # end
+  #devise_parameter_sanitizer.permit(:account_update, keys: %i[first_name last_name])
+  #end
 
   # Uncomment when you *really understand* Pundit!
   # rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
