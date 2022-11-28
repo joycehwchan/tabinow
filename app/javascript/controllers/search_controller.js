@@ -2,29 +2,54 @@ import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="search"
 export default class extends Controller {
-  static targets = ["form", "query", "day", "results"];
-  connect() {
-    console.log(this.resultsTarget);
-  }
+  static targets = [
+    "form",
+    "query",
+    "day",
+    "results",
+    "filterAccommodation",
+    "filterActivity",
+    "filterRestaurant",
+    "accommodation",
+    "activity",
+    "restaurant",
+  ];
+  connect() {}
 
   search(e) {
     e.preventDefault();
 
     const url = `${this.formTarget.action}?query=${this.queryTarget.value}&day=${this.dayTarget.value}&button=`;
-    // async function displayResults() {
-    //   let response = await fetch(url, {
-    //     method: "GET",
-    //     headers: { Accept: "text/plain" },
-    //   });
-    //   let data = await response.text();
-    //   // console.log(data);
-    //   this.resultsTarget.innerHTML = data;
-    // }
     fetch(url, { method: "GET", headers: { Accept: "text/plain" } })
       .then((response) => response.text())
       .then((data) => {
         this.resultsTarget.innerHTML = data;
+        this.filter(this.filterAccommodationTarget, this.accommodationTargets);
+        this.filter(this.filterActivityTarget, this.activityTargets);
+        this.filter(this.filterRestaurantTarget, this.restaurantTargets);
       });
-    // displayResults();
+  }
+
+  filter(filterTarget, targets) {
+    targets.forEach((target) => {
+      filterTarget.classList.contains("selected")
+        ? target.classList.remove("d-none")
+        : target.classList.add("d-none");
+    });
+  }
+
+  filterAccommodations() {
+    this.filterAccommodationTarget.classList.toggle("selected");
+    this.filter(this.filterAccommodationTarget, this.accommodationTargets);
+  }
+
+  filterActivities() {
+    this.filterActivityTarget.classList.toggle("selected");
+    this.filter(this.filterActivityTarget, this.activityTargets);
+  }
+
+  filterRestaurants() {
+    this.filterRestaurantTarget.classList.toggle("selected");
+    this.filter(this.filterRestaurantTarget, this.restaurantTargets);
   }
 }
