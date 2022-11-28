@@ -10,7 +10,7 @@ def accomodation(location)
 
   # Adding the API-key
   request = Net::HTTP::Get.new(url)
-  request["X-RapidAPI-Key"] = '2ce7422325msh1413b85402383f0p1d4a08jsn506805417938'
+  request["X-RapidAPI-Key"] = ENV.fetch('HOTELS_API_KEY')
   request["X-RapidAPI-Host"] = 'hotels4.p.rapidapi.com'
 
   # Making the API call
@@ -32,7 +32,7 @@ def accomodation(location)
   # Adding the API-key
   request = Net::HTTP::Post.new(url)
   request["content-type"] = 'application/json'
-  request["X-RapidAPI-Key"] = '2ce7422325msh1413b85402383f0p1d4a08jsn506805417938'
+  request["X-RapidAPI-Key"] = ENV.fetch('HOTELS_API_KEY')
   request["X-RapidAPI-Host"] = 'hotels4.p.rapidapi.com'
 
   # Sending the POST body with all the search params (including the location id fro above)
@@ -70,8 +70,7 @@ def restuarants(location)
 
   request = Net::HTTP::Get.new(url)
 
-  key = 'Bearer SxGC-lIGxglEDFDoPWQVvrfYG_dPbKKsf07_1lv4PPN8QHzYs9PAZSCPvbFONVRzRj4S-08QRXfRjvmhvoKdASJkWApQ_BSM3P037WPDuWvbvJ1knBFBu7Tv-7l9Y3Yx'
-  request['Authorization'] = key
+  request['Authorization'] = "Bearer #{ENV.fetch('YELP_API_KEY')}"
 
   response = http.request(request)
 
@@ -95,8 +94,7 @@ def activities(location)
 
   request = Net::HTTP::Get.new(url)
 
-  key = 'Bearer SxGC-lIGxglEDFDoPWQVvrfYG_dPbKKsf07_1lv4PPN8QHzYs9PAZSCPvbFONVRzRj4S-08QRXfRjvmhvoKdASJkWApQ_BSM3P037WPDuWvbvJ1knBFBu7Tv-7l9Y3Yx'
-  request['Authorization'] = key
+  request['Authorization'] = "Bearer #{ENV.fetch('YELP_API_KEY')}"
 
   response = http.request(request)
 
@@ -120,24 +118,45 @@ User.destroy_all
 
 puts " - Starting to create Users -"
 
-# Creating Employee user:
-employee = User.new(name: "Joyce",
-                    email: "emp@tabinow.tours",
-                    phone: Faker::PhoneNumber.cell_phone_in_e164,
-                    password: "Password123",
-                    admin: true)
-employee.save!
+CLIENTS= [
+  {
+  name: "Joyce",
+  email: "joyce@tabinow.tours",
+  phone: Faker::PhoneNumber.cell_phone_in_e164,
+  password: "Password123",
+  },
+  {
+  name: "Chris",
+  email: "chris@tabinow.tours",
+  phone: Faker::PhoneNumber.cell_phone_in_e164,
+  password: "Password123",
+  },
+  {
+  name: "Fred",
+  email: "fred@tabinow.tours",
+  phone: Faker::PhoneNumber.cell_phone_in_e164,
+  password: "Password123",
+  },
+  {
+  name: "Hafid",
+  email: "hafid@tabinow.tours",
+  phone: Faker::PhoneNumber.cell_phone_in_e164,
+  password: "Password123",
+  },
+  {
+  name: "Paul Smith",
+  email: "demo@tabinow.tours",
+  phone: Faker::PhoneNumber.cell_phone_in_e164,
+  password: "Password123",
+  },
 
-#  User.create!(name: "Joyce",email: "emp@tabinow.tours",phone: Faker::PhoneNumber.cell_phone_in_e164,password: "Password123",admin: true)
 
-5.times do
-  client = User.new(name: ["Discover Tours", "Luxury Travels Inc", "Adventure Travels", "The Travellers", "Paul Smith", "Amy L."].sample,
-                    email: Faker::Internet.email,
-                    phone: Faker::PhoneNumber.cell_phone_in_e164,
-                    password: "Password123",
-                    admin: false)
-  client.save!
-end
+  ]
+
+  CLIENTS.each do |client_info|
+    client = User.new(client_info)
+    client.save!
+  end
 
 puts " - Number of users created: #{User.count} -"
 puts "--------------------------"
@@ -149,7 +168,6 @@ Day.destroy_all
 Content.destroy_all
 Category.destroy_all
 
-
 puts " - Starting to create Itineraries -"
 start_date = Date.today
 end_date = start_date + rand(3..10)
@@ -157,6 +175,8 @@ min_budget = rand(1..10) * 10000
 max_budget = min_budget + (rand(5..10) * [1000 ,10000].sample)
 SPECIALREQUESTDATA= ["Mandarin speaking guide", "Only vegetarian meals", "Should include a Japanese tea ceremony", "Should include Disneyland", "Please add Universal studio!"]
 # Seed for itinerary
+
+
 5.times do |index|
   # Selecting employee from user db
   employee = User.find_by(admin: true)
