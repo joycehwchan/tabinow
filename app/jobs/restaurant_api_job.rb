@@ -45,13 +45,14 @@ class RestaurantApiJob < ApplicationJob
 
     restaurants_selected["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = restaurants_selected["location"]["display_address"].first
 
+    
     Content.create!(name: restaurants_selected["name"],
                     price: set_yelp_price(restaurants_selected["price"]),
                     location: restaurant_location,
                     rating: restaurants_selected["rating"],
                     category:,
                     description: restaurants_selected["categories"].first["title"],
-                    api: "",
+                    api: restaurants_selected["id"],
                     status: 0)
   end
 
