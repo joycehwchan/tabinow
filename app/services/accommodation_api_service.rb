@@ -32,23 +32,18 @@ class AccommodationApiService
     begin
       # Making the API call
       response = http.request(request)
-
       # Converting the reponse body into JSON
       result = JSON.parse(response.body)
     rescue JSON::ParserError
       retry
     end
-
     # Getting the location id for the hotel seach
     search_location = result["sr"][0]["gaiaId"]
-
     # The API to get accommodations
     url = URI("https://hotels4.p.rapidapi.com/properties/v2/list")
-
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
     # Adding the API-key
     request = Net::HTTP::Post.new(url)
     request["content-type"] = 'application/json'
