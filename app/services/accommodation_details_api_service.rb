@@ -38,7 +38,7 @@ class AccommodationDetailsApiService
       retry
     end
     # Selecting the accommodation from the results
-    accommodation_details = result["data"]["propertyInfo"]["summary"]
+    accommodation_details = result["data"]["propertyInfo"]
 
     # Returning the results from the API
     return accommodation_details
