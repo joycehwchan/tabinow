@@ -64,7 +64,7 @@ class RestaurantApiJob < ApplicationJob
 
     restaurants_results.delete(restaurants_selected)
 
-    restaurants_results.take(12).each do |unused_restaurant|
+    restaurants_results.take(20).each do |unused_restaurant|
       unused_restaurant["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = unused_restaurant["location"]["display_address"].first
 
       # Loop and save
