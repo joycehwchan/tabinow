@@ -11,52 +11,50 @@
             <%= form_tag day_path , method: :patch do %>
               <%= hidden_field_tag :content , content.id %>
               <%= hidden_field_tag :day, params[:day]  %>
-              <%= submit_tag("add") %>
+              <%#= submit_tag("add") %>
+              <%= button_tag type:"submit", class:"btn btn-outline-secondary btn-tabinow btn-add-content" do %>
+                <i class="fa-solid fa-plus"></i>
+              <% end %>
             <% end %>
-            <%#= link_to '#' do %>
-              <%# <div class="btn btn-outline-secondary btn-tabinow btn-add-content"> %>
-              <%# <i class="fa-solid fa-plus"></i> %>
-              <%# </div> %>
-              <%# end %>
+          </div>
+          <h6 class="card-subtitle my-2 text-muted">
+            <i class="fa-solid fa-location-dot"></i> <%= content.location %>
+            <div class="mt-1">
+              <% if content.category.sub_category == "Lunch" %>
+                <i class="fa-solid fa-sun"></i> Lunch
+              <% elsif content.category.sub_category == "Dinner" %>
+                <i class="fa-solid fa-moon"></i> Dinner
+              <% elsif content.category.sub_category == "Museum" %>
+                <i class="fa-solid fa-building-columns"></i> Museum
+              <% elsif content.category.sub_category == "Historic Sites" %>
+                <i class="fa-solid fa-monument"></i> Historic Sites
+              <% end %>
             </div>
-            <h6 class="card-subtitle my-2 text-muted">
-              <i class="fa-solid fa-location-dot"></i> <%= content.location %>
-              <div class="mt-1">
-                <% if content.category.sub_category == "Lunch" %>
-                  <i class="fa-solid fa-sun"></i> Lunch
-                <% elsif content.category.sub_category == "Dinner" %>
-                  <i class="fa-solid fa-moon"></i> Dinner
-                <% elsif content.category.sub_category == "Museum" %>
-                  <i class="fa-solid fa-building-columns"></i> Museum
-                <% elsif content.category.sub_category == "Historic Sites" %>
-                  <i class="fa-solid fa-monument"></i> Historic Sites
-                <% end %>
-              </div>
-            </h6>
-            <p class="card-text line-clamp"><%= content.description %></p>
-            <div class="content-img"
+          </h6>
+          <p class="card-text line-clamp"><%= content.description %></p>
+          <div class="content-img"
                style="background-image:url(<%= content.image.attached? ? cl_image_path(content.image.key) : image_url("") %>);">
-            </div>
-            <div class="d-flex justify-content-between">
-              <div class="d-flex align-items-center">
-                <p class="m-0 user-select-none text-info">
-                  <% content.rating.to_i.times do %>
-                    <i class="fa-solid fa-star"></i>
-                  <% end %>
-                  <% (5 - content.rating.to_i).times do %>
-                    <i class="fa-regular fa-star"></i>
-                  <% end %>
-                </p>
-                <% if content.category.title == "Accommodation" %>
-                  <p class="available">Available</p>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+              <p class="m-0 user-select-none text-info">
+                <% content.rating.to_i.times do %>
+                  <i class="fa-solid fa-star"></i>
                 <% end %>
-              </div>
-              <h5 class="mb-0">
-                <%= content.price.zero? ? "" : number_to_currency(content.price, precision: 0, unit: "$") %>
-              </h5>
+                <% (5 - content.rating.to_i).times do %>
+                  <i class="fa-regular fa-star"></i>
+                <% end %>
+              </p>
+              <% if content.category.title == "Accommodation" %>
+                <p class="available">Available</p>
+              <% end %>
             </div>
+            <h5 class="mb-0">
+              <%= content.price.zero? ? "" : number_to_currency(content.price, precision: 0, unit: "$") %>
+            </h5>
           </div>
         </div>
       </div>
     </div>
-  <% end %>
+  </div>
+<% end %>
