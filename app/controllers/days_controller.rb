@@ -22,7 +22,6 @@ class DaysController < ApplicationController
     day.content_ids << content.id
     day.save!
     authorize day
-    raise
     redirect_to itinerary_path(itinerary, day: params[:day].to_i)
   end
 
