@@ -31,7 +31,7 @@ class ActivityApiJob < ApplicationJob
     activity_selected["location"]["display_address"].nil? ? activity_location = location : activity_location = activity_selected["location"]["display_address"].first
 
     Content.create!(name: activity_selected["name"],
-                    price: set_yelp_price(activity_selected["price"]),
+                    price: yelp_price(activity_selected["price"]),
                     location: activity_location,
                     rating: activity_selected["rating"],
                     category:,
@@ -39,7 +39,7 @@ class ActivityApiJob < ApplicationJob
                     api: "",
                     status: 0)
   end
-  def set_yelp_price(price_string)
+  def yelp_price(price_string)
     case
     when price_string.nil? || price_string == " " then return 0
     when price_string == "￥" then return 10
