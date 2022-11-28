@@ -12,9 +12,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
-    if params[:itinerary_id].present?
-      itinerary = Itinerary.find(params[:itinerary_id])
-      itinerary.client = resource
+
+    if params.dig(:user, :itinerary_id).present?
+
+      itinerary = Itinerary.find(params.dig(:user, :itinerary_id))
+      itinerary.client ||= resource
+
+      itinerary.save
     end
   end
 
