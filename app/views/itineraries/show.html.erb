@@ -18,7 +18,7 @@
       <% end %>
     </div>
   </div>
-  <div class="right-container">
+  <div class="right-container" data-controller="filter">
     <!-- WORK IN PROGRESS -->
     <div class="card mb-3">
       <div class="card-body">
@@ -31,9 +31,14 @@
             <% end %>
           </div>
           <div class="filters-container">
-            <%= link_to 'Hotel', '#', class:"filter-pill selected" %>
-            <%= link_to 'Activity', '#', class:"filter-pill" %>
-            <%= link_to 'Restaurant', '#', class:"filter-pill" %>
+            <div class="filter-pill selected" data-action="click->filter#filterHotels">Hotel</div>
+            <div class="filter-pill selected" data-action="click->filter#filterActivities">Activity</div>
+            <div class="filter-pill selected" data-action="click->filter#filterRestaurants">Restaurant</div>
+            <!--
+            <%= link_to 'Hotel', '#', class:"filter-pill selected", data: { action:"click->form#filter" } %>
+            <%= link_to 'Activity', '#', class:"filter-pill", data: { action:"click->form#filter" }  %>
+            <%= link_to 'Restaurant', '#', class:"filter-pill", data: { action:"click->form#filter" }  %>
+            -->
           </div>
         <% end %>
       </div>
@@ -44,7 +49,6 @@
           <%= render 'result', content: content %>
         <% end %>
       <% end %>
-      <!-- WORK IN PROGRESS END -->
     </div>
   </div>
 </div>
