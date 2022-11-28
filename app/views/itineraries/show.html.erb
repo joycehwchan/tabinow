@@ -18,7 +18,7 @@
       <% end %>
     </div>
   </div>
-  <div class="right-container" data-controller="filter search">
+  <div class="right-container" data-controller="search">
     <!-- WORK IN PROGRESS -->
     <div class="card mb-3">
       <div class="card-body">
@@ -35,9 +35,21 @@
             <% end %>
           </div>
           <div class="filters-container">
-            <div class="filter-pill selected" data-action="click->filter#filterHotels">Hotel</div>
-            <div class="filter-pill selected" data-action="click->filter#filterActivities">Activity</div>
-            <div class="filter-pill selected" data-action="click->filter#filterRestaurants">Restaurant</div>
+            <div class="filter-pill selected"
+                 data-search-target="filterAccommodation"
+                 data-action="click->search#filterAccommodations">
+              Hotel
+            </div>
+            <div class="filter-pill selected"
+                 data-search-target="filterActivity"
+                 data-action="click->search#filterActivities">
+              Activity
+            </div>
+            <div class="filter-pill selected"
+                 data-search-target="filterRestaurant"
+                 data-action="click->search#filterRestaurants">
+              Restaurant
+            </div>
           </div>
         <% end %>
       </div>
