@@ -1,8 +1,8 @@
 class AccommodationApiJob < ApplicationJob
   queue_as :default
 
-  def perform(itineraries_params, min_price_generator, max_price_generator, itinerary, category)
-    accommodations = AccommodationApiService.new(itineraries_params)
+  def perform(itinerary, min_price_generator, max_price_generator, category)
+    accommodations = AccommodationApiService.new(itinerary)
     accommodations.number_people = 2
     accommodations.price_from = min_price_generator / 2
     accommodations.price_to = max_price_generator / 2

@@ -1,7 +1,7 @@
 class ActivityApiJob < ApplicationJob
   queue_as :default
 
-  def perform(max_price_generator, itinerary, category)
+  def perform(itinerary, max_price_generator, category)
     # Do something later
     activity_budget = max_price_generator / 6
     set_activity_budget = []

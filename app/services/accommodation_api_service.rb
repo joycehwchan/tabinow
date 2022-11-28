@@ -16,7 +16,6 @@ class AccommodationApiService
 
   def call
     # Calls the API for accommodation
-
     # The API URL to get the area code for the accommodation search (adding the location to the query)
     url = URI("https://hotels4.p.rapidapi.com/locations/v3/search?q=#{@location}%2C%20japan&locale=en_US&langid=1033&siteid=300000001")
 
@@ -26,7 +25,7 @@ class AccommodationApiService
 
     # Adding the API-key
     request = Net::HTTP::Get.new(url)
-    request["X-RapidAPI-Key"] = '2ce7422325msh1413b85402383f0p1d4a08jsn506805417938'
+    request["X-RapidAPI-Key"] = ENV.fetch('HOTELS_API_KEY')
     request["X-RapidAPI-Host"] = 'hotels4.p.rapidapi.com'
 
     begin
