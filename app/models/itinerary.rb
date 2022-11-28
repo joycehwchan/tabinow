@@ -59,7 +59,7 @@ class Itinerary < ApplicationRecord
                               day:)
       if category.save!
         # set_accommodation
-        AccommodationApiJob.perform_later(itineraries_params, min_price_generator, max_price_generator, @itinerary, category) # <- The job is queued
+        AccommodationApiJob.perform_later(self, min_price_generator, max_price_generator, category) # <- The job is queued
       end
     elsif item_category == "Restaurant"
       food_times = ["Lunch", "Dinner"]
@@ -68,7 +68,7 @@ class Itinerary < ApplicationRecord
                                 sub_category: food_time,
                                 day:)
         if category.save!
-          RestaurantApiJob.perform_later(food_time, max_price_generator, @itinerary, category) # <- The job is queued
+          RestaurantApiJob.perform_later(self, food_time, max_price_generator, category) # <- The job is queued
         end
       end
     else
@@ -77,19 +77,19 @@ class Itinerary < ApplicationRecord
                                 sub_category: "Not Set",
                                 day:)
         if category.save!
-          ActivityApiJob.perform_later(max_price_generator, @itinerary, category) # <- The job is queued
+          ActivityApiJob.perform_later(self, max_price_generator, category) # <- The job is queued
         end
       end
     end
   end
 
   def min_price_generator
-    min_price = @itinerary.min_budget.to_i
+    min_price = min_budget.to_i
     return min_price
   end
 
   def max_price_generator
-    max_price = @itinerary.max_budget.to_i
+    max_price = max_budget.to_i
     return max_price
   end
 
@@ -107,9 +107,9 @@ class Itinerary < ApplicationRecord
       set_activity_budget = "1"
     end
 
-    activities = ActivityApiService.new(location: params[:location],
+    activities = ActivityApiService.new(location: location,
                                         keyword: "activities",
-                                        number_people: params[:number_people],
+                                        number_people: umber_people,
                                         price: set_activity_budget)
     begin
       activities_results = activities.call
