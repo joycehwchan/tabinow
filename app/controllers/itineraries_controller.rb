@@ -2,6 +2,7 @@ class ItinerariesController < ApplicationController
   before_action :set_itinerary, except: %i[index new create]
   skip_before_action :authenticate_user!, only: %i[create show]
 
+
   def index
     @itineraries = policy_scope(Itinerary)
     @itinerary = Itinerary.new

@@ -51,7 +51,7 @@
         <% end %>
       <% else %>
         <small>Want to save itinerary?</small>
-        <%= link_to '#', class:"btn btn-sm btn-outline-primary btn-tabinow d-block my-2" do %>
+        <%= link_to    new_user_registration_path(itinerary_id: itinerary.id), class:"btn btn-sm btn-outline-primary btn-tabinow d-block my-2" do %>
           <i class="fa-solid fa-user-plus"></i> Sign up now
         <% end %>
       <% end %>
