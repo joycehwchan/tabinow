@@ -10,6 +10,11 @@ class ItinerariesController < ApplicationController
   def show
     @day = @itinerary.days[params[:day].to_i - 1]
     @contents = params[:query].present? ? Content.where('location ILIKE ?', "%#{params[:query]}%") : []
+
+    respond_to do |format|
+      format.html # Follow regular flow of Rails
+      format.text { render partial: "itineraries/results", locals: {contents: @contents}, formats: [:html] }
+    end
   end
 
   def new
