@@ -1,6 +1,6 @@
 class ItinerariesController < ApplicationController
   before_action :set_itinerary, except: %i[index new create]
-  skip_before_action :authenticate_user!, only: :create
+  skip_before_action :authenticate_user!, only: %i[create show]
 
   def index
     @itineraries = policy_scope(Itinerary)
@@ -21,11 +21,12 @@ class ItinerariesController < ApplicationController
     set_new_itinerary
     if @itinerary.save
       @itinerary.new_day(@days)
-      set_employee
-    elsif user_signed_in?
-      @itineraries = policy_scope(Itinerary)
-      flash[:alert] = @itinerary.errors.full_messages.first
-      render :index, status: :unprocessable_entity
+      redirect_to itinerary_path(@itinerary)
+    # set_employee
+    # elsif user_signed_in?
+    #   @itineraries = policy_scope(Itinerary)
+    #   flash[:alert] = @itinerary.errors.full_messages.first
+    #   render :index, status: :unprocessable_entity
     else
       flash[:alert] = @itinerary.errors.full_messages.first
       render 'pages/home', status: :unprocessable_entity
@@ -78,7 +79,6 @@ class ItinerariesController < ApplicationController
   #     # new_category_and_item("Activity", day)
   #   end
   # end
-
 
   def set_itinerary
     @itinerary = Itinerary.find(params[:id])

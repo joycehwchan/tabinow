@@ -44,9 +44,9 @@ class Itinerary < ApplicationRecord
       day = Day.new(number: i + 1)
       day.itinerary = self
       if day.save!
-        new_category_and_item("Accommodation", day)
-        new_category_and_item("Restaurant", day)
-        new_category_and_item("Activity", day)
+        # new_category_and_item("Accommodation", day)
+        # new_category_and_item("Restaurant", day)
+        # new_category_and_item("Activity", day)
       end
     end
   end
