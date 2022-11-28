@@ -48,6 +48,8 @@ class AccommodationApiJob < ApplicationJob
       category.update!(sub_category: "Hotel") if accommodation.save!
     end
 
-    accommodations_results
+    accommodations_results.each do |accommodation|
+      # Loop and save
+    end
   end
 end
