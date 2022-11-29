@@ -1,6 +1,5 @@
 class ContentsController < ApplicationController
   def update
-    p params
     content = Content.find(params[:id])
     itinerary = Itinerary.find(params[:itinerary_id].to_i)
     content.update(contents_params)
@@ -14,6 +13,10 @@ class ContentsController < ApplicationController
       format.html { redirect_to itinerary_path(itinerary), status: :see_other }
       format.text { render partial: "itineraries/content", locals: { contents: day.contents }, formats: [:html] }
     end
+  end
+
+  def move
+    raise
   end
 
   private

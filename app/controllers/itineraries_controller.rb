@@ -1,7 +1,6 @@
 class ItinerariesController < ApplicationController
-  before_action :set_itinerary, except: %i[index new create]
+  before_action :set_itinerary, except: %i[index new create move]
   skip_before_action :authenticate_user!, only: %i[create show]
-
 
   def index
     @itineraries = policy_scope(Itinerary)
@@ -10,11 +9,16 @@ class ItinerariesController < ApplicationController
 
   def show
     @day = @itinerary.days[params[:day].to_i - 1]
-    @contents = params[:query].present? ? UnusedContent.where('location ILIKE :query OR name ILIKE :query', query: "%#{params[:query]}%") : []
+    @contents = if params[:query].present?
+                  UnusedContent.where('location ILIKE :query OR name ILIKE :query',
+                                      query: "%#{params[:query]}%")
+                else
+                  []
+                end
 
     respond_to do |format|
       format.html # Follow regular flow of Rails
-      format.text { render partial: "itineraries/results", locals: {contents: @contents}, formats: [:html] }
+      format.text { render partial: "itineraries/results", locals: { contents: @contents }, formats: [:html] }
     end
   end
 
@@ -71,20 +75,20 @@ class ItinerariesController < ApplicationController
     # Client gets a confirmation email with a pdf of the booked itinerary
   end
 
+  def move
+    items = params[:list]
+    items.each do |item|
+      content = Content.find(item[:content].to_i)
+      content.position = item[:currentIndex]
+
+      content.save
+      authorize content
+    end
+    itinerary = Itinerary.find(params[:itinerary_id].to_i)
+    redirect_to itinerary_path(itinerary)
+  end
+
   private
-
-  # def set_new_day
-
-  #   @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
-  #   @days.times do |i|
-  #     day = Day.new(number: i + 1)
-  #     day.itinerary = @itinerary
-  #     day.save!
-  #     # new_category_and_item("Accommodation", day)
-  #     # new_category_and_item("Restaurant", day)
-  #     # new_category_and_item("Activity", day)
-  #   end
-  # end
 
   def set_itinerary
     @itinerary = Itinerary.find(params[:id])
@@ -113,6 +117,6 @@ class ItinerariesController < ApplicationController
 
   def itineraries_params
     params.require(:itinerary).permit(:name, :title, :location, :status, :employee_id, :client_id, :max_budget, :min_budget,
-                                      :special_request, :start_date, :end_date, :archived)
+                                      :special_request, :start_date, :end_date, :archived, :content, :curentIndex, )
   end
 end

@@ -9,4 +9,8 @@ class ContentPolicy < ApplicationPolicy
   def update?
     true
   end
+
+  def move?
+    true
+  end
 end
