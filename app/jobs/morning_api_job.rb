@@ -28,8 +28,8 @@ class MorningApiJob < ApplicationJob
     begin
       activities_results = activities.call
       activity_selected = activities_results.sample
-    rescue
-      retry
+    # rescue
+    #   retry
     end
 
     activity_selected["location"]["display_address"].nil? ? activity_location = location : activity_location = activity_selected["location"]["display_address"].first
@@ -50,11 +50,7 @@ class MorningApiJob < ApplicationJob
                             filename: "restaurant_#{activity_selected['id']}.png",
                             content_type: "image/png")
     end
-
     activity.save!
-    puts "Saved activity"
-
-    sleep(0.25)
 
     # Lunch
     lunch_category = Category.new(title: "Restaurant",
@@ -82,9 +78,7 @@ class MorningApiJob < ApplicationJob
     begin
 
       restaurants_results = restaurants.call
-      p restaurants_results
       restaurants_selected = restaurants_results.sample
-      p restaurants_selected
     end
 
     restaurants_selected["location"]["display_address"].nil? ? restaurant_location = activity_location : restaurant_location = restaurants_selected["location"]["display_address"].first
@@ -103,11 +97,7 @@ class MorningApiJob < ApplicationJob
                               filename: "restaurant_#{restaurants_selected['id']}.png",
                               content_type: "image/png")
     end
-    p restaurant
     restaurant.save!
-    puts "Saved restaurant"
-
-    sleep(0.25)
 
     activities_results.delete(activity_selected)
 
@@ -131,8 +121,6 @@ class MorningApiJob < ApplicationJob
                                            content_type: "image/png")
       end
       new_unused_activities.save!
-      puts "Saved Activity"
-      sleep(0.25)
     end
 
     restaurants_results.delete(restaurants_selected)
@@ -157,9 +145,6 @@ class MorningApiJob < ApplicationJob
                                            content_type: "image/png")
       end
       new_unused_restaurant.save!
-      puts "Saved Restaurant for Lunch"
-
-      sleep(0.25)
     end
   end
 

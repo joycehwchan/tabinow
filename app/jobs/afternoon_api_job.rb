@@ -77,8 +77,8 @@ class AfternoonApiJob < ApplicationJob
     begin
       restaurants_results = restaurants.call
       restaurants_selected = restaurants_results.sample
-    rescue
-      retry
+    # rescue
+    #   retry
     end
 
     restaurants_selected["location"]["display_address"].nil? ? restaurant_location = activity_location : restaurant_location = restaurants_selected["location"]["display_address"].first
@@ -99,7 +99,6 @@ class AfternoonApiJob < ApplicationJob
                               content_type: "image/png")
     end
     restaurant.save!
-    puts "Saved restaurant"
 
     activities_results.delete(activity_selected)
 
@@ -124,7 +123,6 @@ class AfternoonApiJob < ApplicationJob
       end
       new_unused_activities.save!
 
-      puts "Saved Activity"
     end
 
     restaurants_results.delete(restaurants_selected)
@@ -149,7 +147,6 @@ class AfternoonApiJob < ApplicationJob
                                            content_type: "image/png")
       end
       new_unused_restaurant.save!
-      puts "Saved Restaurant"
     end
   end
 
