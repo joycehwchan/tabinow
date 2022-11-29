@@ -25,4 +25,5 @@ Rails.application.routes.draw do
   resources :days, only: [:destroy,:update]  do
     resources :items, only: :create
   end
+  resources :contents, only: :update
 end
