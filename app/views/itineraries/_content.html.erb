@@ -1,4 +1,4 @@
-<% day.contents.each do |content| %>
+<% day.contents.order(position: :asc).each do |content| %>
   <div class="card content-card">
     <div class="card-body">
       <div class="d-flex">
