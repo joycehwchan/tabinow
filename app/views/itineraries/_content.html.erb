@@ -7,10 +7,13 @@
       <div class="flex-column flex-grow-1">
         <div class="d-flex justify-content-between align-items-center">
           <h5 class="card-title"><%= content.name %></h5>
-          <%= link_to '#' do %>
-            <div class="btn btn-outline-primary btn-tabinow btn-delete-content">
+          <%= form_tag day_path , method: :patch do %>
+            <%= hidden_field_tag :content , content.id %>
+            <%= hidden_field_tag :day, params[:day]  %>
+            <%#= submit_tag("add") %>
+            <%= button_tag type:"submit", class:"btn btn-outline-dark btn-tabinow btn-add-content" do %>
               <i class="fa-solid fa-xmark"></i>
-            </div>
+            <% end %>
           <% end %>
         </div>
         <h6 class="card-subtitle my-2 text-muted">
