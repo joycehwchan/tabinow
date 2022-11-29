@@ -6,7 +6,7 @@
 </div>
 <%= render "sidebar", itinerary: @itinerary %>
 <div class="generator-container">
-  <div class="left-container">
+  <div class="left-container" id="list" >
     <!-- days -->
     <% if params[:day].present? %>
       <%= render 'itineraries/day', day: @day %>
