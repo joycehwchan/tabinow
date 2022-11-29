@@ -61,8 +61,7 @@ gem "font-awesome-sass", "~> 6.1"
 gem "open-uri"
 gem "openssl"
 gem "pundit"
-# gem "sidekiq"
-gem 'sidekiq', '~> 5.0.4'
+gem 'sidekiq', '<7'
 gem "sidekiq-failures", "~> 1.0"
 gem "simple_form", github: "heartcombo/simple_form"
 gem "uri"

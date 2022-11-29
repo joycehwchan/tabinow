@@ -10,7 +10,7 @@ class ItinerariesController < ApplicationController
 
   def show
     @day = @itinerary.days[params[:day].to_i - 1]
-    @contents = params[:query].present? ? Content.where('location ILIKE ?', "%#{params[:query]}%") : []
+    @contents = params[:query].present? ? UnusedContent.where('location ILIKE ?', "%#{params[:query]}%") : []
 
     respond_to do |format|
       format.html # Follow regular flow of Rails

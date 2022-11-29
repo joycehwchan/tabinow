@@ -7,6 +7,8 @@ class AfternoonApiJob < ApplicationJob
                                      day:)
     activity_category.save!
 
+    p itinerary
+
     activity_budget = max_price_generator / 6
     set_activity_budget = []
 
@@ -102,7 +104,7 @@ class AfternoonApiJob < ApplicationJob
 
     activities_results.delete(activity_selected)
 
-    activities_results.take(0).each do |unused_activity|
+    activities_results.take(2).each do |unused_activity|
       unused_activity["location"]["display_address"].nil? ? activity_location = location : activity_location = unused_activity["location"]["display_address"].first
 
       # Loop and save
@@ -114,7 +116,7 @@ class AfternoonApiJob < ApplicationJob
                                                 description: unused_activity["categories"].first["title"],
                                                 rating: unused_activity["rating"],
                                                 api: unused_activity["id"],
-                                                itinerary:)
+                                                itinerary:itinerary)
       if unused_activity["image_url"].present?
         # Fetching teh image and saving it in ActiveStorage/Cloudinary
         activity_image = URI.parse(unused_activity["image_url"]).open
@@ -128,7 +130,7 @@ class AfternoonApiJob < ApplicationJob
 
     restaurants_results.delete(restaurants_selected)
 
-    restaurants_results.take(0).each do |unused_restaurant|
+    restaurants_results.take(2).each do |unused_restaurant|
       unused_restaurant["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = unused_restaurant["location"]["display_address"].first
 
       # Loop and save
@@ -140,7 +142,7 @@ class AfternoonApiJob < ApplicationJob
                                                 description: unused_restaurant["categories"].first["title"],
                                                 rating: unused_restaurant["rating"],
                                                 api: unused_restaurant["id"],
-                                                itinerary:)
+                                                itinerary:itinerary)
       if unused_restaurant["image_url"].present?
         # Fetching teh image and saving it in ActiveStorage/Cloudinary
         restaurant_image = URI.parse(unused_restaurant["image_url"]).open
