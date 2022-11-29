@@ -2,17 +2,14 @@
   <div class="top-section">
     <h1>Welcome to <span class="text-primary">Tabi</span>Now</h1>
     <h3 class="mt-4 text-white">Design your next trip to Japan!</h3>
-    <%#= link_to "Start now", root_path, class:"btn btn-lg btn-primary btn-tabinow mt-4" %>
-    <button type="button" class="btn btn-lg btn-primary btn-tabinow mt-4" data-bs-toggle="modal" data-bs-target="#createModal">
-      Start now
-    </button>
+    <%= link_to "Start now", start_path, class:"btn btn-lg btn-primary btn-tabinow mt-4" %>
   </div>
   <div class="section-about">
     <%= render 'section_about' %>
   </div>
   <div class="section-quote">
     <i class="fa-solid fa-quote-left quote"></i>
-    <p class="quote">Design a <span id="word"></span>tour.</p>
+    <p class="quote"><span id="quote"></span></p>
     <i class="fa-solid fa-quote-right quote"></i>
   </div>
   <div class="section-steps">
@@ -23,5 +20,3 @@
   </div>
   <%= render "shared/footer" %>
 </div>
-<!-- Create Modal -->
-<%= render 'itineraries/create_modal', itinerary: @itinerary %>

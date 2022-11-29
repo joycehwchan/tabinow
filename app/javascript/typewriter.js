@@ -2,13 +2,13 @@ import Typewriter from "typewriter-effect/dist/core";
 
 // https://github.com/tameemsafi/typewriterjs
 
-const word = document.querySelector("#word");
+const quote = document.querySelector("#quote");
 
-new Typewriter(word, {
+new Typewriter(quote, {
   strings: [
-    '<span style="font-weight: bold;">unique</span>',
-    '<span style="text-decoration: underline">memorable</span>',
-    '<span style="font-style: italic;">phenomenal</span>',
+    "Travel planning is so much easier with TabiNow!",
+    "I always use TabiNow when I need to plan a trip.",
+    "Simple, quick, and stress-free!",
   ],
   autoStart: true,
   pauseFor: 1600,

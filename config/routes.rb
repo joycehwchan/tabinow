@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         registrations: 'users/registrations'
       }
   root to: "pages#home"
+  get '/start', to: 'pages#start'
 
   resources :itineraries, only: [:index, :show, :create, :update, :destroy] do
     resources :days, only: :create
