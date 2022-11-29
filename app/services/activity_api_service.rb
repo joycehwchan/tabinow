@@ -1,3 +1,7 @@
+require 'uri'
+require 'net/http'
+require 'openssl'
+
 class ActivityApiService
 
   def initialize(attr = {})
@@ -21,10 +25,10 @@ class ActivityApiService
     begin
       response = http.request(request)
 
-      restuarants = JSON.parse(response.body)["businesses"]
+      activity = JSON.parse(response.body)["businesses"]
     rescue JSON::ParserError
       retry
     end
-    return restuarants
+    return activity
   end
 end

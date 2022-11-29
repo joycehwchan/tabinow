@@ -63,8 +63,8 @@ class Itinerary < ApplicationRecord
                               day:)
       category.save!
       category_array.push(category)
-      new_category_and_item("Restaurant", day)
-      new_category_and_item("Activity", day)
+      new_morning_category_item(day)
+      new_afternoon_category_item(day)
     end
     accommodation(category_array)
   end
@@ -72,27 +72,13 @@ class Itinerary < ApplicationRecord
   def accommodation(category_array)
     AccommodationApiJob.perform_later(self, min_price_generator, max_price_generator, category_array) # <- The job is queued
   end
-  def new_category_and_item(item_category, day)
-    if item_category == "Restaurant"
-      food_times = ["Lunch", "Dinner"]
-      food_times.each do |food_time|
-        category = Category.new(title: "Restaurant",
-                                sub_category: food_time,
-                                day:)
-        if category.save!
-          RestaurantApiJob.perform_later(self, food_time, max_price_generator, category) # <- The job is queued
-        end
-      end
-    else
-      2.times do
-        category = Category.new(title: "Activity",
-                                sub_category: "Not Set",
-                                day:)
-        if category.save!
-          ActivityApiJob.perform_later(self, max_price_generator, category) # <- The job is queued
-        end
-      end
-    end
+
+  def new_morning_category_item(day)
+    MorningApiJob.perform_later(self, max_price_generator, day) # <- The job is queued
+  end
+
+  def new_afternoon_category_item(day)
+    AfternoonApiJob.perform_later(self, max_price_generator, day) # <- The job is queued
   end
 
   def min_price_generator

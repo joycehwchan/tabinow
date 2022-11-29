@@ -19,8 +19,8 @@ class AccommodationApiJob < ApplicationJob
       accommodations_results = accommodations.call
       # Getitng a ranom accommodation from the array of results
       accommodation_selected = accommodations_results.sample
-    rescue
-      retry
+    # rescue
+    #   retry
     end
 
     # Looping throught the category arrya (that belongs to each day)
@@ -52,7 +52,7 @@ class AccommodationApiJob < ApplicationJob
 
     accommodations_results.delete(accommodation_selected)
 
-    accommodations_results.take(10).each do |accommodation|
+    accommodations_results.take(0).each do |accommodation|
       accommodation_details_selected = AccommodationDetailsApiService.new(accommodation["id"])
       accommodation_details = accommodation_details_selected.call
       # Loop and save

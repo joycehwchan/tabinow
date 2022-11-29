@@ -4,6 +4,7 @@ url = ENV["REDISCLOUD_URL"]
 
 if url
   Sidekiq.configure_server do |config|
+    config.logger.level = Logger::DEBUG
     config.redis = { url: url }
   end
 
