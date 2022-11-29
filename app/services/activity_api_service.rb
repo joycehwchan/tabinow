@@ -21,10 +21,10 @@ class ActivityApiService
     begin
       response = http.request(request)
 
-      restuarants = JSON.parse(response.body)["businesses"]
-    rescue JSON::ParserError
-      retry
+      activity = JSON.parse(response.body)["businesses"]
+    # rescue JSON::ParserError
+    #   retry
     end
-    return restuarants
+    return activity
   end
 end

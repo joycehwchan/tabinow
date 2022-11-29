@@ -33,7 +33,8 @@ class MorningApiJob < ApplicationJob
     end
 
     activity_selected["location"]["display_address"].nil? ? activity_location = location : activity_location = activity_selected["location"]["display_address"].first
-
+    activity_latitude = activity_selected["coordinates"]["latitude"]
+    activity_longitude = activity_selected["coordinates"]["longitude"]
     activity = Content.new(name: activity_selected["name"],
                            price: yelp_price(activity_selected["price"]),
                            location: activity_location,
@@ -49,7 +50,11 @@ class MorningApiJob < ApplicationJob
                             filename: "restaurant_#{activity_selected['id']}.png",
                             content_type: "image/png")
     end
+
     activity.save!
+    puts "Saved activity"
+
+    sleep(0.25)
 
     # Lunch
     lunch_category = Category.new(title: "Restaurant",
@@ -69,16 +74,20 @@ class MorningApiJob < ApplicationJob
     else
       set_restaurant_budget = "1"
     end
-    restaurants = RestaurantApiService.new(location: activity.location,
+    restaurants = RestaurantApiService.new(latitude: activity_latitude,
+                                           longitude: activity_longitude,
                                            keyword: "Best Lunch restaurants",
                                            price: set_restaurant_budget)
-                                           restaurants_selected["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = restaurants_selected["location"]["display_address"].first
+
     begin
+
       restaurants_results = restaurants.call
+      p restaurants_results
       restaurants_selected = restaurants_results.sample
-    rescue
-      retry
+      p restaurants_selected
     end
+
+    restaurants_selected["location"]["display_address"].nil? ? restaurant_location = activity_location : restaurant_location = restaurants_selected["location"]["display_address"].first
     restaurant = Content.new(name: restaurants_selected["name"],
                              price: yelp_price(restaurants_selected["price"]),
                              location: restaurant_location,
@@ -94,11 +103,15 @@ class MorningApiJob < ApplicationJob
                               filename: "restaurant_#{restaurants_selected['id']}.png",
                               content_type: "image/png")
     end
+    p restaurant
     restaurant.save!
+    puts "Saved restaurant"
+
+    sleep(0.25)
 
     activities_results.delete(activity_selected)
 
-    activities_results.take(6).each do |unused_activity|
+    activities_results.take(0).each do |unused_activity|
       unused_activity["location"]["display_address"].nil? ? activity_location = location : activity_location = unused_activity["location"]["display_address"].first
 
       # Loop and save
@@ -118,11 +131,13 @@ class MorningApiJob < ApplicationJob
                                            content_type: "image/png")
       end
       new_unused_activities.save!
+      puts "Saved Activity"
+      sleep(0.25)
     end
 
     restaurants_results.delete(restaurants_selected)
 
-    restaurants_results.take(6).each do |unused_restaurant|
+    restaurants_results.take(0).each do |unused_restaurant|
       unused_restaurant["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = unused_restaurant["location"]["display_address"].first
 
       # Loop and save
@@ -142,6 +157,9 @@ class MorningApiJob < ApplicationJob
                                            content_type: "image/png")
       end
       new_unused_restaurant.save!
+      puts "Saved Restaurant for Lunch"
+
+      sleep(0.25)
     end
   end
 

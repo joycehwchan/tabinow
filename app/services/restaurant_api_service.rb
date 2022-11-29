@@ -3,18 +3,19 @@ require 'net/http'
 require 'openssl'
 
 class RestaurantApiService
-  attr_accessor :location, :keyword, :price
+  attr_accessor :latitude, :longitude, :keyword, :price
 
   def initialize(attr = {})
-    @location = attr[:location]
+    @latitude = attr[:latitude]
+    @longitude = attr[:longitude]
     @keyword = attr[:keyword]
     @price = attr[:price]
   end
 
   def call
     # Calls the API
-    url = URI("https://api.yelp.com/v3/businesses/search?location=#{@location},Japan&term=#{@keyword}&price=#{@price}&limit=50")
-
+    url = URI("https://api.yelp.com/v3/businesses/search?longitude=#{@longitude}&latitude=#{@latitude}&radius=2000&term=#{@keyword}&price=#{@price}&limit=50")
+    p url
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -26,8 +27,8 @@ class RestaurantApiService
       response = http.request(request)
 
       restuarants = JSON.parse(response.body)["businesses"]
-    rescue JSON::ParserError
-      retry
+    # rescue JSON::ParserError
+    #   retry
     end
     return restuarants
   end

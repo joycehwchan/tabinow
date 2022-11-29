@@ -52,7 +52,7 @@ class AccommodationApiJob < ApplicationJob
 
     accommodations_results.delete(accommodation_selected)
 
-    accommodations_results.take(10).each do |accommodation|
+    accommodations_results.take(0).each do |accommodation|
       accommodation_details_selected = AccommodationDetailsApiService.new(accommodation["id"])
       accommodation_details = accommodation_details_selected.call
       # Loop and save
@@ -72,6 +72,8 @@ class AccommodationApiJob < ApplicationJob
                                           content_type: "image/png")
       end
       unused_accommodation.save!
+
+
     end
   end
 end
