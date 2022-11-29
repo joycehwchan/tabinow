@@ -16,7 +16,15 @@ class Itinerary < ApplicationRecord
   end
 
   def total_budget
-    return 999
+    sum_of_a_itinerary = 0
+    days_array = days
+    days_array.each do |day|
+      contents_array = day.contents
+      contents_array.each do |content|
+        sum_of_a_itinerary += content.price
+      end
+    end
+    return sum_of_a_itinerary
   end
 
   def total_days
