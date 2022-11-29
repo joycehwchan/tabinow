@@ -27,7 +27,14 @@ class ItinerariesController < ApplicationController
     set_new_itinerary
     if @itinerary.save
       @itinerary.new_day(@days)
-      redirect_to itinerary_path(@itinerary)
+      # redirect_to itinerary_path(@itinerary)
+
+
+      respond_to do |format|
+        # format.html { redirect_to itinerary_path(@itinerary) }
+        format.text { render partial: "", locals: {itinerary: @itinerary}, formats: [:html] }
+      end
+
       # set_employee
     elsif user_signed_in?
       @itineraries = policy_scope(Itinerary)
@@ -35,7 +42,7 @@ class ItinerariesController < ApplicationController
       render :index, status: :unprocessable_entity
     else
       flash[:alert] = @itinerary.errors.full_messages.first
-      render 'pages/home', status: :unprocessable_entity
+      render 'pages/start', status: :unprocessable_entity
     end
   end
 

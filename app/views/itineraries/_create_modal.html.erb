@@ -5,8 +5,8 @@
         <h1 class="modal-title fs-5" id="createModalLabel">New itinerary</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <%= simple_form_for itinerary , data: { turbo: :false } do |f| %>
+      <div class="modal-body" data-controller="loading">
+        <%= simple_form_for itinerary , data: { turbo: :false }, html: { data: { loading_target: "form" , action: "submit->loading#generate" } } do |f| %>
           <div class="row" data-controller="form">
             <div class="mb-1 col-12">
               <%= f.input :location, label: "Tour destination", placeholder: "Tokyo" %>
