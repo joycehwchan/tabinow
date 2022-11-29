@@ -6,7 +6,7 @@
 </div>
 <%= render "sidebar", itinerary: @itinerary %>
 <div class="generator-container">
-  <div class="left-container" id="list" >
+  <div class="left-container"  >
     <!-- days -->
     <% if params[:day].present? %>
       <%= render 'itineraries/day', day: @day %>
@@ -16,11 +16,9 @@
       <% end %>
     <% end %>
     <!-- content -->
-    <div class="content-cards-container">
+    <div class="content-cards-container" id="list">
       <% if  params[:day].present? %>
-        <% @day.contents.each do |content| %>
-          <%= render 'content', content: content %>
-        <% end %>
+        <%= render 'content', day: @day %>
       <% end %>
     </div>
   </div>

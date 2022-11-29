@@ -1,55 +1,57 @@
-<div class="card content-card">
-  <div class="card-body">
-    <div class="d-flex">
-      <div class="content-card-category-icon-container">
-        <%= render 'category_icon', category: content.category.title %>
-      </div>
-      <div class="flex-column flex-grow-1">
-        <div class="d-flex justify-content-between align-items-center">
-          <h5 class="card-title"><%= content.name %></h5>
-          <%= link_to '#' do %>
-            <div class="btn btn-outline-primary btn-tabinow btn-delete-content">
-              <i class="fa-solid fa-xmark"></i>
+<% day.contents.each do |content| %>
+  <div class="card content-card">
+    <div class="card-body">
+      <div class="d-flex">
+        <div class="content-card-category-icon-container">
+          <%= render 'category_icon', category: content.category.title %>
+        </div>
+        <div class="flex-column flex-grow-1">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="card-title"><%= content.name %></h5>
+            <%= link_to '#' do %>
+              <div class="btn btn-outline-primary btn-tabinow btn-delete-content">
+                <i class="fa-solid fa-xmark"></i>
+              </div>
+            <% end %>
+          </div>
+          <h6 class="card-subtitle my-2 text-muted">
+            <i class="fa-solid fa-location-dot"></i> <%= content.location %>
+            <div class="mt-1">
+              <% if content.category.sub_category == "Lunch"%>
+                <i class="fa-solid fa-sun"></i> Lunch
+              <% elsif content.category.sub_category == "Dinner" %>
+                <i class="fa-solid fa-moon"></i> Dinner
+              <% elsif content.category.sub_category == "Museum" %>
+                <i class="fa-solid fa-building-columns"></i> Museum
+              <% elsif content.category.sub_category == "Historic Sites" %>
+                <i class="fa-solid fa-monument"></i> Historic Sites
+              <% end %>
             </div>
-          <% end %>
-        </div>
-        <h6 class="card-subtitle my-2 text-muted">
-          <i class="fa-solid fa-location-dot"></i> <%= content.location %>
-          <div class="mt-1">
-            <% if content.category.sub_category == "Lunch"%>
-              <i class="fa-solid fa-sun"></i> Lunch
-            <% elsif content.category.sub_category == "Dinner" %>
-              <i class="fa-solid fa-moon"></i> Dinner
-            <% elsif content.category.sub_category == "Museum" %>
-              <i class="fa-solid fa-building-columns"></i> Museum
-            <% elsif content.category.sub_category == "Historic Sites" %>
-              <i class="fa-solid fa-monument"></i> Historic Sites
-            <% end %>
-          </div>
-        </h6>
-        <p class="card-text line-clamp"><%= content.description %></p>
-        <div class="content-img result-img"
+          </h6>
+          <p class="card-text line-clamp"><%= content.description %></p>
+          <div class="content-img result-img"
              style="background-image:url(<%= content.image.attached? ? cl_image_path(content.image.key) : image_url("") %>);">
-        </div>
-        <div class="d-flex justify-content-between">
-          <div class="d-flex align-items-center">
-            <p class="m-0 user-select-none text-info">
-              <% content.rating.to_i.times do %>
-                <i class="fa-solid fa-star"></i>
-              <% end %>
-              <% (5 - content.rating.to_i).times do %>
-                <i class="fa-regular fa-star"></i>
-              <% end %>
-            </p>
-            <% if content.category.title == "Accommodation" %>
-              <p class="available">Available</p>
-            <% end %>
           </div>
-          <h5 class="mb-0">
-            <%= content.price.zero? ? "" : number_to_currency(content.price, precision: 0, unit: "$") %>
-          </h5>
+          <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+              <p class="m-0 user-select-none text-info">
+                <% content.rating.to_i.times do %>
+                  <i class="fa-solid fa-star"></i>
+                <% end %>
+                <% (5 - content.rating.to_i).times do %>
+                  <i class="fa-regular fa-star"></i>
+                <% end %>
+              </p>
+              <% if content.category.title == "Accommodation" %>
+                <p class="available">Available</p>
+              <% end %>
+            </div>
+            <h5 class="mb-0">
+              <%= content.price.zero? ? "" : number_to_currency(content.price, precision: 0, unit: "$") %>
+            </h5>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>

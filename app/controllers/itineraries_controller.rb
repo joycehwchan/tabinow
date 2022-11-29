@@ -85,7 +85,11 @@ class ItinerariesController < ApplicationController
       authorize content
     end
     itinerary = Itinerary.find(params[:itinerary_id].to_i)
-    redirect_to itinerary_path(itinerary)
+    day = itinerary.days[params[:day].to_i - 1]
+    respond_to do |format|
+      format.html { redirect_to itinerary_path(itinerary), status: :see_other }
+      format.text { render partial: "itineraries/content", locals: day, formats: [:html] }
+    end
   end
 
   private
@@ -117,6 +121,6 @@ class ItinerariesController < ApplicationController
 
   def itineraries_params
     params.require(:itinerary).permit(:name, :title, :location, :status, :employee_id, :client_id, :max_budget, :min_budget,
-                                      :special_request, :start_date, :end_date, :archived, :content, :curentIndex, )
+                                      :special_request, :start_date, :end_date, :archived, :content, :curentIndex)
   end
 end
