@@ -66,6 +66,11 @@
     }
   }
 
+  .overview-days-container {
+    height: calc(100vh - 64px - 16px);
+    overflow: auto;
+  }
+
   @media (max-width: 800px) {
     flex-direction: column;
     gap: 16px;
