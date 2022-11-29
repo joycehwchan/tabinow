@@ -10,7 +10,7 @@
     <% if params[:day].present? %>
       <%= render 'itineraries/day', day: @day %>
     <% else %>
-      <%= render 'overview', itinerary: @itinerary %>
+      <%= render 'map', itinerary: @itinerary %>
     <% end %>
     <% if  params[:day].present? %>
       <div class="content-cards-container">
