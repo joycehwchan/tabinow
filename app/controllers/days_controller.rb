@@ -19,7 +19,7 @@ class DaysController < ApplicationController
     itinerary = Itinerary.find(params[:id].to_i)
     day = itinerary.days[params[:day].to_i - 1]
     content = Content.find(params[:content].to_i)
-    day.content_ids << content.id
+    day.contents << content
     day.save!
     authorize day
     redirect_to itinerary_path(itinerary, day: params[:day].to_i)
