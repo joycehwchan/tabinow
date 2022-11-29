@@ -1,3 +1,20 @@
+.loading-container {
+  position: absolute;
+  z-index: 12;
+  background-color: rgba($dark, 0.6);
+  height: calc(100vh - 64px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .spinner-border {
+    scale: 1.6;
+    margin-bottom: 4rem;
+  }
+}
+
 .generator-container {
   display: flex;
   padding: 8px 0;
@@ -7,13 +24,13 @@
   max-width: 1600px;
   margin: 0 auto;
   max-height: calc(100vh - 64px);
-  overflow: auto;
+  overflow: hidden;
 
   .left-container {
     padding: 0 12px;
     height: calc(100vh - 64px - 16px);
     // overflow: hidden;
-    width: 50%;
+    width: 70%;
 
     @media (max-width: 1040px) {
       .day-container .category-container {
@@ -35,16 +52,17 @@
     // background-color: rgba($secondary, 0.8);
     height: calc(100vh - 64px - 16px);
     // overflow: auto;
-    width: 50%;
-
-    .card.content-card {
-      // cursor: grab;
-    }
+    width: 30%;
+    transition: width 200ms;
 
     .results-container {
       // max-height: 16rem;
       height: calc(100% - 120px);
       overflow: auto;
+    }
+
+    &:hover {
+      width: 50%;
     }
   }
 
