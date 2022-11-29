@@ -80,7 +80,6 @@ class ItinerariesController < ApplicationController
     items.each do |item|
       content = Content.find(item[:content].to_i)
       content.position = item[:currentIndex]
-
       content.save
       authorize content
     end
