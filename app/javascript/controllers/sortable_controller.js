@@ -18,24 +18,50 @@ export default class extends Controller {
         const url = `/contents/${id}`;
         const csrfToken = document.querySelector("[name='csrf-token']").content;
         const cardsContainer = document.querySelector("#list");
+        const list = document.querySelectorAll("[data-id]");
 
-        const data = JSON.stringify({
-          position: event.newIndex + 1,
-          itinerary_id: this.itineraryValue,
-          day: this.dayValue,
+        const listItems = Array.from(list).map((item, index) => ({
+          // content: item.dataset.id,
+          url: `/contents/${item.dataset.id}`,
+          currentIndex: index,
+        }));
+        listItems.forEach((item) => {
+          const data = JSON.stringify({
+            position: item.currentIndex + 1,
+            // list: listItems,
+            itinerary_id: this.itineraryValue,
+            day: this.dayValue,
+          });
+          const options = {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRF-Token": csrfToken,
+            },
+            body: data,
+          };
+          fetch(item.url, options).then((response) => response.text());
+          // .then((data) => data);
         });
 
-        const options = {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": csrfToken,
-          },
-          body: data,
-        };
-        fetch(url, options)
-          .then((response) => response.text())
-          .then((data) => console.log(data));
+        // console.log(id);
+        // const data = JSON.stringify({
+        //   // position: event.newIndex + 1,
+        //   list: listItems,
+        //   itinerary_id: this.itineraryValue,
+        //   day: this.dayValue,
+        // });
+
+        // const options = {
+        //   method: "PATCH",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     "X-CSRF-Token": csrfToken,
+        //   },
+        //   body: data,
+        // };
+        // fetch(url, options).then((response) => response.text());
+        // .then((data) => data);
       },
     });
   }
