@@ -16,11 +16,6 @@ class Itinerary < ApplicationRecord
   end
 
   def total_budget
-    contents.days.each do |day|
-      day.categories do |category|
-        # .price
-      end
-    end
     return 999
   end
 
