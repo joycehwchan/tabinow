@@ -19,6 +19,12 @@ class DaysController < ApplicationController
     itinerary = Itinerary.find(params[:id].to_i)
     day = itinerary.days[params[:day].to_i - 1]
     content = Content.find(params[:content].to_i)
+
+    unused_content = UnusedContent.new(params[:unused_content])
+    day.category << unused_content.category
+    day.save!
+    category.
+
     day.contents << content
     day.save!
     authorize day
