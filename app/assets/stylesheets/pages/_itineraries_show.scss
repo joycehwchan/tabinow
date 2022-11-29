@@ -63,6 +63,10 @@
 
     &:hover {
       width: 50%;
+
+      .result-img {
+        aspect-ratio: 16 / 9;
+      }
     }
   }
 
