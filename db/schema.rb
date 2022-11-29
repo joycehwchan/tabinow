@@ -74,6 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_041408) do
     t.string "api"
     t.string "rating"
     t.bigint "category_id"
+    t.integer "position"
     t.index ["category_id"], name: "index_contents_on_category_id"
   end
 
