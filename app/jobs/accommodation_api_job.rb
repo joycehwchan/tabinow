@@ -63,7 +63,8 @@ class AccommodationApiJob < ApplicationJob
                                               category_sub_category: "Hotel",
                                               description: accommodation_details["summary"]["tagline"],
                                               rating: accommodation["reviews"]["score"] / 2,
-                                              api: accommodation["id"])
+                                              api: accommodation["id"],
+                                              itinerary:)
       if accommodation_details["propertyGallery"]["images"][0]["image"]["url"].present?
         # Fetching teh image and saving it in ActiveStorage/Cloudinary
         property_image = URI.parse(accommodation_details["propertyGallery"]["images"][0]["image"]["url"]).open

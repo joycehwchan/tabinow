@@ -113,7 +113,8 @@ class AfternoonApiJob < ApplicationJob
                                                 category_sub_category: "",
                                                 description: unused_activity["categories"].first["title"],
                                                 rating: unused_activity["rating"],
-                                                api: unused_activity["id"])
+                                                api: unused_activity["id"],
+                                                itinerary:)
       if unused_activity["image_url"].present?
         # Fetching teh image and saving it in ActiveStorage/Cloudinary
         activity_image = URI.parse(unused_activity["image_url"]).open
@@ -138,7 +139,8 @@ class AfternoonApiJob < ApplicationJob
                                                 category_sub_category: "",
                                                 description: unused_restaurant["categories"].first["title"],
                                                 rating: unused_restaurant["rating"],
-                                                api: unused_restaurant["id"])
+                                                api: unused_restaurant["id"],
+                                                itinerary:)
       if unused_restaurant["image_url"].present?
         # Fetching teh image and saving it in ActiveStorage/Cloudinary
         restaurant_image = URI.parse(unused_restaurant["image_url"]).open
