@@ -31,7 +31,10 @@ class ItinerariesController < ApplicationController
 
       respond_to do |format|
         format.html { redirect_to itinerary_path(@itinerary) }
-        format.text { render partial: "itineraries/generator", locals: { itinerary: @itinerary, day: @day, contents: @contents, markers: @markers }, formats: [:html] }
+        format.text do
+          render partial: "itineraries/generator",
+                 locals: { itinerary: @itinerary, day: @day, contents: @contents, markers: @markers }, formats: [:html]
+        end
       end
 
       # set_employee
@@ -87,20 +90,13 @@ class ItinerariesController < ApplicationController
     end
   end
 
+  def download
+  end
+
+  def preview
+  end
+
   private
-
-  # def set_new_day
-
-  #   @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
-  #   @days.times do |i|
-  #     day = Day.new(number: i + 1)
-  #     day.itinerary = @itinerary
-  #     day.save!
-  #     # new_category_and_item("Accommodation", day)
-  #     # new_category_and_item("Restaurant", day)
-  #     # new_category_and_item("Activity", day)
-  #   end
-  # end
 
   def set_day_and_contents_and_markers
     @day = @itinerary.days[params[:day].to_i - 1]
