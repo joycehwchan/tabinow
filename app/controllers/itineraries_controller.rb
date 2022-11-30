@@ -126,10 +126,12 @@ class ItinerariesController < ApplicationController
   end
 
   def set_new_itinerary
+    params[:itinerary][:interests] = params[:itinerary][:interests].join(", ")
     @itinerary = Itinerary.new(itineraries_params)
     @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
     title = "#{@days} #{'day'.pluralize(@days)} in #{itineraries_params[:location].capitalize}"
     @itinerary.title = title
+
     # @itinerary.set_new_client(name: params[:name], email: params[:email])
     @itinerary.client = current_user if user_signed_in?
     authorize @itinerary
