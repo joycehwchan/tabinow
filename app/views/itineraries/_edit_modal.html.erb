@@ -2,7 +2,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="editModalLabel">Edit "<%= itinerary.title %>"</h1>
+        <h1 class="modal-title fs-5" id="editModalLabel">Change "<%= itinerary.title %>"</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -10,20 +10,6 @@
           <div class="row">
             <div class="col-12 mt-2">
               <%= f.input :title, label: "Name of itinerary" %>
-            </div>
-            <div class="col-12">
-              <%= f.input :location, label:"Tour destination" %>
-            </div>
-            <div class="mb-2 col-6">
-              <%= f.label :min_budget,'Min Budget/Day ($USD)', class:"form-label" %>
-              <%= f.input :min_budget, class:"form-control", step:"1000", min:"0", required: true, label: false %>
-            </div>
-            <div class="mb-2 col-6">
-              <%= f.label :max_budget ,'Max Budget/Day ($USD)', class:"form-label" %>
-              <%= f.input :max_budget, class:"form-control", step:"1000", min:"0", required: true, label: false %>
-            </div>
-            <div class="col-12">
-              <%= f.input :interests, as: :boolean, label:"Interests" %>
             </div>
             <div class="col-12 mt-2">
               <%= f.submit "Save changes", class: 'btn btn-primary btn-tabinow mt-2 w-100' %>
