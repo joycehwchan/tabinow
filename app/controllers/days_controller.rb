@@ -18,7 +18,6 @@ class DaysController < ApplicationController
   def update
     itinerary = Itinerary.find(params[:id].to_i)
     day = itinerary.days[params[:day].to_i - 1]
-    
     if Content.exists?(params[:content].to_i)
       content = Content.find(params[:content].to_i)
       category = Category.find(content.category.id)
@@ -62,7 +61,7 @@ class DaysController < ApplicationController
       day.categories.push(category)
       unused_content.destroy
     end
-    
+
     day.save!
     authorize day
     redirect_to itinerary_path(itinerary, day: params[:day].to_i)
