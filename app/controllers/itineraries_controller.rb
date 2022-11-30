@@ -38,7 +38,7 @@ class ItinerariesController < ApplicationController
                  locals: { itinerary: @itinerary, day: @day, contents: @contents, markers: @markers }, formats: [:html]
         end
       end
-      
+
       # set_employee
     elsif user_signed_in?
       @itineraries = policy_scope(Itinerary)
@@ -100,7 +100,7 @@ class ItinerariesController < ApplicationController
                                                         layout: 'pdf',
                                                         locals: { itinerary: @itinerary }
                                                       })
-    pdf = Grover.new(html, display_url: 'http://localhost:3000').to_pdf
+    pdf = Grover.new(html, display_url: ENV.fetch('host_name')).to_pdf
     send_data(pdf,
               filename: "#{@itinerary.title}- #{@itinerary.client.name} ",
               type: 'application/pdf')
@@ -108,7 +108,7 @@ class ItinerariesController < ApplicationController
   end
 
   def preview
-   
+
   end
 
   private
