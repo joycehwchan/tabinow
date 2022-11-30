@@ -130,27 +130,29 @@ CLIENTS= [
   email: "chris@tabinow.tours",
   phone: Faker::PhoneNumber.cell_phone_in_e164,
   password: "Password123",
+  admin: true
   },
   {
   name: "Fred",
   email: "fred@tabinow.tours",
   phone: Faker::PhoneNumber.cell_phone_in_e164,
   password: "Password123",
+  admin: true
   },
   {
   name: "Hafid",
   email: "hafid@tabinow.tours",
   phone: Faker::PhoneNumber.cell_phone_in_e164,
   password: "Password123",
+  admin: true
   },
   {
   name: "Paul Smith",
   email: "demo@tabinow.tours",
   phone: Faker::PhoneNumber.cell_phone_in_e164,
   password: "Password123",
-  },
-
-
+  admin: true
+  }
   ]
 
   CLIENTS.each do |client_info|
@@ -176,7 +178,6 @@ max_budget = min_budget + (rand(5..10) * [1000 ,10000].sample)
 SPECIALREQUESTDATA= ["Mandarin speaking guide", "Only vegetarian meals", "Should include a Japanese tea ceremony", "Should include Disneyland", "Please add Universal studio!"]
 # Seed for itinerary
 
-
 5.times do |index|
   # Selecting employee from user db
   employee = User.find_by(admin: true)
@@ -185,7 +186,7 @@ SPECIALREQUESTDATA= ["Mandarin speaking guide", "Only vegetarian meals", "Should
   # Creating a variable with a location in Japan
   location = ["Tokyo", "Kyoto", "Hokkaido", "Okinawa", "Nagoya", "Osaka"].sample
   # Randomly generates a number of days
-  days_number = rand(1..5)
+  days_number = rand(1..3)
   # setting hotel for this itinerary
   set_hotel = hotels_names.sample
 
