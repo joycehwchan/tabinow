@@ -13,7 +13,7 @@
             <div class="flex-grow-1">
               <h5 class="card-title"><%= content.name %></h5>
             </div>
-            <%= form_tag day_path , method: :patch do %>
+            <%= form_tag day_path(day) , method: :patch do %>
               <%= hidden_field_tag :content , content.id %>
               <%= hidden_field_tag :day, params[:day]  %>
               <%#= submit_tag("add") %>

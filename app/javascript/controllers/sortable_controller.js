@@ -43,6 +43,7 @@ export default class extends Controller {
       },
       body: data,
     };
+    console.log(url);
     fetch(url, options)
       .then((response) => response.text())
       .then((data) => {

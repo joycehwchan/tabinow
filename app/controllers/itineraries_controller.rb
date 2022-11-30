@@ -91,11 +91,11 @@ class ItinerariesController < ApplicationController
       content.save
       authorize content
     end
-    itinerary = Itinerary.find(params[:itinerary_id].to_i)
-    day = itinerary.days[params[:day].to_i - 1]
+    @itinerary = Itinerary.find(params[:itinerary_id].to_i)
+    @day = @itinerary.days[params[:day].to_i - 1]
     respond_to do |format|
-      format.html { redirect_to itinerary_path(itinerary), status: :see_other }
-      format.text { render partial: "itineraries/content", locals: { day: }, formats: [:html] }
+      format.html { redirect_to itinerary_path(@itinerary), status: :see_other }
+      format.text { render partial: "itineraries/content", locals: { day: @day }, formats: [:html] }
     end
   end
 
