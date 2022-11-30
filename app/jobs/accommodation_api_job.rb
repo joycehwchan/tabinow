@@ -65,16 +65,16 @@ class AccommodationApiJob < ApplicationJob
       accommodation_longitude = accommodation_details["summary"]["location"]["coordinates"]["longitude"]
       # Loop and save
       unused_accommodation = UnusedContent.new(name: accommodation["name"],
-                                              price: accommodation["price"]["lead"]["amount"],
-                                              location: accommodation_details["summary"]["location"]["address"]["addressLine"],
-                                              category_title: "Accommodation",
-                                              category_sub_category: "Hotel",
-                                              description: accommodation_details["summary"]["tagline"],
-                                              rating: accommodation["reviews"]["score"] / 2,
-                                              api: accommodation["id"],
-                                              latitude: accommodation_latitude,
-                                              longitude: accommodation_longitude,
-                                              itinerary:itinerary)
+                                               price: accommodation["price"]["lead"]["amount"],
+                                               location: accommodation_details["summary"]["location"]["address"]["addressLine"],
+                                               category_title: "Accommodation",
+                                               category_sub_category: "Hotel",
+                                               description: accommodation_details["summary"]["tagline"],
+                                               rating: accommodation["reviews"]["score"] / 2,
+                                               api: accommodation["id"],
+                                               latitude: accommodation_latitude,
+                                               longitude: accommodation_longitude,
+                                               itinerary:itinerary)
       if accommodation_details["propertyGallery"]["images"][0]["image"]["url"].present?
         # Fetching teh image and saving it in ActiveStorage/Cloudinary
         property_image = URI.parse(accommodation_details["propertyGallery"]["images"][0]["image"]["url"]).open
