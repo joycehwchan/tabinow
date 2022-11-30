@@ -38,6 +38,12 @@ export default class extends Controller {
     this.markersValue.forEach((marker) =>
       bounds.extend([marker.lng, marker.lat])
     );
-    this.map.fitBounds(bounds, { padding: 80, maxZoom: 16, duration: 1000 });
+    this.map.fitBounds(bounds, {
+      padding: 80,
+      maxZoom: 16,
+      duration: 1000,
+      // center: [139,692 35, 35.6894], // force map center to be Japan on zoom start
+      // zoom: 2,
+    });
   }
 }

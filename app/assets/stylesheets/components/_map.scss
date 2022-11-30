@@ -65,4 +65,8 @@
   .mapboxgl-popup-close-button {
     display: none;
   }
+
+  @media (max-width: 800px) {
+    display: none;
+  }
 }
