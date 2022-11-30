@@ -5,3 +5,46 @@
   height: fit-content;
   max-width: 600px;
 }
+
+.activity_checkboxes {
+
+  input[type=checkbox] { display:none; } /* to hide the checkbox itself */
+  input[type=checkbox] + label:before {
+    font-family: FontAwesome;
+    display: inline-block;
+    cursor: pointer;
+  }
+  input[type=checkbox] + label:before {
+    font-size: 1.75rem;
+    color: darken($light-gray, 20); /* unchecked icon color */
+    letter-spacing: 10px; /* space between checkbox and label */
+  }
+  input[type=checkbox]:checked + label:before {
+    color: $primary; /* checked icon color */
+  }
+  .activity-arts {
+    input[type=checkbox] + label:before {
+      content: "\f630"; /* unchecked icon */
+    }
+  }
+  .activity-religious {
+    input[type=checkbox] + label:before {
+      content: "\f6a1"; /* unchecked icon */
+    }
+  }
+  .activity-active {
+    input[type=checkbox] + label:before {
+      content: "\f70c"; /* unchecked icon */
+    }
+  }
+  .activity-shopping {
+    input[type=checkbox] + label:before {
+      content: "\f290"; /* unchecked icon */
+    }
+  }
+  .activity-nightlife {
+    input[type=checkbox] + label:before {
+      content: "\f561"; /* unchecked icon */
+    }
+  }
+}
