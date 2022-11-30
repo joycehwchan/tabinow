@@ -12,13 +12,12 @@
     <% else %>
       <%= render 'map', itinerary: @itinerary %>
     <% end %>
-    <% if  params[:day].present? %>
-      <div class="content-cards-container">
-        <% @day.contents.each do |content| %>
-          <%= render 'content', content: content %>
-        <% end %>
-      </div>
-    <% end %>
+    <!-- content -->
+    <div class="content-cards-container" id="list">
+      <% if  params[:day].present? %>
+        <%= render 'content', day: @day %>
+      <% end %>
+    </div>
   </div>
   <div class="right-container" data-controller="search">
     <% if params[:day].present? %>
