@@ -89,7 +89,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_052505) do
     t.boolean "archived", default: false
     t.date "start_date"
     t.date "end_date"
-    t.string "Interests"
+    t.string "interests"
     t.index ["client_id"], name: "index_itineraries_on_client_id"
     t.index ["employee_id"], name: "index_itineraries_on_employee_id"
   end

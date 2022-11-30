@@ -157,6 +157,6 @@ class ItinerariesController < ApplicationController
 
   def itineraries_params
     params.require(:itinerary).permit(:name, :title, :location, :status, :employee_id, :client_id, :max_budget, :min_budget,
-                                      :special_request, :start_date, :end_date, :archived, :content, :curentIndex)
+                                      :interests, :start_date, :end_date, :archived, :content, :curentIndex)
   end
 end
