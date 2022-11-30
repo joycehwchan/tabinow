@@ -62,7 +62,6 @@ gem "geocoder"
 gem 'grover'
 gem "open-uri"
 gem "openssl"
-gem 'prawn', '~> 2.4'
 gem "pundit"
 gem 'sidekiq', '<7'
 gem "sidekiq-failures", "~> 1.0"
