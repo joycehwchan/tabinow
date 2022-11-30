@@ -48,7 +48,7 @@ class ItinerariesController < ApplicationController
       render :index, status: :unprocessable_entity
     else
       flash[:alert] = @itinerary.errors.full_messages.first
-      render 'pages/home', status: :unprocessable_entity
+      render 'pages/start', status: :unprocessable_entity
     end
   end
 
