@@ -30,6 +30,8 @@ class AccommodationApiJob < ApplicationJob
       # Getting some more specific info from the next API
       accommodation_details_selected = AccommodationDetailsApiService.new(accommodation_selected["id"])
       accommodation_details = accommodation_details_selected.call
+      accommodation_latitude = accommodation_details["summary"]["location"]["coordinates"]["latitude"]
+      accommodation_longitude = accommodation_details["summary"]["location"]["coordinates"]["longitude"]
       # Creating teh instance for the Accommodation
       accommodation = Content.new(name: accommodation_selected["name"],
                                   price: accommodation_selected["price"]["lead"]["amount"],
@@ -38,6 +40,8 @@ class AccommodationApiJob < ApplicationJob
                                   description: accommodation_details["summary"]["tagline"],
                                   rating: accommodation_selected["reviews"]["score"] / 2,
                                   api: accommodation_details["summary"]["id"],
+                                  latitude: accommodation_latitude,
+                                  longitude: accommodation_longitude,
                                   status: 0)
       # Getting and savinf the the image to AS & Cloudinary
       # Checking if tehre is an image get in the API
@@ -57,16 +61,20 @@ class AccommodationApiJob < ApplicationJob
     accommodations_results.take(2).each do |accommodation|
       accommodation_details_selected = AccommodationDetailsApiService.new(accommodation["id"])
       accommodation_details = accommodation_details_selected.call
+      accommodation_latitude = accommodation_details["summary"]["location"]["coordinates"]["latitude"]
+      accommodation_longitude = accommodation_details["summary"]["location"]["coordinates"]["longitude"]
       # Loop and save
       unused_accommodation = UnusedContent.new(name: accommodation["name"],
-                                              price: accommodation["price"]["lead"]["amount"],
-                                              location: accommodation_details["summary"]["location"]["address"]["addressLine"],
-                                              category_title: "Accommodation",
-                                              category_sub_category: "Hotel",
-                                              description: accommodation_details["summary"]["tagline"],
-                                              rating: accommodation["reviews"]["score"] / 2,
-                                              api: accommodation["id"],
-                                              itinerary:itinerary)
+                                               price: accommodation["price"]["lead"]["amount"],
+                                               location: accommodation_details["summary"]["location"]["address"]["addressLine"],
+                                               category_title: "Accommodation",
+                                               category_sub_category: "Hotel",
+                                               description: accommodation_details["summary"]["tagline"],
+                                               rating: accommodation["reviews"]["score"] / 2,
+                                               api: accommodation["id"],
+                                               latitude: accommodation_latitude,
+                                               longitude: accommodation_longitude,
+                                               itinerary:itinerary)
       if accommodation_details["propertyGallery"]["images"][0]["image"]["url"].present?
         # Fetching teh image and saving it in ActiveStorage/Cloudinary
         property_image = URI.parse(accommodation_details["propertyGallery"]["images"][0]["image"]["url"]).open
