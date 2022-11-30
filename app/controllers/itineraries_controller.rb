@@ -10,11 +10,24 @@ class ItinerariesController < ApplicationController
 
   def show
     @day = @itinerary.days[params[:day].to_i - 1]
-    @contents = params[:query].present? ? UnusedContent.where('location ILIKE :query OR name ILIKE :query', query: "%#{params[:query]}%") : []
+    if params[:query].present?
+      # display search results
+      @contents = UnusedContent.where('location ILIKE :query OR name ILIKE :query', query: "%#{params[:query]}%")
+    else
+      # display content on overview
+      @contents = Content.all
+      # @contents = @itinerary.days.map { |day| day.contents }.flatten
+      @markers = @contents.geocoded.map do |content|
+        {
+          lat: content.latitude,
+          lng: content.longitude
+        }
+      end
+    end
 
     respond_to do |format|
       format.html # Follow regular flow of Rails
-      format.text { render partial: "itineraries/results", locals: {contents: @contents}, formats: [:html] }
+      format.text { render partial: "itineraries/results", locals: { contents: @contents }, formats: [:html] }
     end
   end
 
