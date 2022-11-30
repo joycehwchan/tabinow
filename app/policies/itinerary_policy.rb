@@ -27,6 +27,14 @@ class ItineraryPolicy < ApplicationPolicy
     record.employee = user
   end
 
+  def download?
+    record.client = user
+  end
+
+  def preview?
+    record.client = user
+  end
+
   def move?
     true
   end
