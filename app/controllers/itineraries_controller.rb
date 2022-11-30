@@ -1,7 +1,6 @@
 class ItinerariesController < ApplicationController
-  before_action :set_itinerary, except: %i[index new create]
+  before_action :set_itinerary, except: %i[index new create move]
   skip_before_action :authenticate_user!, only: %i[create show]
-
 
   def index
     @itineraries = policy_scope(Itinerary)
@@ -9,21 +8,7 @@ class ItinerariesController < ApplicationController
   end
 
   def show
-    @day = @itinerary.days[params[:day].to_i - 1]
-    if params[:query].present?
-      # display search results
-      @contents = UnusedContent.where('location ILIKE :query OR name ILIKE :query', query: "%#{params[:query]}%")
-    else
-      # display content on overview
-      @contents = Content.all
-      # @contents = @itinerary.days.map { |day| day.contents }.flatten
-      @markers = @contents.geocoded.map do |content|
-        {
-          lat: content.latitude,
-          lng: content.longitude
-        }
-      end
-    end
+    set_day_and_contents_and_markers
 
     respond_to do |format|
       format.html # Follow regular flow of Rails
@@ -40,8 +25,20 @@ class ItinerariesController < ApplicationController
     set_new_itinerary
     if @itinerary.save
       @itinerary.new_day(@days)
+
       send_confirmation
-      redirect_to itinerary_path(@itinerary)
+      # redirect_to itinerary_path(@itinerary)
+
+      set_day_and_contents_and_markers
+
+      respond_to do |format|
+        format.html { redirect_to itinerary_path(@itinerary) }
+        format.text do
+          render partial: "itineraries/generator",
+                 locals: { itinerary: @itinerary, day: @day, contents: @contents, markers: @markers }, formats: [:html]
+        end
+      end
+      
       # set_employee
     elsif user_signed_in?
       @itineraries = policy_scope(Itinerary)
@@ -87,20 +84,54 @@ class ItinerariesController < ApplicationController
     mail.deliver_now
   end
 
+  def move
+    update_contents_position
+    @itinerary = Itinerary.find(params[:itinerary_id].to_i)
+    @day = @itinerary.days[params[:day].to_i - 1]
+    respond_to do |format|
+      format.html { redirect_to itinerary_path(@itinerary), status: :see_other }
+      format.text { render partial: "itineraries/content", locals: { day: @day }, formats: [:html] }
+    end
+  end
+
+  def download
+    html = ItinerariesController.new.render_to_string({
+                                                        template: 'itineraries/download',
+                                                        layout: 'pdf',
+                                                        locals: { itinerary: @itinerary }
+                                                      })
+    pdf = Grover.new(html, display_url: 'http://localhost:3000').to_pdf
+    send_data(pdf,
+              filename: "#{@itinerary.title}- #{@itinerary.client.name} ",
+              type: 'application/pdf')
+    # render layout: "pdf"
+  end
+
+  def preview
+   
+  end
+
   private
 
-  # def set_new_day
+  def set_day_and_contents_and_markers
+    @day = @itinerary.days[params[:day].to_i - 1]
+    if params[:query].present?
+      # display search results
+      @contents = UnusedContent.where('location ILIKE :query OR name ILIKE :query', query: "%#{params[:query]}%")
+    else
+      # display content on overview
+      @contents = @itinerary.days.map { |day| day.contents }.flatten
 
-  #   @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
-  #   @days.times do |i|
-  #     day = Day.new(number: i + 1)
-  #     day.itinerary = @itinerary
-  #     day.save!
-  #     # new_category_and_item("Accommodation", day)
-  #     # new_category_and_item("Restaurant", day)
-  #     # new_category_and_item("Activity", day)
-  #   end
-  # end
+      @markers = @contents.map do |content|
+        {
+          lat: content.latitude,
+          lng: content.longitude,
+          popup_html: render_to_string(partial: "itineraries/map_popup", locals: { content: content }),
+          marker_html: render_to_string(partial: 'itineraries/map_marker', locals: { content: content })
+        }
+      end
+    end
+  end
 
   def set_itinerary
     @itinerary = Itinerary.find(params[:id])
@@ -127,8 +158,18 @@ class ItinerariesController < ApplicationController
     end
   end
 
+  def update_contents_position
+    items = params[:list]
+    items.each do |item|
+      content = Content.find(item[:content].to_i)
+      content.position = item[:currentIndex]
+      content.save
+      authorize content
+    end
+  end
+
   def itineraries_params
     params.require(:itinerary).permit(:name, :title, :location, :status, :employee_id, :client_id, :max_budget, :min_budget,
-                                      :special_request, :start_date, :end_date, :archived)
+                                      :special_request, :start_date, :end_date, :archived, :content, :curentIndex)
   end
 end

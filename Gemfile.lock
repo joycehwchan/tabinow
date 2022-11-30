@@ -100,6 +100,9 @@ GEM
     cloudinary (1.16.1)
       aws_cf_signer
       rest-client
+    combine_pdf (1.0.22)
+      matrix
+      ruby-rc4 (>= 0.1.5)
     concurrent-ruby (1.1.10)
     connection_pool (2.3.0)
     crass (1.0.6)
@@ -129,6 +132,9 @@ GEM
     geocoder (1.8.1)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    grover (1.1.2)
+      combine_pdf (~> 1.0)
+      nokogiri (~> 1.0)
     http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
@@ -236,6 +242,7 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rexml (3.2.5)
+    ruby-rc4 (0.1.5)
     rubyzip (2.3.2)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -319,6 +326,7 @@ DEPENDENCIES
   faker
   font-awesome-sass (~> 6.1)
   geocoder
+  grover
   jbuilder
   jsbundling-rails
   letter_opener

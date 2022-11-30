@@ -4,12 +4,12 @@
       <div class="card-body">
         <h3 class="text-primary fs-4 text-center"><%= "Day #{day.number}" %></h3>
         <hr>
-        <% day.contents.each do |content| %>
+        <% day.contents.order(position: :asc).each do |content| %>
           <div class="d-flex gap-2 my-2">
             <%= render 'category_icon', category: content.category.title %>
             <div>
-              <h4 class="mb-0 text-secondary"><%=  content.category.title %></h4>
-              <p class="mb-2"><%= content.name %></p>
+              <p class="overview-category"><%=  content.category.title %></p>
+              <p class="mb-3"><strong><%= content.name %></strong></p>
             </div>
           </div>
         <% end %>

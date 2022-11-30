@@ -56,16 +56,17 @@ gem "devise"
 gem 'faker'
 gem "font-awesome-sass", "~> 6.1"
 gem "geocoder"
+gem 'grover'
+gem 'letter_opener', group: :development
+gem 'meta-tags'
 gem "open-uri"
 gem "openssl"
+gem 'postmark-rails'
 gem "pundit"
 gem 'sidekiq', '<7'
 gem "sidekiq-failures", "~> 1.0"
 gem "simple_form", github: "heartcombo/simple_form"
 gem "uri"
-gem 'meta-tags'
-gem 'letter_opener', group: :development
-gem 'postmark-rails'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
