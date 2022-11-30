@@ -23,8 +23,6 @@ class AccommodationApiJob < ApplicationJob
     #   retry
     end
 
-    p itinerary
-
     # Looping throught the category arrya (that belongs to each day)
     category_array.each do |category|
       # Getting some more specific info from the next API
