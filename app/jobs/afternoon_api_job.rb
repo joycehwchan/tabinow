@@ -76,7 +76,7 @@ class AfternoonApiJob < ApplicationJob
     end
     restaurants = RestaurantApiService.new(latitude: activity_latitude,
                                            longitude: activity_longitude,
-                                           keyword: "Best Dinner restaurants",
+                                           keyword: "restaurants",
                                            price: set_restaurant_budget)
     begin
       restaurants_results = restaurants.call
