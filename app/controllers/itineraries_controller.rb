@@ -25,6 +25,8 @@ class ItinerariesController < ApplicationController
     set_new_itinerary
     if @itinerary.save
       @itinerary.new_day(@days)
+
+      send_confirmation
       # redirect_to itinerary_path(@itinerary)
 
       set_day_and_contents_and_markers
@@ -36,7 +38,7 @@ class ItinerariesController < ApplicationController
                  locals: { itinerary: @itinerary, day: @day, contents: @contents, markers: @markers }, formats: [:html]
         end
       end
-
+      
       # set_employee
     elsif user_signed_in?
       @itineraries = policy_scope(Itinerary)
@@ -78,6 +80,8 @@ class ItinerariesController < ApplicationController
 
   def send_confirmation
     # Client gets a confirmation email with a pdf of the booked itinerary
+    mail = UserMailer.itinerary(current_user, @itinerary)
+    mail.deliver_now
   end
 
   def move

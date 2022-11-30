@@ -1,8 +1,9 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { host: "tabinow.herokuapp.com" }
+  config.action_mailer.delivery_method = :postmark
+  config.action_mailer.postmark_settings   = { api_token: ENV['dc768ae1-fba8-460f-896b-4f43941bccf6'] }
+  config.action_mailer.default_url_options = { host: "tabinow.tours" }
 
   # Settings specified here will take precedence over those in config/application.rb.
 
