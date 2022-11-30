@@ -115,7 +115,8 @@ class ItinerariesController < ApplicationController
         {
           lat: content.latitude,
           lng: content.longitude,
-          popup_html: render_to_string(partial: "itineraries/map_popup", locals: { content: content })
+          popup_html: render_to_string(partial: "itineraries/map_popup", locals: { content: content }),
+          marker_html: render_to_string(partial: 'itineraries/map_marker', locals: { content: content })
         }
       end
     end

@@ -44,4 +44,25 @@
   .category-icon {
     scale: 0.7;
   }
+
+  .mapboxgl-marker {
+    &:hover {
+      z-index: 10;
+    }
+    .marker {
+      height: 4rem;
+      .category-icon {
+        transition: scale 200ms;
+
+        &:hover {
+          scale: 1;
+          box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+        }
+      }
+    }
+  }
+
+  .mapboxgl-popup-close-button {
+    display: none;
+  }
 }
