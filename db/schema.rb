@@ -63,6 +63,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_002218) do
     t.index ["day_id"], name: "index_categories_on_day_id"
   end
 
+  create_table "clients", force: :cascade do |t|
+    t.string "email"
+    t.string "login"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "contents", force: :cascade do |t|
     t.string "name"
     t.integer "price"
@@ -138,6 +145,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_002218) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "phone"
+    t.string "zipcode"
+    t.string "street"
+    t.string "city"
+    t.string "country"
     t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
