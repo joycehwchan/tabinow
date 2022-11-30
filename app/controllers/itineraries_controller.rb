@@ -82,6 +82,9 @@ class ItinerariesController < ApplicationController
 
   def send_confirmation
     # Client gets a confirmation email with a pdf of the booked itinerary
+    mail = UserMailer.itinerary(current_user, @itinerary)
+    mail.deliver_now
+    redirect_to itinerary_path(@itinerary)
   end
 
   private
