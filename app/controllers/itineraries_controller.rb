@@ -9,12 +9,20 @@ class ItinerariesController < ApplicationController
 
   def show
     @day = @itinerary.days[params[:day].to_i - 1]
-    @contents = if params[:query].present?
-                  UnusedContent.where('location ILIKE :query OR name ILIKE :query',
-                                      query: "%#{params[:query]}%")
-                else
-                  []
-                end
+    if params[:query].present?
+      # display search results
+      @contents = UnusedContent.where('location ILIKE :query OR name ILIKE :query', query: "%#{params[:query]}%")
+    else
+      # display content on overview
+      @contents = Content.all
+      # @contents = @itinerary.days.map { |day| day.contents }.flatten
+      @markers = @contents.geocoded.map do |content|
+        {
+          lat: content.latitude,
+          lng: content.longitude
+        }
+      end
+    end
 
     respond_to do |format|
       format.html # Follow regular flow of Rails
@@ -39,7 +47,7 @@ class ItinerariesController < ApplicationController
       render :index, status: :unprocessable_entity
     else
       flash[:alert] = @itinerary.errors.full_messages.first
-      render 'pages/home', status: :unprocessable_entity
+      render 'pages/start', status: :unprocessable_entity
     end
   end
 
@@ -87,7 +95,7 @@ class ItinerariesController < ApplicationController
     day = itinerary.days[params[:day].to_i - 1]
     respond_to do |format|
       format.html { redirect_to itinerary_path(itinerary), status: :see_other }
-      format.text { render partial: "itineraries/content", locals: { day: day}, formats: [:html] }
+      format.text { render partial: "itineraries/content", locals: { day: }, formats: [:html] }
     end
   end
 

@@ -63,7 +63,16 @@
 
     &:hover {
       width: 50%;
+
+      .result-img {
+        aspect-ratio: 16 / 9;
+      }
     }
+  }
+
+  .overview-days-container {
+    height: calc(100vh - 64px - 16px);
+    overflow: auto;
   }
 
   @media (max-width: 800px) {
