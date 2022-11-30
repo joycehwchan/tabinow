@@ -38,7 +38,7 @@ class ItinerariesController < ApplicationController
                  locals: { itinerary: @itinerary, day: @day, contents: @contents, markers: @markers }, formats: [:html]
         end
       end
-      
+
       # set_employee
     elsif user_signed_in?
       @itineraries = policy_scope(Itinerary)
@@ -95,20 +95,20 @@ class ItinerariesController < ApplicationController
   end
 
   def download
-    html = ItinerariesController.new.render_to_string({
-                                                        template: 'itineraries/download',
-                                                        layout: 'pdf',
-                                                        locals: { itinerary: @itinerary }
-                                                      })
-    pdf = Grover.new(html, display_url: 'http://localhost:3000').to_pdf
-    send_data(pdf,
-              filename: "#{@itinerary.title}- #{@itinerary.client.name} ",
-              type: 'application/pdf')
-    # render layout: "pdf"
+    # html = ItinerariesController.new.render_to_string({
+    #                                                     template: 'itineraries/download',
+    #                                                     layout: 'pdf',
+    #                                                     locals: { itinerary: @itinerary }
+    #                                                   })
+    # pdf = Grover.new(html, display_url: 'http://localhost:3000').to_pdf
+    # send_data(pdf,
+    #           filename: "#{@itinerary.title}- #{@itinerary.client.name} ",
+    #           type: 'application/pdf')
+    render layout: "pdf", locals: { itinerary: @itinerary }
   end
 
   def preview
-   
+
   end
 
   private
