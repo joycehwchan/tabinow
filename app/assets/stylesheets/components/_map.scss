@@ -4,4 +4,44 @@
   // background-color: $primary;
   border-radius: 8px;
   overflow: hidden;
+
+  svg path {
+    fill: $primary;
+  }
+
+  .mapboxgl-popup-tip {
+    // display: none;
+    opacity: 0;
+    margin: 0.4rem;
+  }
+
+  .mapboxgl-popup-content {
+    position: relative;
+    bottom: 1.4rem;
+    display: flex;
+    padding: 0;
+    min-width: 16rem;
+    min-height: 16rem;
+  }
+
+  .container-popup {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 16rem;
+
+    .popup-card-img-top {
+      height: 10rem;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  .card-body {
+    padding: 16px 8px;
+  }
+  .category-icon {
+    scale: 0.7;
+  }
 }

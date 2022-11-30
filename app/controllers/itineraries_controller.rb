@@ -114,7 +114,8 @@ class ItinerariesController < ApplicationController
       @markers = @contents.geocoded.map do |content|
         {
           lat: content.latitude,
-          lng: content.longitude
+          lng: content.longitude,
+          popup_html: render_to_string(partial: "itineraries/map_popup", locals: { content: content })
         }
       end
     end

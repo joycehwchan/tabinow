@@ -1,0 +1,17 @@
+<div class="card container-popup">
+  <%= image_tag content.image.attached? ? cl_image_path(content.image.key) : '', class:"card-img-top popup-card-img-top" %>
+  <div class="card-body">
+    <div class="d-flex">
+      <div class="pe-1">
+        <%= render 'category_icon', category: content.category.title %>
+      </div>
+      <div>
+        <h3 class="card-text m-0">
+          <%= content.name %>
+        </h3>
+        <p class="card-text mb-1"><%= content.description %></p>
+        <%#= link_to  'See more', field_path(field), class:"btn btn-primary btn-sm w-100" %>
+      </div>
+    </div>
+  </div>
+</div>
