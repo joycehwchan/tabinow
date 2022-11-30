@@ -2,6 +2,6 @@
   <div id="map"
   data-controller="map"
   data-map-markers-value="<%= @markers.to_json %>"
-  data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+  data-map-api-key-value="<%= ENV.fetch('MAPBOX_API_KEY') %>">
   </div>
 </div>

@@ -44,6 +44,8 @@ class AfternoonApiJob < ApplicationJob
                            category: activity_category,
                            description: activity_selected["categories"].first["title"],
                            api: activity_selected["id"],
+                           latitude: activity_latitude,
+                           longitude: activity_longitude,
                            status: 0)
 
     if activity_selected["image_url"].present?
@@ -84,7 +86,8 @@ class AfternoonApiJob < ApplicationJob
     end
 
     restaurants_selected["location"]["display_address"].nil? ? restaurant_location = activity_location : restaurant_location = restaurants_selected["location"]["display_address"].first
-
+    restaurant_latitude = restaurants_selected["coordinates"]["latitude"]
+    restaurant_longitude = restaurants_selected["coordinates"]["longitude"]
     restaurant = Content.new(name: restaurants_selected["name"],
                              price: yelp_price(restaurants_selected["price"]),
                              location: restaurant_location,
@@ -92,6 +95,8 @@ class AfternoonApiJob < ApplicationJob
                              category: lunch_category,
                              description: restaurants_selected["categories"].first["title"],
                              api: restaurants_selected["id"],
+                             latitude: restaurant_latitude,
+                             longitude: restaurant_longitude,
                              status: 0)
 
     if restaurants_selected["image_url"].present?
@@ -106,7 +111,8 @@ class AfternoonApiJob < ApplicationJob
 
     activities_results.take(2).each do |unused_activity|
       unused_activity["location"]["display_address"].nil? ? activity_location = location : activity_location = unused_activity["location"]["display_address"].first
-
+      activity_latitude = unused_activity["coordinates"]["latitude"]
+      activity_longitude = unused_activity["coordinates"]["longitude"]
       # Loop and save
       new_unused_activities = UnusedContent.new(name: unused_activity["name"],
                                                 price: yelp_price(unused_activity["price"]),
@@ -116,6 +122,8 @@ class AfternoonApiJob < ApplicationJob
                                                 description: unused_activity["categories"].first["title"],
                                                 rating: unused_activity["rating"],
                                                 api: unused_activity["id"],
+                                                latitude: activity_latitude,
+                                                longitude: activity_longitude,
                                                 itinerary:itinerary)
       if unused_activity["image_url"].present?
         # Fetching teh image and saving it in ActiveStorage/Cloudinary
@@ -132,7 +140,8 @@ class AfternoonApiJob < ApplicationJob
 
     restaurants_results.take(2).each do |unused_restaurant|
       unused_restaurant["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = unused_restaurant["location"]["display_address"].first
-
+      restaurant_latitude = unused_restaurant["coordinates"]["latitude"]
+      restaurant_longitude = unused_restaurant["coordinates"]["longitude"]
       # Loop and save
       new_unused_restaurant = UnusedContent.new(name: unused_restaurant["name"],
                                                 price: yelp_price(unused_restaurant["price"]),
@@ -142,6 +151,8 @@ class AfternoonApiJob < ApplicationJob
                                                 description: unused_restaurant["categories"].first["title"],
                                                 rating: unused_restaurant["rating"],
                                                 api: unused_restaurant["id"],
+                                                latitude: restaurant_latitude,
+                                                longitude: restaurant_longitude,
                                                 itinerary:itinerary)
       if unused_restaurant["image_url"].present?
         # Fetching teh image and saving it in ActiveStorage/Cloudinary

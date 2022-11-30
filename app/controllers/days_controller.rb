@@ -22,7 +22,7 @@ class DaysController < ApplicationController
 
     category = Category.create!(title: unused_content.category_title,
                                 sub_category: unused_content.category_sub_category,
-                                day:day)
+                                day: day)
 
     content = Content.create!(name: unused_content.name,
                               price: unused_content.price,
