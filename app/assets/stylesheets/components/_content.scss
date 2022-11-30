@@ -1,6 +1,7 @@
 .content-cards-container {
   height: calc(100% - 75px);
   overflow: auto;
+  padding-right: 16px;
 }
 
 .card.content-card {
