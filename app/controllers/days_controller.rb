@@ -24,14 +24,19 @@ class DaysController < ApplicationController
                                 sub_category: unused_content.category_sub_category,
                                 day: day)
 
-    content = Content.create!(name: unused_content.name,
+    content = Content.new(name: unused_content.name,
                               price: unused_content.price,
                               location: unused_content.location,
                               rating: unused_content.rating,
                               category: category,
                               description: unused_content.description,
                               api: unused_content.api,
+                              latitude: unused_content.latitude,
+                              longitude: unused_content.longitude,
                               status: 0)
+
+    content.image.attach(unused_content.image.blob)
+    content.save!
     day.categories << category
     day.save!
     authorize day
