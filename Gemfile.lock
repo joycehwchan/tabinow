@@ -148,6 +148,7 @@ GEM
       activesupport (>= 5.0.0)
     jsbundling-rails (1.0.3)
       railties (>= 6.0.0)
+    json (2.6.2)
     launchy (2.5.0)
       addressable (~> 2.7)
     letter_opener (1.8.1)
@@ -191,6 +192,11 @@ GEM
     openssl (3.0.1)
     orm_adapter (0.5.0)
     pg (1.4.5)
+    postmark (1.22.2)
+      json
+    postmark-rails (0.22.1)
+      actionmailer (>= 3.0.0)
+      postmark (>= 1.21.3, < 2.0)
     public_suffix (5.0.0)
     puma (5.6.5)
       nio4r (~> 2.0)
@@ -334,6 +340,7 @@ DEPENDENCIES
   open-uri
   openssl
   pg (~> 1.1)
+  postmark-rails
   puma (~> 5.0)
   pundit
   rails (~> 7.0.4)
