@@ -23,6 +23,8 @@ class AccommodationApiJob < ApplicationJob
     #   retry
     end
 
+    p itinerary
+
     # Looping throught the category arrya (that belongs to each day)
     category_array.each do |category|
       # Getting some more specific info from the next API
@@ -52,7 +54,7 @@ class AccommodationApiJob < ApplicationJob
 
     accommodations_results.delete(accommodation_selected)
 
-    accommodations_results.take(0).each do |accommodation|
+    accommodations_results.take(2).each do |accommodation|
       accommodation_details_selected = AccommodationDetailsApiService.new(accommodation["id"])
       accommodation_details = accommodation_details_selected.call
       # Loop and save
@@ -63,7 +65,8 @@ class AccommodationApiJob < ApplicationJob
                                               category_sub_category: "Hotel",
                                               description: accommodation_details["summary"]["tagline"],
                                               rating: accommodation["reviews"]["score"] / 2,
-                                              api: accommodation["id"])
+                                              api: accommodation["id"],
+                                              itinerary:itinerary)
       if accommodation_details["propertyGallery"]["images"][0]["image"]["url"].present?
         # Fetching teh image and saving it in ActiveStorage/Cloudinary
         property_image = URI.parse(accommodation_details["propertyGallery"]["images"][0]["image"]["url"]).open
