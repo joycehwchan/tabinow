@@ -38,7 +38,7 @@
               <%= f.label :max_budget, 'Max Budget ($USD)', class:"form-label" %>
               <%= f.input :max_budget, class:"form-control", step:"1000", min:"0", required: true, label: false, placeholder: "250" %>
             </div>
-            <div class="mb-1 col-12 col-md-6 activity">
+            <div class="mb-1 col-12 col-md-6 activity_checkboxes">
               <div class="form-check activity-arts">
                 <input class="form-check-input boolean optional" type="checkbox" value="arts" name="itinerary[interests]" id="itinerary_interests_arts">
                 <label class="form-check-label boolean optional" for="itinerary_interests_arts">Arts</label>
@@ -52,7 +52,7 @@
                 <label class="form-check-label boolean optional" for="itinerary_interests_active">Active</label>
               </div>
             </div>
-            <div class="mb-1 col-12 col-md-6 activity">
+            <div class="mb-1 col-12 col-md-6 activity_checkboxes">
               <div class="form-check activity-shopping">
                 <input class="form-check-input boolean optional" type="checkbox" value="shopping" name="itinerary[interests]" id="itinerary_interests_shopping">
                 <label class="form-check-label boolean optional" for="itinerary_interests_shopping">Shopping</label>
