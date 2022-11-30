@@ -109,9 +109,9 @@ class ItinerariesController < ApplicationController
       @contents = UnusedContent.where('location ILIKE :query OR name ILIKE :query', query: "%#{params[:query]}%")
     else
       # display content on overview
-      @contents = Content.all
-      # @contents = @itinerary.days.map { |day| day.contents }.flatten
-      @markers = @contents.geocoded.map do |content|
+      @contents = @itinerary.days.map { |day| day.contents }.flatten
+
+      @markers = @contents.map do |content|
         {
           lat: content.latitude,
           lng: content.longitude,

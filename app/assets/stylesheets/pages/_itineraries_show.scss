@@ -57,6 +57,14 @@
     height: calc(100vh - 64px - 16px);
     overflow: auto;
     padding-right: 16px;
+
+    .overview-category {
+      color: $secondary;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 400;
+      margin-bottom: 0;
+    }
   }
 
   @media (max-width: 800px) {
