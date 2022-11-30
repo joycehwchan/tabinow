@@ -1,0 +1,8 @@
+<div>
+  <%@itinerary.days.each_with_index do |day, index| %>
+    <div class=" m-3">
+      <h2> <%= "#{(index + 1).ordinalize} day" %> </h2>
+      <%= render 'content', day: day %>
+    </div>
+  <% end %>
+</div>
