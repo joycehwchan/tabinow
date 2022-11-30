@@ -65,6 +65,7 @@ gem "simple_form", github: "heartcombo/simple_form"
 gem "uri"
 gem 'meta-tags'
 gem 'letter_opener', group: :development
+gem 'postmark-rails'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
