@@ -23,7 +23,7 @@ class MorningApiJob < ApplicationJob
     end
 
     activities = ActivityApiService.new(location: itinerary.location,
-                                        keyword: "activities",
+                                        keyword: itinerary.interests.delete(''),
                                         number_people: 2,
                                         price: set_activity_budget)
 

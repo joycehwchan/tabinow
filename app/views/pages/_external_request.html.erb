@@ -9,11 +9,11 @@
       <%= text_field_tag :email, nil, class:"form-control", placeholder: "Email" %>
     </div>
     <div class="mb-1 col-6">
-      <%= f.label :min_budget, 'Min Budget/Day ($USD)', class:"form-label" %>
+      <%= f.label :min_budget, 'Min Budget ($USD)', class:"form-label" %>
       <%= f.input :min_budget, class:"form-control", step:"1000", min:"0", required: true, label: false, placeholder: "100" %>
     </div>
     <div class="mb-1 col-6">
-      <%= f.label :max_budget, 'Max Budget/Day ($USD)', class:"form-label" %>
+      <%= f.label :max_budget, 'Max Budget ($USD)', class:"form-label" %>
       <%= f.input :max_budget, class:"form-control", step:"1000", min:"0", required: true, label: false, placeholder: "250" %>
     </div>
     <div class="mb-1 col-12 col-md-6">
@@ -25,8 +25,29 @@
     <div class="mb-1 col-12">
       <%= f.input :location, label: "Tour destination", placeholder: "Tokyo" %>
     </div>
-    <div class="mb-1 col-12">
-      <%= f.input :special_request,  class:"form-control", placeholder: "e.g. Include Disneyland." %>
+    <div class="mb-1 col-12 col-md-6 activity_checkboxes">
+      <div class="form-check activity-arts">
+        <input class="form-check-input boolean optional" type="checkbox" value="arts" name="itinerary[interests]" id="itinerary_interests_arts">
+        <label class="form-check-label boolean optional" for="itinerary_interests_arts">Arts</label>
+      </div>
+      <div class="form-check activity-religious">
+        <input class="form-check-input boolean optional" type="checkbox" value="religiousorgs" name="itinerary[interests]" id="itinerary_interests_religiousorgs">
+        <label class="form-check-label boolean optional" for="itinerary_interests_religiousorgs">Temples & Shrines</label>
+      </div>
+      <div class="form-check activity-active">
+        <input class="form-check-input boolean optional" type="checkbox" value="active" name="itinerary[interests][]" id="itinerary_interests_active">
+        <label class="form-check-label boolean optional" for="itinerary_interests_active">Active</label>
+      </div>
+    </div>
+    <div class="mb-1 col-12 col-md-6 activity_checkboxes">
+      <div class="form-check activity-shopping">
+        <input class="form-check-input boolean optional" type="checkbox" value="shopping" name="itinerary[interests][]" id="itinerary_interests_shopping">
+        <label class="form-check-label boolean optional" for="itinerary_interests_shopping">Shopping</label>
+      </div>
+      <div class="form-check activity-nightlife">
+        <input class="form-check-input boolean optional" type="checkbox" value="nightlife" name="itinerary[interests][]" id="itinerary_interests_nightlife">
+        <label class="form-check-label boolean optional" for="itinerary_interests_nightlife">Nightlife</label>
+      </div>
     </div>
     <div class="col-12">
       <%= f.submit "Submit request", class: 'btn btn-primary btn-tabinow mt-2 w-100' %>

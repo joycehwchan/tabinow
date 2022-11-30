@@ -175,7 +175,7 @@ start_date = Date.today
 end_date = start_date + rand(3..10)
 min_budget = rand(1..10) * 10000
 max_budget = min_budget + (rand(5..10) * [1000 ,10000].sample)
-SPECIALREQUESTDATA= ["Mandarin speaking guide", "Only vegetarian meals", "Should include a Japanese tea ceremony", "Should include Disneyland", "Please add Universal studio!"]
+INTERESTS = ["arts", "religiousorgs", "amusementparks", "nightlife", "shopping"]
 # Seed for itinerary
 
 5.times do |index|
@@ -202,7 +202,7 @@ SPECIALREQUESTDATA= ["Mandarin speaking guide", "Only vegetarian meals", "Should
                                 end_date: end_date,
                                 min_budget: min_budget,
                                 max_budget: max_budget,
-                                special_request: SPECIALREQUESTDATA.sample
+                                interests: INTERESTS.sample
                               )
 
   # Generate stay, restuarants, activities

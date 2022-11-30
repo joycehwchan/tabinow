@@ -23,7 +23,7 @@ class AfternoonApiJob < ApplicationJob
     end
 
     activities = ActivityApiService.new(location: itinerary.location,
-                                        keyword: "activities",
+                                        keyword: itinerary.interests.delete(''),
                                         number_people: 2,
                                         price: set_activity_budget)
 
@@ -58,9 +58,9 @@ class AfternoonApiJob < ApplicationJob
 
     # Lunch
     lunch_category = Category.new(title: "Restaurant",
-      sub_category: "Lunch",
-      day:)
-      lunch_category.save!
+                                  sub_category: "Lunch",
+                                  day:)
+    lunch_category.save!
 
     restaurant_budget = max_price_generator / 5
     set_restaurant_budget = []
