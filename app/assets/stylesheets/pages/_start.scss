@@ -14,4 +14,17 @@
     padding: 8rem;
     background-color: $secondary;
   }
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    .start-img {
+      order: 1;
+      width: 100%;
+      height: 20rem;
+    }
+    .start-form {
+      order: 2;
+      width: 100%;
+    }
+  }
 }

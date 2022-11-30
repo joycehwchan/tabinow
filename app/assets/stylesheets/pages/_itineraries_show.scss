@@ -41,14 +41,18 @@
     .results-container {
       height: calc(100% - 120px);
       overflow: auto;
-      padding-right: 16px;
     }
 
-    &:hover {
-      width: 50%;
+    @media (min-width: 800px) {
+      &:hover {
+        width: 50%;
 
-      .result-img {
-        aspect-ratio: 16 / 9;
+        .result-img {
+          aspect-ratio: 16 / 9;
+        }
+        .results-container {
+          padding-right: 16px;
+        }
       }
     }
   }
