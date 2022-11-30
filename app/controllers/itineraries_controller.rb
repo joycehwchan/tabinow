@@ -40,6 +40,7 @@ class ItinerariesController < ApplicationController
     set_new_itinerary
     if @itinerary.save
       @itinerary.new_day(@days)
+      send_confirmation
       redirect_to itinerary_path(@itinerary)
       # set_employee
     elsif user_signed_in?
@@ -84,7 +85,6 @@ class ItinerariesController < ApplicationController
     # Client gets a confirmation email with a pdf of the booked itinerary
     mail = UserMailer.itinerary(current_user, @itinerary)
     mail.deliver_now
-    redirect_to itinerary_path(@itinerary)
   end
 
   private
