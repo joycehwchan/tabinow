@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/start', to: 'pages#start'
 
   resources :itineraries, only: [:index, :show, :create, :update, :destroy] do
+    patch :move
     resources :days, only: :create
     member do
       get :draft
@@ -25,4 +26,6 @@ Rails.application.routes.draw do
   resources :days, only: [:destroy,:update]  do
     resources :items, only: :create
   end
+  resources :contents, only: :update 
+    
 end

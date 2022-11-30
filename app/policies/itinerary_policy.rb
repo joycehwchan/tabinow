@@ -26,4 +26,8 @@ class ItineraryPolicy < ApplicationPolicy
   def destroy?
     record.employee = user
   end
+
+  def move?
+    true
+  end
 end
