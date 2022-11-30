@@ -84,13 +84,7 @@ class ItinerariesController < ApplicationController
   end
 
   def move
-    items = params[:list]
-    items.each do |item|
-      content = Content.find(item[:content].to_i)
-      content.position = item[:currentIndex]
-      content.save
-      authorize content
-    end
+    update_contents_position
     @itinerary = Itinerary.find(params[:itinerary_id].to_i)
     @day = @itinerary.days[params[:day].to_i - 1]
     respond_to do |format|
@@ -123,6 +117,16 @@ class ItinerariesController < ApplicationController
     else
       redirect_to root_path
       flash[:success] = "Request sent!"
+    end
+  end
+
+  def update_contents_position
+    items = params[:list]
+    items.each do |item|
+      content = Content.find(item[:content].to_i)
+      content.position = item[:currentIndex]
+      content.save
+      authorize content
     end
   end
 
