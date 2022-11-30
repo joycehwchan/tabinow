@@ -8,21 +8,7 @@ class ItinerariesController < ApplicationController
   end
 
   def show
-    @day = @itinerary.days[params[:day].to_i - 1]
-    if params[:query].present?
-      # display search results
-      @contents = UnusedContent.where('location ILIKE :query OR name ILIKE :query', query: "%#{params[:query]}%")
-    else
-      # display content on overview
-      @contents = Content.all
-      # @contents = @itinerary.days.map { |day| day.contents }.flatten
-      @markers = @contents.geocoded.map do |content|
-        {
-          lat: content.latitude,
-          lng: content.longitude
-        }
-      end
-    end
+    set_day_and_contents_and_markers
 
     respond_to do |format|
       format.html # Follow regular flow of Rails
@@ -39,7 +25,15 @@ class ItinerariesController < ApplicationController
     set_new_itinerary
     if @itinerary.save
       @itinerary.new_day(@days)
-      redirect_to itinerary_path(@itinerary)
+      # redirect_to itinerary_path(@itinerary)
+
+      set_day_and_contents_and_markers
+
+      respond_to do |format|
+        format.html { redirect_to itinerary_path(@itinerary) }
+        format.text { render partial: "itineraries/generator", locals: { itinerary: @itinerary, day: @day, contents: @contents, markers: @markers }, formats: [:html] }
+      end
+
       # set_employee
     elsif user_signed_in?
       @itineraries = policy_scope(Itinerary)
@@ -94,6 +88,37 @@ class ItinerariesController < ApplicationController
   end
 
   private
+
+  # def set_new_day
+
+  #   @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
+  #   @days.times do |i|
+  #     day = Day.new(number: i + 1)
+  #     day.itinerary = @itinerary
+  #     day.save!
+  #     # new_category_and_item("Accommodation", day)
+  #     # new_category_and_item("Restaurant", day)
+  #     # new_category_and_item("Activity", day)
+  #   end
+  # end
+
+  def set_day_and_contents_and_markers
+    @day = @itinerary.days[params[:day].to_i - 1]
+    if params[:query].present?
+      # display search results
+      @contents = UnusedContent.where('location ILIKE :query OR name ILIKE :query', query: "%#{params[:query]}%")
+    else
+      # display content on overview
+      @contents = Content.all
+      # @contents = @itinerary.days.map { |day| day.contents }.flatten
+      @markers = @contents.geocoded.map do |content|
+        {
+          lat: content.latitude,
+          lng: content.longitude
+        }
+      end
+    end
+  end
 
   def set_itinerary
     @itinerary = Itinerary.find(params[:id])
