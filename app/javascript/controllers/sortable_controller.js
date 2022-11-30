@@ -27,10 +27,10 @@ export default class extends Controller {
       list: listItems,
       day: this.dayValue,
     });
-    this.updateIndex(data);
+    this.#updateIndex(data);
   }
 
-  updateIndex(data) {
+  #updateIndex(data) {
     const cardsContainer = document.querySelector("#list");
     const url = `/itineraries/${this.itineraryValue}/move`;
     const csrfToken = document.querySelector("[name='csrf-token']").content;
