@@ -4,19 +4,15 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["form", "spinner"];
 
-  connect() {
-    console.log(this.element);
-  }
+  connect() {}
 
   generate(e) {
     e.preventDefault();
-    // remove d-none from loading div
     this.spinnerTarget.classList.remove("d-none");
 
     console.log("generating");
 
     const url = this.formTarget.action;
-    // console.log(url);
 
     fetch(url, {
       method: "POST",
@@ -25,7 +21,11 @@ export default class extends Controller {
     }).then((response) => {
       console.log(response);
       console.log(response.url);
-      // window.location.href = response.url;
+      if (response.ok) {
+        window.location.href = response.url;
+      } else {
+        this.spinnerTarget.classList.add("d-none");
+      }
     });
   }
 }
