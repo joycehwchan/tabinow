@@ -1,0 +1,38 @@
+.pdf-container {
+  width: 70%;
+  padding: 4rem 2rem;
+  margin: 0 auto;
+
+  .day-number {
+    display: flex;
+    justify-content: space-between;
+    background-color: $primary;
+    color: $white;
+    width: 100%;
+    padding: 0.6rem 2rem;
+    margin: 1rem 0 0;
+    border-radius: 4px 4px 4px 0;
+    h2 {
+      font-size: 1.2rem;
+    }
+  }
+
+  .time {
+    // margin-right: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 6rem;
+  }
+
+  .category-icon {
+    scale: 0.9;
+  }
+
+  .pdf-contents {
+    border-left: 1.2px solid $primary;
+    padding-top: 1rem;
+    padding-bottom: 0.2rem;
+  }
+}
