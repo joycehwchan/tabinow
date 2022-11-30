@@ -31,6 +31,8 @@ class DaysController < ApplicationController
                               category: category,
                               description: unused_content.description,
                               api: unused_content.api,
+                              latitude: unused_content.latitude,
+                              longitude: unused_content.longitude,
                               status: 0)
     day.categories << category
     day.save!
