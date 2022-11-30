@@ -42,18 +42,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_030354) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "addresses", force: :cascade do |t|
-    t.string "zip_code"
-    t.string "street"
-    t.string "street_two"
-    t.string "city"
-    t.string "country"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_addresses_on_user_id"
-  end
-
   create_table "categories", force: :cascade do |t|
     t.string "title"
     t.string "sub_category"
@@ -139,6 +127,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_030354) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "phone"
+    t.string "zipcode"
+    t.string "street"
+    t.string "city"
+    t.string "country"
     t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -146,7 +138,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_030354) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "addresses", "users"
   add_foreign_key "categories", "days"
   add_foreign_key "days", "itineraries"
   add_foreign_key "itineraries", "users", column: "client_id"
