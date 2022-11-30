@@ -87,7 +87,7 @@ class ItinerariesController < ApplicationController
     day = itinerary.days[params[:day].to_i - 1]
     respond_to do |format|
       format.html { redirect_to itinerary_path(itinerary), status: :see_other }
-      format.text { render partial: "itineraries/content", locals: day, formats: [:html] }
+      format.text { render partial: "itineraries/content", locals: { day: day}, formats: [:html] }
     end
   end
 
