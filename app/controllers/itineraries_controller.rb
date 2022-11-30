@@ -91,15 +91,23 @@ class ItinerariesController < ApplicationController
   end
 
   def download
+    html = ItinerariesController.new.render_to_string({
+                                                        template: 'itineraries/download',
+                                                        layout: 'pdf',
+                                                        locals: { itinerary: @itinerary }
+                                                      })
+    pdf = Grover.new(html, display_url: 'http://localhost:3000').to_pdf
+
     # pdf = Prawn::Document.new
     # pdf.text @itinerary.title, size: 40, style: :bold
     # @itinerary.days.each do |day|
     #   pdf.text day.contents
     # end
 
-    # send_data(pdf.render,
-    #           filename: "#{@itinerary.title}- #{@itinerary.client.name} ",
-    #           type: 'application/pdf')
+    send_data(pdf,
+              filename: "#{@itinerary.title}- #{@itinerary.client.name} ",
+              type: 'application/pdf')
+    # render layout: "pdf"
   end
 
   def preview
