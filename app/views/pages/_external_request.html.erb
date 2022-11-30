@@ -25,8 +25,29 @@
     <div class="mb-1 col-12">
       <%= f.input :location, label: "Tour destination", placeholder: "Tokyo" %>
     </div>
-    <div class="mb-1 col-12">
-      <%= f.input :interests, as: :boolean, label:"Intrests" %>
+    <div class="mb-1 col-12 col-md-6 activity">
+      <div class="form-check activity-arts">
+        <input class="form-check-input boolean optional" type="checkbox" value="arts" name="itinerary[interests]" id="itinerary_interests_arts">
+        <label class="form-check-label boolean optional" for="itinerary_interests_arts">Arts</label>
+      </div>
+      <div class="form-check activity-religious">
+        <input class="form-check-input boolean optional" type="checkbox" value="religiousorgs" name="itinerary[interests]" id="itinerary_interests_religiousorgs">
+        <label class="form-check-label boolean optional" for="itinerary_interests_religiousorgs">Temples & Shrines</label>
+      </div>
+      <div class="form-check activity-active">
+        <input class="form-check-input boolean optional" type="checkbox" value="active" name="itinerary[interests]" id="itinerary_interests_active">
+        <label class="form-check-label boolean optional" for="itinerary_interests_active">Active</label>
+      </div>
+    </div>
+    <div class="mb-1 col-12 col-md-6 activity">
+      <div class="form-check activity-shopping">
+        <input class="form-check-input boolean optional" type="checkbox" value="shopping" name="itinerary[interests]" id="itinerary_interests_shopping">
+        <label class="form-check-label boolean optional" for="itinerary_interests_shopping">Shopping</label>
+      </div>
+      <div class="form-check activity-nightlife">
+        <input class="form-check-input boolean optional" type="checkbox" value="nightlife" name="itinerary[interests]" id="itinerary_interests_nightlife">
+        <label class="form-check-label boolean optional" for="itinerary_interests_nightlife">Nightlife</label>
+      </div>
     </div>
     <div class="col-12">
       <%= f.submit "Submit request", class: 'btn btn-primary btn-tabinow mt-2 w-100' %>
