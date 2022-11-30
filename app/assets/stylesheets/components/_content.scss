@@ -1,6 +1,7 @@
 .content-cards-container {
   height: calc(100% - 75px);
   overflow: auto;
+  padding-right: 16px;
 }
 
 .card.content-card {
@@ -57,9 +58,7 @@
 
   .result-img {
     transition: aspect-ratio 200ms;
-    // max-height: 16rem;
-    // max-width: 16rem;
-    // aspect-ratio: 16 / 9;
+    margin-bottom: 8px;
   }
 
   h5 {

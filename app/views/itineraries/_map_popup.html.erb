@@ -1,0 +1,31 @@
+<div class="card container-popup">
+  <%= image_tag content.image.attached? ? cl_image_path(content.image.key) : '', class:"card-img-top popup-card-img-top" %>
+  <div class="card-body">
+    <div class="d-flex">
+      <div class="pe-1">
+        <%= render 'category_icon', category: content.category.title %>
+      </div>
+      <div>
+        <h3 class="card-text m-0 fs-6">
+          <%= content.name %>
+        </h3>
+        <small class="card-text mb-1"><%= content.description %></small>
+        <div class="d-flex justify-content-between">
+          <div class="d-flex align-items-center">
+            <p class="m-0 user-select-none text-info">
+              <% content.rating.to_i.times do %>
+                <i class="fa-solid fa-star"></i>
+              <% end %>
+              <% (5 - content.rating.to_i).times do %>
+                <i class="fa-regular fa-star"></i>
+              <% end %>
+            </p>
+          </div>
+          <h5 class="mb-0">
+            <%= content.price.zero? ? "" : number_to_currency(content.price, precision: 0, unit: "$") %>
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
