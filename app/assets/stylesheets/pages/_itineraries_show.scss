@@ -1,20 +1,3 @@
-.loading-container {
-  position: absolute;
-  z-index: 12;
-  background-color: rgba($dark, 0.6);
-  height: calc(100vh - 64px);
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  .spinner-border {
-    scale: 1.6;
-    margin-bottom: 4rem;
-  }
-}
-
 .generator-container {
   display: flex;
   padding: 8px 0;

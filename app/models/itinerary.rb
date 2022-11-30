@@ -70,15 +70,15 @@ class Itinerary < ApplicationRecord
   end
 
   def accommodation(category_array)
-    AccommodationApiJob.perform_later(self, min_price_generator, max_price_generator, category_array) # <- The job is queued
+    AccommodationApiJob.perform_now(self, min_price_generator, max_price_generator, category_array)
   end
 
   def new_morning_category_item(day)
-    MorningApiJob.perform_later(self, max_price_generator, day) # <- The job is queued
+    MorningApiJob.perform_now(self, max_price_generator, day)
   end
 
   def new_afternoon_category_item(day)
-    AfternoonApiJob.perform_later(self, max_price_generator, day) # <- The job is queued
+    AfternoonApiJob.perform_now(self, max_price_generator, day)
   end
 
   def min_price_generator

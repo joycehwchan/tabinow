@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="loading"
 export default class extends Controller {
-  static targets = ["form"];
+  static targets = ["form", "spinner"];
 
   connect() {
     console.log(this.element);
@@ -10,6 +10,9 @@ export default class extends Controller {
 
   generate(e) {
     e.preventDefault();
+    // remove d-none from loading div
+    this.spinnerTarget.classList.remove("d-none");
+
     console.log("generating");
 
     const url = this.formTarget.action;
@@ -17,12 +20,12 @@ export default class extends Controller {
 
     fetch(url, {
       method: "POST",
-      headers: { Accept: "text/plain" },
+      // headers: { Accept: "text/plain" },
       body: new FormData(this.formTarget),
-    })
-      .then((response) => response.text())
-      .then((data) => {
-        console.log(data);
-      });
+    }).then((response) => {
+      console.log(response);
+      console.log(response.url);
+      // window.location.href = response.url;
+    });
   }
 }

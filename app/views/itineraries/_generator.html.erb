@@ -1,0 +1,24 @@
+<%= render "sidebar", itinerary: itinerary %>
+<div class="generator-container">
+  <div class="left-container">
+    <% if params[:day].present? %>
+      <%= render 'itineraries/day', day: day %>
+    <% else %>
+      <%= render 'map', markers: markers %>
+    <% end %>
+    <% if  params[:day].present? %>
+      <div class="content-cards-container">
+        <% day.contents.each do |content| %>
+          <%= render 'content', content: content %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="right-container" data-controller="search">
+    <% if params[:day].present? %>
+      <%= render 'search_sidebar', itinerary: itinerary, params: params, contents: contents %>
+    <% else %>
+      <%= render 'overview_sidebar', itinerary: itinerary %>
+    <% end %>
+  </div>
+</div>
