@@ -31,11 +31,11 @@
               <%= f.input :end_date ,class:"form-control", html5: true, input_html: { min: Time.now.to_s[0...10] , data: { form_target:"endDate" }} %>
             </div>
             <div class="mb-1 col-6">
-              <%= f.label :min_budget, 'Min Budget/Day ($USD)', class:"form-label" %>
+              <%= f.label :min_budget, 'Min Budget ($USD)', class:"form-label" %>
               <%= f.input :min_budget, class:"form-control", step:"1000", min:"0", required: true, label: false, placeholder: "100" %>
             </div>
             <div class="mb-1 col-6">
-              <%= f.label :max_budget, 'Max Budget/Day ($USD)', class:"form-label" %>
+              <%= f.label :max_budget, 'Max Budget ($USD)', class:"form-label" %>
               <%= f.input :max_budget, class:"form-control", step:"1000", min:"0", required: true, label: false, placeholder: "250" %>
             </div>
             <div class="mb-1 col-12">
