@@ -17,9 +17,6 @@ export default class extends Controller {
   }
 
   end(event) {
-    const cardsContainer = document.querySelector("#list");
-    const url = `/itineraries/${this.itineraryValue}/move`;
-    const csrfToken = document.querySelector("[name='csrf-token']").content;
     const list = document.querySelectorAll("[data-id]");
 
     const listItems = Array.from(list).map((item, index) => ({
@@ -30,6 +27,13 @@ export default class extends Controller {
       list: listItems,
       day: this.dayValue,
     });
+    this.updateIndex(data);
+  }
+
+  updateIndex(data) {
+    const cardsContainer = document.querySelector("#list");
+    const url = `/itineraries/${this.itineraryValue}/move`;
+    const csrfToken = document.querySelector("[name='csrf-token']").content;
     const options = {
       method: "PATCH",
       headers: {
@@ -41,6 +45,8 @@ export default class extends Controller {
     };
     fetch(url, options)
       .then((response) => response.text())
-      .then((data) => (cardsContainer.innerHTML = data));
+      .then((data) => {
+        cardsContainer.innerHTML = data;
+      });
   }
 }
