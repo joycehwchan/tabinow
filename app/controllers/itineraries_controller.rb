@@ -95,20 +95,19 @@ class ItinerariesController < ApplicationController
   end
 
   def download
-    # html = ItinerariesController.new.render_to_string({
-    #                                                     template: 'itineraries/download',
-    #                                                     layout: 'pdf',
-    #                                                     locals: { itinerary: @itinerary }
-    #                                                   })
-    # pdf = Grover.new(html, display_url: 'http://localhost:3000').to_pdf
-    # send_data(pdf,
-    #           filename: "#{@itinerary.title}- #{@itinerary.client.name} ",
-    #           type: 'application/pdf')
-    render layout: "pdf", locals: { itinerary: @itinerary }
+    html = ItinerariesController.new.render_to_string({
+                                                        template: 'itineraries/download',
+                                                        layout: 'pdf',
+                                                        locals: { itinerary: @itinerary }
+                                                      })
+    pdf = Grover.new(html, display_url: ENV.fetch("host_name").to_s).to_pdf
+    send_data(pdf,
+              filename: "#{@itinerary.title}- #{@itinerary.client.name} ",
+              type: 'application/pdf')
+    # render layout: "pdf", locals: { itinerary: @itinerary }
   end
 
   def preview
-
   end
 
   private
@@ -126,8 +125,8 @@ class ItinerariesController < ApplicationController
         {
           lat: content.latitude,
           lng: content.longitude,
-          popup_html: render_to_string(partial: "itineraries/map_popup", locals: { content: content }),
-          marker_html: render_to_string(partial: 'itineraries/map_marker', locals: { content: content })
+          popup_html: render_to_string(partial: "itineraries/map_popup", locals: { content: }),
+          marker_html: render_to_string(partial: 'itineraries/map_marker', locals: { content: })
         }
       end
     end
