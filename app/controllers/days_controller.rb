@@ -20,6 +20,7 @@ class DaysController < ApplicationController
     day = itinerary.days[params[:day].to_i - 1]
     unused_content = UnusedContent.find(params[:content].to_i)
 
+    unused_content.attached
     category = Category.create!(title: unused_content.category_title,
                                 sub_category: unused_content.category_sub_category,
                                 day:day)
