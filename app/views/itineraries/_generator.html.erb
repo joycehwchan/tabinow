@@ -7,9 +7,9 @@
       <%= render 'map', markers: markers %>
     <% end %>
     <% if  params[:day].present? %>
-      <div class="content-cards-container">
-        <% day.contents.each do |content| %>
-          <%= render 'content', content: content %>
+      <div class="content-cards-container" id="list">
+        <% if  params[:day].present? %>
+          <%= render 'content', day: @day %>
         <% end %>
       </div>
     <% end %>
