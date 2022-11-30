@@ -56,7 +56,7 @@ class AccommodationApiJob < ApplicationJob
 
     accommodations_results.delete(accommodation_selected)
 
-    accommodations_results.take(2).each do |accommodation|
+    accommodations_results.take(0).each do |accommodation|
       accommodation_details_selected = AccommodationDetailsApiService.new(accommodation["id"])
       accommodation_details = accommodation_details_selected.call
       accommodation_latitude = accommodation_details["summary"]["location"]["coordinates"]["latitude"]
