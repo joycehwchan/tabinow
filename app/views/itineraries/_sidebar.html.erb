@@ -44,11 +44,11 @@
     </div>
     <div class="sidebar-bottom mb-5">
       <h3>Estimated total:</h3>
-      <p class="text-end me-2 fs-4">≈ $<%= itinerary.total_budget %></p>
+      <p class="text-end me-2 fs-4">≈ <%= number_to_currency(itinerary.total_budget, precision: 0, unit: "$") %></p>
       <hr>
       <% if user_signed_in? %>
-        <%= link_to preview_itinerary_path(itinerary) , class:"btn btn-sm btn-outline-primary btn-tabinow d-block mb-2" do %>
-          <i class="fa-solid fa-download"></i> Preview
+        <%= link_to preview_itinerary_path(itinerary) , class:"btn btn-sm btn-outline-secondary btn-tabinow d-block mb-2" do %>
+          <i class="fa-solid fa-eye"></i> Preview
         <% end %>
         <%= link_to download_itinerary_path(itinerary) , class:"btn btn-sm btn-outline-primary btn-tabinow d-block mb-2" do %>
           <i class="fa-solid fa-download"></i> Download
