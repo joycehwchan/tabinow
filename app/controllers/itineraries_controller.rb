@@ -91,6 +91,11 @@ class ItinerariesController < ApplicationController
   end
 
   def download
+    pdf = Prawn::Document.new
+    pdf.text "hello world"
+    send_data(pdf.render,
+              filename: "#{@itinerary.title}- #{@itinerary.client.name} ",
+              type: 'application/pdf')
   end
 
   def preview
