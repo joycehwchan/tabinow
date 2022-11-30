@@ -105,16 +105,24 @@ class ItinerariesController < ApplicationController
   def preview
     pdf = Prawn::Document.new
     pdf.text @itinerary.title, size: 40, style: :bold
+    pdf.move_down 20
     @itinerary.days.each_with_index do |day, index|
+      # pdf.bounding_box([200, 200], width: 350, height: 80, ) do
       pdf.text "#{(index + 1).ordinalize} day", size: 20, style: :bold
+
       day.contents.order(position: :asc).each do |content|
         # pdf.text content.name, size: 20, style: :bold
+        # pdf.text_box content.description.to_s, align: :right,
+        #                                        width: 100, height: 100
+        #  , at: [500, 100]
         pdf.text content.description
-        # photo = StringIO.open(content.image.download)
-        # pdf.image photo, fit: [100, 100]
+        photo = StringIO.open(content.image.download)
+        pdf.image photo, width: 200, height: 100
         # pdf.text content.location
+        pdf.move_down 20
       end
     end
+
     pdf.start_new_page
     send_data(pdf.render,
               filename: "#{@itinerary.title}- #{@itinerary.client.name}.pdf",
