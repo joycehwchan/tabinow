@@ -5,18 +5,7 @@
     <h1 class="mb-4">Design your own itinerary now!</h1>
     <%= simple_form_for @itinerary , data: { turbo: :false }, html: { data: { loading_target: "form" , action: "submit->loading#generate" } } do |f| %>
       <!-- loading -->
-      <div class="loading-container d-none" data-loading-target="spinner">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex flex-column justify-content-center align-items-center p-5">
-              <h2 class="mb-4">Generating your itinerary...</h2>
-              <div class="spinner-border text-primary m-3" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <%= render 'shared/spinner' %>
       <div class="row" data-controller="form">
         <div class="mb-1 col-12">
           <%= f.input :location, label: "Tour destination", placeholder: "Tokyo" %>
