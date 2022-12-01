@@ -52,9 +52,9 @@
                 <% if content.category_title == "Accommodation" %>
                   <p class="tag available">Available</p>
                 <% elsif content.category_sub_category == "Lunch" %>
-                  <p class="tag recommended">Recommended for Lunch</p>
+                  <p class="tag recommended">Lunch spot</p>
                 <% elsif content.category_sub_category == "Dinner" %>
-                  <p class="tag recommended">Recommended for Dinner</p>
+                  <p class="tag recommended">Dinner spot</p>
                 <% end %>
                 <% if content.rating.to_f > 4.6 %>
                   <p class="tag popular">Popular</p>
