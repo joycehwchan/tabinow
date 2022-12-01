@@ -1,5 +1,5 @@
 require "active_support/core_ext/integer/time"
-
+Rails.application.routes.default_url_options[:host] = "https://tabinow.tours"
 Rails.application.configure do
   config.action_mailer.delivery_method = :postmark
   config.action_mailer.postmark_settings   = { api_token: ENV.fetch('POSTMARK_API_TOKEN') }

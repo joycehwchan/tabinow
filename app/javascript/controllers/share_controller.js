@@ -6,6 +6,7 @@ export default class extends Controller {
   };
   static targets = ["result", "button", "icon"];
   connect() {
+    console.log(this.urlValue);
     if (navigator.share) {
       this.buttonTarget.innerText = "Share";
     } else {
