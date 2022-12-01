@@ -20,11 +20,11 @@ class ItineraryPolicy < ApplicationPolicy
   end
 
   def update?
-    record.employee = user
+    record.client = user
   end
 
   def destroy?
-    record.employee = user
+    record.client = user
   end
 
   def download?
@@ -32,7 +32,7 @@ class ItineraryPolicy < ApplicationPolicy
   end
 
   def preview?
-    record.client = user
+    true
   end
 
   def move?

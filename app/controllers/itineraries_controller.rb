@@ -1,6 +1,6 @@
 class ItinerariesController < ApplicationController
   before_action :set_itinerary, except: %i[index new create move]
-  skip_before_action :authenticate_user!, only: %i[create show]
+  skip_before_action :authenticate_user!, only: %i[create show preview]
 
   def index
     @itineraries = policy_scope(Itinerary)
@@ -101,15 +101,9 @@ class ItinerariesController < ApplicationController
                                                         locals: { itinerary: @itinerary }
                                                       })
     pdf = Grover.new(html, display_url: ENV.fetch("host_name").to_s, print_background: true).to_pdf
-
-    # respond_to do |format|
-    #   format.html {  render layout: "pdf", locals: { itinerary: @itinerary } }
-    #   format.pdf do
     send_data(pdf,
               filename: "#{@itinerary.title}- #{@itinerary.client.name} ",
               type: 'application/pdf')
-    #   end
-    # end
   end
 
   def preview
