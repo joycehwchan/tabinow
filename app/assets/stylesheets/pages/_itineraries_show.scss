@@ -61,6 +61,14 @@
     height: calc(100vh - 64px - 16px);
     overflow: auto;
     padding-right: 16px;
+
+    .overview-restaurant {
+      margin-bottom: 0;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: $secondary;
+    }
   }
 
   @media (max-width: 800px) {
