@@ -106,7 +106,7 @@ class ItinerariesController < ApplicationController
                                                       })
     pdf = Grover.new(html, display_url: ENV.fetch("host_name").to_s, print_background: true).to_pdf
     send_data(pdf,
-              filename: "#{@itinerary.title}- #{@itinerary.client.name} ",
+              filename: "#{@itinerary.title}-#{@itinerary.client.name}.pdf",
               type: 'application/pdf')
   end
 

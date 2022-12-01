@@ -41,8 +41,8 @@
       <hr>
       <% if user_signed_in? %>
         <div style="width: 100%"
-         data-controller="share"  
-         data-share-url-value="<%= preview_itinerary_url(itinerary) %>"
+         data-controller="share"
+         data-share-url-value="<%= ENV.fetch('host_name') %><%= preview_itinerary_path(itinerary) %>"
          data-share-title-value="<%= @itinerary.title %>"
           >
           <%= link_to "#" , class:"btn btn-sm btn-outline-secondary btn-tabinow d-block mb-2", data: {  action: "click->share#share"} do %>
