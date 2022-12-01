@@ -2,6 +2,8 @@ class Itinerary < ApplicationRecord
   belongs_to :employee, class_name: "User", optional: true
   belongs_to :client, class_name: "User", optional: true
   has_many :days, dependent: :destroy
+  has_many :categories, through: :days
+  has_many :contents, through: :categories
   validates :title, presence: true
   validates :status, presence: true
   validate  :min_budget_cannot_be_higher_than_max_budget
