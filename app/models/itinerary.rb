@@ -83,12 +83,12 @@ class Itinerary < ApplicationRecord
 
   def min_price_generator
     min_price = min_budget.to_i
-    return min_price
+    return min_price / total_days
   end
 
   def max_price_generator
     max_price = max_budget.to_i
-    return max_price
+    return max_price  / total_days
   end
 
   def set_activity_budget

@@ -26,7 +26,7 @@ class ItinerariesController < ApplicationController
     if @itinerary.save
       @itinerary.new_day(@days)
 
-      send_confirmation
+      # send_confirmation
       # redirect_to itinerary_path(@itinerary)
 
       set_day_and_contents_and_markers
