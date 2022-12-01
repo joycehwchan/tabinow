@@ -56,9 +56,14 @@
                   <p class="tag popular">Popular</p>
                 <% end %>
               </div>
-              <h5 class="mb-0">
-                <%= content.price.zero? ? "" : number_to_currency(content.price, precision: 0, unit: "$") %>
-              </h5>
+              <div class="mb-0 d-flex align-items-center gap-2">
+                <% if content.category.title == "Accommodation" %>
+                <a href="#" class="btn btn-tabinow btn-primary px-2 py-1 small-font">Book now <i class="fa-solid fa-arrow-up-right-from-square ps-1"></i></a>
+                <% end %>
+                <h5 class="mb-0">
+                  <%= content.price.zero? ? "" : number_to_currency(content.price, precision: 0, unit: "$") %>
+                </h5>
+              </div>
             </div>
           </div>
         </div>
