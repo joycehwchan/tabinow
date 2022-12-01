@@ -46,7 +46,7 @@
          data-share-title-value="<%= @itinerary.title %>"
           >
           <%= link_to "#" , class:"btn btn-sm btn-outline-secondary btn-tabinow d-block mb-2", data: {  action: "click->share#share"} do %>
-            <i data-share-target="icon"   class="fa-solid fa-share-nodes"></i> <span data-share-target="button" >Share</span>
+            <i class="fa-solid fa-clipboard"></i> <span data-share-target="button" >Copy link</span>
           <% end %>
         </div>
         <%= link_to download_itinerary_path(itinerary) , class:"btn btn-sm btn-outline-primary btn-tabinow d-block mb-2" do %>
