@@ -42,6 +42,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_052505) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "addresses", force: :cascade do |t|
+    t.string "zip_code"
+    t.string "street"
+    t.string "street_two"
+    t.string "city"
+    t.string "country"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_addresses_on_user_id"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "title"
     t.string "sub_category"
@@ -145,6 +157,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_052505) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "addresses", "users"
   add_foreign_key "categories", "days"
   add_foreign_key "days", "itineraries"
   add_foreign_key "itineraries", "users", column: "client_id"
