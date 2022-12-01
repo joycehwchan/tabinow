@@ -2,25 +2,28 @@
 // Run that command whenever you add a new controller or create them with
 // ./bin/rails generate stimulus controllerName
 
-import { application } from "./application";
+import { application } from "./application"
 
-import FormController from "./form_controller";
-application.register("form", FormController);
+import FormController from "./form_controller"
+application.register("form", FormController)
 
-import HelloController from "./hello_controller";
-application.register("hello", HelloController);
+import HelloController from "./hello_controller"
+application.register("hello", HelloController)
 
-import LoadingController from "./loading_controller";
-application.register("loading", LoadingController);
+import LoadingController from "./loading_controller"
+application.register("loading", LoadingController)
 
-import MapController from "./map_controller";
-application.register("map", MapController);
+import MapController from "./map_controller"
+application.register("map", MapController)
 
-import SearchController from "./search_controller";
-application.register("search", SearchController);
+import SearchController from "./search_controller"
+application.register("search", SearchController)
 
-import SidebarController from "./sidebar_controller";
-application.register("sidebar", SidebarController);
+import ShareController from "./share_controller"
+application.register("share", ShareController)
 
-import SortableController from "./sortable_controller";
-application.register("sortable", SortableController);
+import SidebarController from "./sidebar_controller"
+application.register("sidebar", SidebarController)
+
+import SortableController from "./sortable_controller"
+application.register("sortable", SortableController)
