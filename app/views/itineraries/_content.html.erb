@@ -13,7 +13,7 @@
             <div class="flex-grow-1">
               <h5 class="card-title"><%= content.name %></h5>
             </div>
-            <%= link_to category_path(content.category), class:"btn btn-outline-dark btn-tabinow btn-add-content", data: { turbo_method: :delete  , turbo_confirm: "Delete?" } do %>
+            <%= link_to category_path(content.category), class:"btn btn-outline-dark btn-tabinow btn-add-content", data: { turbo_method: :delete  , turbo_confirm: "Remove #{content.name}?" } do %>
               <i class="fa-solid fa-xmark"></i>
             <% end %>
           </div>
