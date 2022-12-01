@@ -18,29 +18,30 @@ class DaysController < ApplicationController
   def update
     itinerary = Itinerary.find(params[:id].to_i)
     day = itinerary.days[params[:day].to_i - 1]
-    
-    if Content.exists?(params[:content].to_i)
-      content = Content.find(params[:content].to_i)
-      category = Category.find(content.category.id)
-      unused_content = UnusedContent.new(name: content.name,
-                                         price: content.price,
-                                         location:content.location,
-                                         description:content.description,
-                                         api:content.api,
-                                         rating:content.rating,
-                                         latitude:content.latitude,
-                                         longitude:content.longitude,
-                                         category_title:category.title,
-                                         category_type: "",
-                                         itinerary: itinerary,
-                                         category_sub_category:category.sub_category)
-      unused_content.image.attach(content.image.blob)
 
-      unused_content.save
-      day.categories.delete(category)
-      category.destroy
+    # if Content.exists?(params[:day][:content_id].to_i)
+    #   content = Content.find(params[:day][:content_id].to_i)
+    #   category = Category.find(content.category.id)
+    #   unused_content = UnusedContent.new(name: content.name,
+    #                                      price: content.price,
+    #                                      location:content.location,
+    #                                      description:content.description,
+    #                                      api:content.api,
+    #                                      rating:content.rating,
+    #                                      latitude:content.latitude,
+    #                                      longitude:content.longitude,
+    #                                      category_title:category.title,
+    #                                      category_type: "",
+    #                                      itinerary: itinerary,
+    #                                      category_sub_category:category.sub_category)
+    #   unused_content.image.attach(content.image.blob)
 
-    else
+    #   unused_content.save
+    #   raise
+    #   day.categories.delete(category)
+    #   category.destroy
+
+    # else
       unused_content = UnusedContent.find(params[:content].to_i)
 
       category = Category.create!(title: unused_content.category_title,
@@ -61,10 +62,11 @@ class DaysController < ApplicationController
       content.save!
       day.categories.push(category)
       unused_content.destroy
-    end
-    
+    # end
+
     day.save!
     authorize day
+    # raise
     redirect_to itinerary_path(itinerary, day: params[:day].to_i)
   end
 

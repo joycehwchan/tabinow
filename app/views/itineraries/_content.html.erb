@@ -13,13 +13,8 @@
             <div class="flex-grow-1">
               <h5 class="card-title"><%= content.name %></h5>
             </div>
-            <%= form_tag day_path(day) , method: :patch do %>
-              <%= hidden_field_tag :content , content.id %>
-              <%= hidden_field_tag :day, params[:day]  %>
-              <%#= submit_tag("add") %>
-              <%= button_tag type:"submit", class:"btn btn-outline-dark btn-tabinow btn-add-content" do %>
-                <i class="fa-solid fa-xmark"></i>
-              <% end %>
+            <%= link_to category_path(content.category), class:"btn btn-outline-dark btn-tabinow btn-add-content", data: { turbo_method: :delete  , turbo_confirm: "Delete?" } do %>
+              <i class="fa-solid fa-xmark"></i>
             <% end %>
           </div>
           <div class="ms-3 d-flex flex-column">
