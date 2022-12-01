@@ -30,5 +30,6 @@ Rails.application.routes.draw do
     resources :items, only: :create
   end
   resources :contents, only: :update
+  resources :categories, only: :destroy
 
 end
