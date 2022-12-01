@@ -19,7 +19,7 @@
       </div>
       <div class="row" data-controller="form">
         <div class="mb-1 col-12">
-          <%= f.input :location, label: "Tour destination", placeholder: "Tokyo" %>
+          <%= f.input :location, label: "Where do you want to go?", placeholder: "Tokyo" %>
         </div>
         <div class="mb-1 col-12 col-md-6">
           <%= f.input :start_date, class:"form-control", html5: true, input_html: { min: Time.now.to_s[0...10], data: { form_target:"startDate", action: "change->form#setEndDate" }} %>
@@ -27,14 +27,33 @@
         <div class="mb-1 col-12 col-md-6">
           <%= f.input :end_date ,class:"form-control", html5: true, input_html: { min: Time.now.to_s[0...10] , data: { form_target:"endDate" }} %>
         </div>
-        <div class="mb-1 col-6">
-          <%= f.label :min_budget, 'Min Budget ($USD)', class:"form-label" %>
-          <%= f.input :min_budget, class:"form-control", step:"1000", min:"0", required: true, label: false, placeholder: "100" %>
+      <div>
+      <div class="wrapper">
+      <header>
+        <h2>What's your budget?</h2>
+      </header>
+        <div class="d-flex">
+          <div class="price-input">
+            <div class="field">
+              <span>Min</span>
+              <input type="number" class="input-min" value="2500" name="itinerary[min_budget]">
+            </div>
+            <div class="separator">-</div>
+            <div class="field">
+              <span>Max</span>
+              <input type="number" class="input-max" value="7500" name="itinerary[max_budget]">
+            </div>
+          </div>
         </div>
-        <div class="mb-1 col-6">
-          <%= f.label :max_budget, 'Max Budget ($USD)', class:"form-label" %>
-          <%= f.input :max_budget, class:"form-control", step:"1000", min:"0", required: true, label: false, placeholder: "250" %>
-        </div>
+      <div class="slider">
+        <div class="progress"></div>
+      </div>
+      <div class="range-input">
+        <input type="range" class="range-min" min="0" max="10000" value="2500" step="100">
+        <input type="range" class="range-max" min="0" max="10000" value="7500" step="100">
+      </div>
+    </div>
+    </div>
         <div class="mb-1 col-12 col-md-6 activity_checkboxes">
           <div class="form-check activity-arts">
             <input class="form-check-input boolean optional" type="checkbox" value="arts" name="itinerary[interests][]" id="itinerary_interests_arts">
