@@ -28,7 +28,7 @@
             <%= link_to 'Overview', itinerary_path(@itinerary), class:"nav-link sidebar-link #{'active' if !params[:day].present?}", "aria_current": "page" %>
           </li>
           <% itinerary.days.each_with_index do |day, index| %>
-            <li class="nav-item">
+            <li class="nav-item my-1">
               <%= link_to "Day #{index + 1}" , itinerary_path(@itinerary, day: day.number), class:"nav-link sidebar-link #{'active' if params[:day].to_i == day.number}" %>
             </li>
           <% end %>
@@ -41,8 +41,8 @@
       <hr>
       <% if user_signed_in? %>
         <div style="width: 100%"
-         data-controller="share"  
-         data-share-url-value="<%= preview_itinerary_url(itinerary) %>"
+         data-controller="share"
+         data-share-url-value="<%= ENV.fetch('host_name') %><%= preview_itinerary_path(itinerary) %>"
          data-share-title-value="<%= @itinerary.title %>"
           >
           <%= link_to "#" , class:"btn btn-sm btn-outline-secondary btn-tabinow d-block mb-2", data: {  action: "click->share#share"} do %>

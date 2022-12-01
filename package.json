@@ -6,7 +6,7 @@
     "@hotwired/turbo-rails": "^7.2.4",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.2",
-    "puppeteer": "^19.3.0",
+    "puppeteer": "^18",
     "sortablejs": "^1.15.0",
     "stimulus-sortable": "^4.0.0",
     "typewriter-effect": "^2.19.0",

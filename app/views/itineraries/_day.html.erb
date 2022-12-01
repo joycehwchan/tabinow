@@ -1,5 +1,5 @@
 <div class="day-container"   >
-  <div class="card rounded-md d-flex flex-row align-items-center ps-2" >
+  <div class="card rounded-md d-flex flex-row align-items-center ps-2 me-4" >
     <h2 class="text-nowrap">Day <%= day.number %></h2>
     <div class="category-container" data-controller="sortable" data-sortable-itinerary-value="<%= params[:id] %>"  data-sortable-day-value="<%= params[:day] %>">
       <% day.contents.order(position: :asc).each do |content| %>
