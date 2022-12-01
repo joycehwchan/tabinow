@@ -80,6 +80,10 @@ class ItinerariesController < ApplicationController
 
   def send_confirmation
     # Client gets a confirmation email with a pdf of the booked itinerary
+    pdf = Grover.new(html, display_url: ENV.fetch("host_name").to_s, print_background: true).to_pdf
+    send_data(pdf,
+              filename: "#{@itinerary.title}- #{@itinerary.client.name} ",
+              type: 'application/pdf')
     mail = UserMailer.itinerary(current_user, @itinerary)
     mail.deliver_now
   end
