@@ -42,7 +42,7 @@ export default class extends Controller {
       padding: 80,
       maxZoom: 16,
       duration: 1000,
-      // center: [139,692 35, 35.6894], // force map center to be Japan on zoom start
+      // center: [139,692, 35, 35.6894], // force map center to be Japan on zoom start
       // zoom: 2,
     });
   }

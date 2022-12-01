@@ -120,6 +120,9 @@ class ItinerariesController < ApplicationController
     else
       # display content on overview
       @contents = @itinerary.days.map { |day| day.contents }.flatten
+      # @contents = Content.nearby("Tokyo", 200).where()
+      tokyo_coordinates = [35.677052, 139.7509321] # Tokyo
+      @contents = @contents.select { |content| content.distance_to(tokyo_coordinates) <= 20 }
 
       @markers = @contents.map do |content|
         {
