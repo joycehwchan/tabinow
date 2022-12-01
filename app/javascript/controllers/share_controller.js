@@ -4,9 +4,22 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static values = {
     url: String,
+    title: String,
+    // description: String,
+    // image: String,
   };
   static targets = ["results"];
   connect() {
-    console.log("hi");
+    // console.log(this.urlValue);
+    // console.log(this.titleValue);
+  }
+  async share(e) {
+    e.preventDefault();
+
+    const shareData = {
+      url: this.urlValue,
+      title: this.titleValue,
+    };
+    console.log(shareData);
   }
 }
