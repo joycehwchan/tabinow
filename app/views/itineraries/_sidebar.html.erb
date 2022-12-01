@@ -47,9 +47,11 @@
       <p class="text-end me-2 fs-4">≈ <%= number_to_currency(itinerary.total_budget, precision: 0, unit: "$") %></p>
       <hr>
       <% if user_signed_in? %>
-        <%= link_to preview_itinerary_path(itinerary) , class:"btn btn-sm btn-outline-secondary btn-tabinow d-block mb-2" do %>
-          <i class="fa-solid fa-eye"></i> Preview
-        <% end %>
+        <div style="width: 100%" data-controller="share"  data-share-url-value="<%= preview_itinerary_url(itinerary)%>" >
+          <%= link_to preview_itinerary_path(itinerary) , class:"btn btn-sm btn-outline-secondary btn-tabinow d-block mb-2" do %>
+            <i class="fa-solid fa-eye"></i> Preview
+          <% end %>
+        </div>
         <%= link_to download_itinerary_path(itinerary) , class:"btn btn-sm btn-outline-primary btn-tabinow d-block mb-2" do %>
           <i class="fa-solid fa-download"></i> Download
         <% end %>
