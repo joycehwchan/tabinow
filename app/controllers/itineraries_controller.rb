@@ -113,6 +113,13 @@ class ItinerariesController < ApplicationController
   end
 
   def preview
+    # html = ItinerariesController.new.render_to_string({
+    #                                                     template: 'itineraries/download',
+    #                                                     layout: 'pdf',
+    #                                                     locals: { itinerary: @itinerary }
+    #                                                   })
+    # # pdf = Grover.new(html, display_url: ENV.fetch("host_name").to_s, print_background: true).to_pdf
+    render layout: "pdf", locals: { itinerary: @itinerary }
   end
 
   private
