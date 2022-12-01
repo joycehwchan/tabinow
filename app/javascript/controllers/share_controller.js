@@ -7,9 +7,10 @@ export default class extends Controller {
   static targets = ["result", "button", "icon"];
   connect() {
     if (navigator.share) {
-      this.
       this.buttonTarget.innerText = "Share";
     } else {
+      this.iconTarget.classList.remove("fa-share-nodes");
+      this.iconTarget.classList.add("fa-clipboard");
       this.buttonTarget.innerText = "Copy link";
     }
   }
