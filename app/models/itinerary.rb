@@ -2,6 +2,8 @@ class Itinerary < ApplicationRecord
   belongs_to :employee, class_name: "User", optional: true
   belongs_to :client, class_name: "User", optional: true
   has_many :days, dependent: :destroy
+  has_many :categories, through: :days
+  has_many :contents, through: :categories
   validates :title, presence: true
   validates :status, presence: true
   validate  :min_budget_cannot_be_higher_than_max_budget
@@ -83,12 +85,12 @@ class Itinerary < ApplicationRecord
 
   def min_price_generator
     min_price = min_budget.to_i
-    return min_price
+    return min_price / total_days
   end
 
   def max_price_generator
     max_price = max_budget.to_i
-    return max_price
+    return max_price  / total_days
   end
 
   def set_activity_budget

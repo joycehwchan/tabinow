@@ -27,11 +27,11 @@
       content: "\f630"; /* unchecked icon */
     }
   }
-  .activity-religious {
-    input[type=checkbox] + label:before {
-      content: "\f6a1"; /* unchecked icon */
-    }
-  }
+  // .activity-religious {
+  //   input[type=checkbox] + label:before {
+  //     content: "\f6a1"; /* unchecked icon */
+  //   }
+  // }
   .activity-active {
     input[type=checkbox] + label:before {
       content: "\f70c"; /* unchecked icon */

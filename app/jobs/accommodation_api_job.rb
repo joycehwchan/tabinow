@@ -24,17 +24,18 @@ class AccommodationApiJob < ApplicationJob
     end
 
     # Looping throught the category arrya (that belongs to each day)
-    category_array.each do |category|
+
       # Getting some more specific info from the next API
-      accommodation_details_selected = AccommodationDetailsApiService.new(accommodation_selected["id"])
-      accommodation_details = accommodation_details_selected.call
-      accommodation_latitude = accommodation_details["summary"]["location"]["coordinates"]["latitude"]
-      accommodation_longitude = accommodation_details["summary"]["location"]["coordinates"]["longitude"]
-      # Creating teh instance for the Accommodation
+    accommodation_details_selected = AccommodationDetailsApiService.new(accommodation_selected["id"])
+    accommodation_details = accommodation_details_selected.call
+    accommodation_latitude = accommodation_details["summary"]["location"]["coordinates"]["latitude"]
+    accommodation_longitude = accommodation_details["summary"]["location"]["coordinates"]["longitude"]
+    # Creating teh instance for the Accommodation
+    category_array.each do |category|
       accommodation = Content.new(name: accommodation_selected["name"],
                                   price: accommodation_selected["price"]["lead"]["amount"],
                                   location: accommodation_details["summary"]["location"]["address"]["addressLine"],
-                                  category: category,
+                                  # category: category,
                                   description: accommodation_details["summary"]["tagline"],
                                   rating: accommodation_selected["reviews"]["score"] / 2,
                                   api: accommodation_details["summary"]["id"],
@@ -51,12 +52,12 @@ class AccommodationApiJob < ApplicationJob
                                    content_type: "image/png")
       end
       # Updating the sub category for the category
+      accommodation.category = category
       category.update!(sub_category: "Hotel") if accommodation.save!
     end
-
     accommodations_results.delete(accommodation_selected)
 
-    accommodations_results.take(2).each do |accommodation|
+    accommodations_results.take(0).each do |accommodation|
       accommodation_details_selected = AccommodationDetailsApiService.new(accommodation["id"])
       accommodation_details = accommodation_details_selected.call
       accommodation_latitude = accommodation_details["summary"]["location"]["coordinates"]["latitude"]

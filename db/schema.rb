@@ -51,13 +51,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_052505) do
     t.index ["day_id"], name: "index_categories_on_day_id"
   end
 
-  create_table "clients", force: :cascade do |t|
-    t.string "email"
-    t.string "login"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "contents", force: :cascade do |t|
     t.string "name"
     t.integer "price"

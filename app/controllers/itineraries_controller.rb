@@ -26,7 +26,7 @@ class ItinerariesController < ApplicationController
     if @itinerary.save
       @itinerary.new_day(@days)
 
-      send_confirmation
+      # send_confirmation
       # redirect_to itinerary_path(@itinerary)
 
       set_day_and_contents_and_markers
@@ -80,6 +80,10 @@ class ItinerariesController < ApplicationController
 
   def send_confirmation
     # Client gets a confirmation email with a pdf of the booked itinerary
+    pdf = Grover.new(html, display_url: ENV.fetch("host_name").to_s, print_background: true).to_pdf
+    send_data(pdf,
+              filename: "#{@itinerary.title}- #{@itinerary.client.name} ",
+              type: 'application/pdf')
     mail = UserMailer.itinerary(current_user, @itinerary)
     mail.deliver_now
   end
@@ -120,6 +124,9 @@ class ItinerariesController < ApplicationController
     else
       # display content on overview
       @contents = @itinerary.days.map { |day| day.contents }.flatten
+      # @contents = Content.nearby("Tokyo", 200).where()
+      tokyo_coordinates = [35.677052, 139.7509321] # Tokyo
+      @contents = @contents.select { |content| content.distance_to(tokyo_coordinates) <= 20 }
 
       @markers = @contents.map do |content|
         {

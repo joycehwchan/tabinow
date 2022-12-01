@@ -10,7 +10,7 @@
       <div class="mb-4">
         <div class="px-2">
           <%= link_to itineraries_path, class:"link-secondary text-decoration-none text-uppercase" do %>
-            <i class="fa-solid fa-chevron-left"></i> Dashboard
+            <i class="fa-solid fa-chevron-left"></i> My trips
           <% end %>
           <h1 class="mt-4"><%= @itinerary.title %></h1>
           <p class="sidebar-itinerary-info text-muted">
@@ -27,24 +27,17 @@
           <li class="nav-item">
             <%= link_to 'Overview', itinerary_path(@itinerary), class:"nav-link sidebar-link #{'active' if !params[:day].present?}", "aria_current": "page" %>
           </li>
-          <% itinerary.days.each do |day| %>
+          <% itinerary.days.each_with_index do |day, index| %>
             <li class="nav-item">
-              <%= link_to "Day #{day.number}", itinerary_path(@itinerary, day: day.number), class:"nav-link sidebar-link #{'active' if params[:day].to_i == day.number}" %>
+              <%= link_to itinerary.start_date + index, itinerary_path(@itinerary, day: day.number), class:"nav-link sidebar-link #{'active' if params[:day].to_i == day.number}" %>
             </li>
           <% end %>
-          <!--
-          <li class="nav-item">
-            <%= link_to '#', class:"btn btn-sm btn-add-day" do %>
-              <i class="fa-solid fa-plus me-1"></i> Add day
-            <% end %>
-          </li>
-          -->
         </ul>
       </div>
     </div>
     <div class="sidebar-bottom mb-5">
-      <h3>Estimated total:</h3>
-      <p class="text-end me-2 fs-4">≈ <%= number_to_currency(itinerary.total_budget, precision: 0, unit: "$") %></p>
+      <h3 class="fs-6 mb-0">Estimated total:</h3>
+      <p class="text-end me-2 fs-5">≈ <%= number_to_currency(itinerary.total_budget, precision: 0, unit: "$") %></p>
       <hr>
       <% if user_signed_in? %>
         <div style="width: 100%"
@@ -57,8 +50,12 @@
           <% end %>
           <%= content_tag(:p, "", data: { share_target:"result"}) %>
         </div>
+
         <%= link_to download_itinerary_path(itinerary) , class:"btn btn-sm btn-outline-primary btn-tabinow d-block mb-2" do %>
           <i class="fa-solid fa-download"></i> Download
+        <% end %>
+        <%= link_to send_confirmation_itinerary_path(itinerary) , class:"btn btn-sm btn-outline-dark btn-tabinow d-block mb-2" do %>
+          <i class="fa-solid fa-envelope"></i></i> Email
         <% end %>
         <%= link_to itinerary_path(itinerary), class:"btn btn-sm btn-outline-dark btn-tabinow d-block", data: { turbo_method: :delete  , turbo_confirm: "Deleting #{itinerary.title} itinerary ?" } do %>
           <i class="fa-solid fa-xmark"></i> Delete
