@@ -4,7 +4,7 @@
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center">
           <h3 class="text-dark fs-4 mb-0"><%= "Day #{day.number}" %></h3>
-          <h4 class="text-secondary mb-0"><%= itinerary.start_date + index %></h4>
+          <h4 class="text-secondary mb-0"><%= (itinerary.start_date + index).strftime("%A, %b %d") %></h4>
         </div>
         <hr>
         <% day.contents.order(position: :asc).each do |content| %>
