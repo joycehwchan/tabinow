@@ -28,7 +28,7 @@
             <%= link_to 'Overview', itinerary_path(@itinerary), class:"nav-link sidebar-link #{'active' if !params[:day].present?}", "aria_current": "page" %>
           </li>
           <% itinerary.days.each_with_index do |day, index| %>
-            <li class="nav-item my-1">
+            <li class="nav-item">
               <%= link_to "Day #{index + 1}" , itinerary_path(@itinerary, day: day.number), class:"nav-link sidebar-link #{'active' if params[:day].to_i == day.number}" %>
             </li>
           <% end %>
@@ -48,7 +48,6 @@
           <%= link_to "#" , class:"btn btn-sm btn-outline-secondary btn-tabinow d-block mb-2", data: {  action: "click->share#share"} do %>
             <i data-share-target="icon"   class="fa-solid fa-share-nodes"></i> <span data-share-target="button" >Share</span>
           <% end %>
-          <%= content_tag(:p, "", data: { share_target:"result"}) %>
         </div>
         <%= link_to download_itinerary_path(itinerary) , class:"btn btn-sm btn-outline-primary btn-tabinow d-block mb-2" do %>
           <i class="fa-solid fa-download"></i> Download
