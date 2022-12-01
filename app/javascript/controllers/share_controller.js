@@ -1,25 +1,34 @@
 import { Controller } from "@hotwired/stimulus";
-
-// Connects to data-controller="share"
 export default class extends Controller {
   static values = {
     url: String,
     title: String,
-    // description: String,
-    // image: String,
   };
-  static targets = ["results"];
+  static targets = ["result", "button", "icon"];
   connect() {
-    // console.log(this.urlValue);
-    // console.log(this.titleValue);
+    if (navigator.share) {
+      this.
+      this.buttonTarget.innerText = "Share";
+    } else {
+      this.buttonTarget.innerText = "Copy link";
+    }
   }
   async share(e) {
     e.preventDefault();
-
     const shareData = {
       url: this.urlValue,
+      text: "my trip",
       title: this.titleValue,
     };
-    console.log(shareData);
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        this.resultTarget.textContent = "MDN Shared successfully";
+      } catch (err) {
+        this.resultTarget.textContent = `${err}`;
+      }
+    } else {
+      navigator.clipboard.writeText(this.urlValue);
+    }
   }
 }

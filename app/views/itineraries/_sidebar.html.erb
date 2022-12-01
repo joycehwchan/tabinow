@@ -52,9 +52,10 @@
          data-share-url-value="<%= preview_itinerary_url(itinerary)%>"
          data-share-title-value="<%= @itinerary.title %>"
           >
-          <%= link_to "#" , class:"btn btn-sm btn-outline-secondary btn-tabinow d-block mb-2", data: { action: "click->share#share"} do %>
-            <i class="fa-solid fa-eye"></i> Preview
+          <%= link_to "#" , class:"btn btn-sm btn-outline-secondary btn-tabinow d-block mb-2", data: {  action: "click->share#share"} do %>
+            <i data-share-target="icon"   class="fa-solid fa-eye"></i> <span data-share-target="button" >Share</span>
           <% end %>
+          <%= content_tag(:p, "", data: { share_target:"result"}) %>
         </div>
         <%= link_to download_itinerary_path(itinerary) , class:"btn btn-sm btn-outline-primary btn-tabinow d-block mb-2" do %>
           <i class="fa-solid fa-download"></i> Download
