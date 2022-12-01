@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-light navbar-tabinow ">
   <div class="container-fluid">
-    <%= link_to ( user_signed_in? ? itineraries_path : root_path ), class: "navbar-brand" do %>
+    <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag("logo.svg", class:"logo", alt: "logo") %>
       <strong class="logo"><span class="text-primary">Tabi</span><span class="text-secondary">Now</span></strong>
     <% end %>

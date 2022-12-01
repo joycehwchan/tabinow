@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
+import { loadingMessage } from "../typewriter";
 
 // Connects to data-controller="loading"
 export default class extends Controller {
@@ -9,14 +10,28 @@ export default class extends Controller {
   generate(e) {
     e.preventDefault();
     this.spinnerTarget.classList.remove("d-none");
-
-    console.log("generating");
+    loadingMessage
+      .typeString("Looking for available hotels...")
+      .pauseFor(4000)
+      .deleteAll()
+      .typeString("Looking for activities...")
+      .pauseFor(4000)
+      .deleteAll()
+      .typeString("Looking for restaurants...")
+      .pauseFor(4000)
+      .deleteAll()
+      .typeString("Generating itinerary...")
+      .pauseFor(8000)
+      .deleteAll()
+      .typeString("Almost done...")
+      .pauseFor(20000)
+      .deleteAll()
+      .start();
 
     const url = this.formTarget.action;
 
     fetch(url, {
       method: "POST",
-      // headers: { Accept: "text/plain" },
       body: new FormData(this.formTarget),
     }).then((response) => {
       console.log(response);
