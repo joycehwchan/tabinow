@@ -31,4 +31,5 @@ Rails.application.routes.draw do
   end
   resources :contents, only: :update
   resources :categories, only: :destroy
+
 end
