@@ -7,8 +7,6 @@ class AfternoonApiJob < ApplicationJob
                                      day:)
     activity_category.save!
 
-    p itinerary
-
     activity_budget = max_price_generator / 6
     set_activity_budget = []
 
@@ -56,11 +54,11 @@ class AfternoonApiJob < ApplicationJob
     end
     activity.save!
 
-    # Lunch
-    lunch_category = Category.new(title: "Restaurant",
-                                  sub_category: "Lunch",
+    # dinner
+    dinner_category = Category.new(title: "Restaurant",
+                                  sub_category: "Dinner",
                                   day:)
-    lunch_category.save!
+    dinner_category.save!
 
     restaurant_budget = max_price_generator / 5
     set_restaurant_budget = []
@@ -92,7 +90,7 @@ class AfternoonApiJob < ApplicationJob
                              price: yelp_price(restaurants_selected["price"]),
                              location: restaurant_location,
                              rating: restaurants_selected["rating"],
-                             category: lunch_category,
+                             category: dinner_category,
                              description: restaurants_selected["categories"].first["title"],
                              api: restaurants_selected["id"],
                              latitude: restaurant_latitude,
