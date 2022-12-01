@@ -3,7 +3,7 @@
     <div class="card-body">
       <div class="d-flex">
         <div class="content-img"
-             style="background-image:url(<%= content.image.attached? ? cl_image_path(content.image.key) : image_url("") %>);">
+             style="background-image:url(<%= content.image.attached? ? cl_image_path(content.image.key) : image_url("no_img.jpg") %>);">
         </div>
         <div class="d-flex flex-column justify-content-between flex-grow-1">
           <div class="d-flex align-items-center">
@@ -48,9 +48,9 @@
                 <% if content.category.title == "Accommodation" %>
                   <p class="tag available">Available</p>
                 <% elsif content.category.sub_category == "Lunch" %>
-                  <p class="tag recommended">Recommended for Lunch</p>
+                  <p class="tag recommended">Lunch spot</p>
                 <% elsif content.category.sub_category == "Dinner" %>
-                  <p class="tag recommended">Recommended for Dinner</p>
+                  <p class="tag recommended">Dinner spot</p>
                 <% end %>
                 <% if content.rating.to_f > 4.6 %>
                   <p class="tag popular">Popular</p>
