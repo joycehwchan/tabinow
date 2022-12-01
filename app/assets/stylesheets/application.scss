@@ -12,6 +12,9 @@
 @import "global/fonts";
 @import "pages/index";
 
+body {
+  overflow: hidden;
+}
 main {
   position: relative; // for sidebar
   display: flex;

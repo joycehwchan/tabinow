@@ -28,7 +28,7 @@
             <%= link_to 'Overview', itinerary_path(@itinerary), class:"nav-link sidebar-link #{'active' if !params[:day].present?}", "aria_current": "page" %>
           </li>
           <% itinerary.days.each_with_index do |day, index| %>
-            <li class="nav-item">
+            <li class="nav-item my-1">
               <%= link_to "Day #{index + 1}" , itinerary_path(@itinerary, day: day.number), class:"nav-link sidebar-link #{'active' if params[:day].to_i == day.number}" %>
             </li>
           <% end %>
