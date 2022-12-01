@@ -1,5 +1,5 @@
 meta_product_name: "TabiNow"
 meta_title: "TabiNow - Tour operator in Japan"
 meta_description: "TabiNow operates in a wide range of travel options in Japan"
-meta_image: "logo.png" # should exist in `app/assets/images/`
+meta_image: "small_logo.png" # should exist in `app/assets/images/`
 twitter_account: "@tabinow_tours" # required for Twitter Cards
