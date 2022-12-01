@@ -16,33 +16,40 @@
         <div class="mb-1 col-12 col-md-6">
           <%= f.input :end_date ,class:"form-control", html5: true, input_html: { min: Time.now.to_s[0...10] , data: { form_target:"endDate" }} %>
         </div>
-      <div>
-      <div class="wrapper">
-      <header>
-        <h2>What's your budget?</h2>
-      </header>
-        <div class="d-flex">
-          <div class="price-input">
-            <div class="field">
-              <span>Min</span>
-              <input type="number" class="input-min" value="2500" name="itinerary[min_budget]">
+        <div>
+          <div class="price-input-container">
+            <p class="mt-4 mb-0 form-label fs-6 fw-normal">What's your budget?</p>
+            <div class="d-flex">
+              <div class="price-input">
+                <div class="field">
+                  <span class="me-2">Min</span>
+                  <div class="input-group">
+                    <span class="input-group-text">$USD</span>
+                    <input type="number" class="input-min form-control" value="2500" name="itinerary[min_budget]" aria-label="Amount (to the nearest dollar)">
+                    <%# <input type="number" class="input-min" value="2500" name="itinerary[min_budget]"> %>
+                  </div>
+                </div>
+                <div class="separator"></div>
+                <div class="field">
+                  <span class="me-2">Max</span>
+                  <div class="input-group">
+                    <span class="input-group-text">$USD</span>
+                    <input type="number" class="input-max form-control" value="7500" name="itinerary[max_budget]" aria-label="Amount (to the nearest dollar)">
+                    <%# <input type="number" class="input-max" value="7500" name="itinerary[max_budget]"> %>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="separator">-</div>
-            <div class="field">
-              <span>Max</span>
-              <input type="number" class="input-max" value="7500" name="itinerary[max_budget]">
+            <div class="slider">
+              <div class="progress"></div>
+            </div>
+            <div class="range-input">
+              <input type="range" class="range-min" min="0" max="10000" value="2500" step="100">
+              <input type="range" class="range-max" min="0" max="10000" value="7500" step="100">
             </div>
           </div>
         </div>
-      <div class="slider">
-        <div class="progress"></div>
-      </div>
-      <div class="range-input">
-        <input type="range" class="range-min" min="0" max="10000" value="2500" step="100">
-        <input type="range" class="range-max" min="0" max="10000" value="7500" step="100">
-      </div>
-    </div>
-    </div>
+        <p class="mt-4 mb-3 form-label fs-6 fw-normal">Select your interests:</p>
         <div class="mb-1 col-12 col-md-6 activity_checkboxes">
           <div class="form-check activity-arts">
             <input class="form-check-input boolean optional" type="checkbox" value="arts" name="itinerary[interests][]" id="itinerary_interests_arts">
@@ -68,7 +75,7 @@
           </div>
         </div>
         <div class="col-12 mt-2">
-          <%= f.submit "Generate", class: 'btn btn-primary btn-tabinow mt-2 w-100' %>
+          <%= f.submit "Generate", class: 'btn btn-primary btn-tabinow mt-2 w-100 btn-lg' %>
         </div>
       </div>
     </div>
