@@ -58,7 +58,7 @@ class AfternoonApiJob < ApplicationJob
 
     # Lunch
     lunch_category = Category.new(title: "Restaurant",
-                                  sub_category: "Lunch",
+                                  sub_category: "Dinner",
                                   day:)
     lunch_category.save!
 
