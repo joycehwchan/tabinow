@@ -5,7 +5,7 @@
     <div class="mb-4">
       <div class="day-number">
         <h2 class="mb-0"> <%= "#{(day_index + 1).ordinalize} day" %> </h2>
-        <h2 class="mb-0"><%= itinerary.start_date + day_index %></h2>
+        <h2 class="mb-0"><%= (itinerary.start_date + day_index).strftime("%A, %b %d") %></h2>
       </div>
       <div class="pdf-contents">
         <% day.contents.order(position: :asc).each_with_index do |content, content_index| %>
