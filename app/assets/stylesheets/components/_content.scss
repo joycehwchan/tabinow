@@ -29,15 +29,28 @@
     margin-bottom: 8px;
   }
 
-  .available {
-    margin-left: 4px;
+  .tag {
+    // margin-left: 4px;
     border-radius: 50px;
     margin-bottom: 0;
-    padding: 2px 12px;
+    padding: 2px 8px;
     font-size: 0.8rem;
     width: fit-content;
+  }
+
+  .tag.available {
     background-color: rgba($green, 0.6);
     color: darken(rgba($green, 40), 40);
+  }
+
+  .tag.recommended {
+    background-color: rgba($orange, 0.6);
+    color: darken(rgba($orange, 40), 40);
+  }
+
+  .tag.popular {
+    background-color: rgba($blue, 0.6);
+    color: darken(rgba($blue, 40), 40);
   }
 
   .content-img,

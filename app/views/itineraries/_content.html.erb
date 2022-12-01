@@ -20,6 +20,7 @@
           <div class="ms-3 d-flex flex-column">
             <h6 class="card-subtitle my-2 text-muted">
               <i class="fa-solid fa-location-dot"></i> <%= content.location %>
+              <!--
               <div class="mt-1">
                 <% if content.category.sub_category == "Lunch"%>
                   <i class="fa-solid fa-sun"></i> Lunch
@@ -31,10 +32,11 @@
                   <i class="fa-solid fa-monument"></i> Historic Sites
                 <% end %>
               </div>
+              -->
             </h6>
             <p class="card-text line-clamp"><%= content.description %></p>
             <div class="d-flex justify-content-between">
-              <div class="d-flex align-items-center">
+              <div class="d-flex align-items-center gap-2">
                 <p class="m-0 user-select-none text-info">
                   <% content.rating.to_i.times do %>
                     <i class="fa-solid fa-star"></i>
@@ -44,7 +46,14 @@
                   <% end %>
                 </p>
                 <% if content.category.title == "Accommodation" %>
-                  <p class="available">Available</p>
+                  <p class="tag available">Available</p>
+                <% elsif content.category.sub_category == "Lunch" %>
+                  <p class="tag recommended">Recommended for Lunch</p>
+                <% elsif content.category.sub_category == "Dinner" %>
+                  <p class="tag recommended">Recommended for Dinner</p>
+                <% end %>
+                <% if content.rating.to_f > 4.6 %>
+                  <p class="tag popular">Popular</p>
                 <% end %>
               </div>
               <h5 class="mb-0">
