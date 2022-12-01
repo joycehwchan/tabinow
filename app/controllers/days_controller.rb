@@ -63,10 +63,9 @@ class DaysController < ApplicationController
       day.categories.push(category)
       unused_content.destroy
     # end
-
+    
     day.save!
     authorize day
-    # raise
     redirect_to itinerary_path(itinerary, day: params[:day].to_i)
   end
 

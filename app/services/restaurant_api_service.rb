@@ -14,7 +14,7 @@ class RestaurantApiService
 
   def call
     # Calls the API
-    url = URI("https://api.yelp.com/v3/businesses/search?longitude=#{@longitude}&latitude=#{@latitude}&radius=2000&term=#{@keyword}&price=#{@price}&limit=50")
+    url = URI("https://api.yelp.com/v3/businesses/search?longitude=#{@longitude}&latitude=#{@latitude}&radius=2000&categories=#{@keyword}&price=#{@price}&limit=50")
 
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true

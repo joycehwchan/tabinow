@@ -26,7 +26,7 @@ class ItinerariesController < ApplicationController
     if @itinerary.save
       @itinerary.new_day(@days)
 
-      send_confirmation
+      # send_confirmation
       # redirect_to itinerary_path(@itinerary)
 
       set_day_and_contents_and_markers
@@ -95,20 +95,19 @@ class ItinerariesController < ApplicationController
   end
 
   def download
-    # html = ItinerariesController.new.render_to_string({
-    #                                                     template: 'itineraries/download',
-    #                                                     layout: 'pdf',
-    #                                                     locals: { itinerary: @itinerary }
-    #                                                   })
-    # pdf = Grover.new(html, display_url: 'http://localhost:3000').to_pdf
-    # send_data(pdf,
-    #           filename: "#{@itinerary.title}- #{@itinerary.client.name} ",
-    #           type: 'application/pdf')
-    render layout: "pdf", locals: { itinerary: @itinerary }
+    html = ItinerariesController.new.render_to_string({
+                                                        template: 'itineraries/download',
+                                                        layout: 'pdf',
+                                                        locals: { itinerary: @itinerary }
+                                                      })
+    pdf = Grover.new(html, display_url: ENV.fetch("host_name").to_s, print_background: true).to_pdf
+    send_data(pdf,
+              filename: "#{@itinerary.title}- #{@itinerary.client.name} ",
+              type: 'application/pdf')
+    # render layout: "pdf", locals: { itinerary: @itinerary }
   end
 
   def preview
-
   end
 
   private
@@ -126,8 +125,8 @@ class ItinerariesController < ApplicationController
         {
           lat: content.latitude,
           lng: content.longitude,
-          popup_html: render_to_string(partial: "itineraries/map_popup", locals: { content: content }),
-          marker_html: render_to_string(partial: 'itineraries/map_marker', locals: { content: content })
+          popup_html: render_to_string(partial: "itineraries/map_popup", locals: { content: }),
+          marker_html: render_to_string(partial: 'itineraries/map_marker', locals: { content: })
         }
       end
     end
@@ -139,10 +138,12 @@ class ItinerariesController < ApplicationController
   end
 
   def set_new_itinerary
+    params[:itinerary][:interests] = params[:itinerary][:interests].join(", ")
     @itinerary = Itinerary.new(itineraries_params)
     @days = params[:number_of_days].present? ? params[:number_of_days].to_i : @itinerary.total_days
     title = "#{@days} #{'day'.pluralize(@days)} in #{itineraries_params[:location].capitalize}"
     @itinerary.title = title
+
     # @itinerary.set_new_client(name: params[:name], email: params[:email])
     @itinerary.client = current_user if user_signed_in?
     authorize @itinerary
@@ -170,6 +171,6 @@ class ItinerariesController < ApplicationController
 
   def itineraries_params
     params.require(:itinerary).permit(:name, :title, :location, :status, :employee_id, :client_id, :max_budget, :min_budget,
-                                      :special_request, :start_date, :end_date, :archived, :content, :curentIndex)
+                                      :interests, :start_date, :end_date, :archived, :content, :curentIndex)
   end
 end
