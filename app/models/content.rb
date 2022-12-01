@@ -1,6 +1,6 @@
 class Content < ApplicationRecord
   belongs_to :category
-  belongs_to :itinerary
+  # belongs_to :itinerary
   validates :category, presence: true
   validates :name, presence: true
   # validates :price, presence: true
