@@ -53,7 +53,7 @@
         <%= link_to download_itinerary_path(itinerary) , class:"btn btn-sm btn-outline-primary btn-tabinow d-block mb-2" do %>
           <i class="fa-solid fa-download"></i> Download
         <% end %>
-        <%= link_to send_confirmation_itinerary_path(itinerary) , class:"btn btn-sm btn-outline-primary btn-tabinow d-block mb-2" do %>
+        <%= link_to send_confirmation_itinerary_path(itinerary) , class:"btn btn-sm btn-outline-dark btn-tabinow d-block mb-2" do %>
           <i class="fa-solid fa-envelope"></i></i> Email
         <% end %>
         <%= link_to itinerary_path(itinerary), class:"btn btn-sm btn-outline-dark btn-tabinow d-block", data: { turbo_method: :delete  , turbo_confirm: "Deleting #{itinerary.title} itinerary ?" } do %>
