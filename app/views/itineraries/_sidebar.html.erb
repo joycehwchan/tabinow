@@ -47,11 +47,11 @@
           <i class="fa-solid fa-download"></i> Download
         <% end %>
         <%= link_to send_confirmation_itinerary_path(itinerary) , class:"btn btn-sm btn-outline-dark btn-tabinow d-block mb-2" do %>
-          <i class="fa-solid fa-envelope"></i></i> Email
-        <% end %>
-        <%= link_to itinerary_path(itinerary), class:"btn btn-sm btn-outline-dark btn-tabinow d-block", data: { turbo_method: :delete  , turbo_confirm: "Deleting #{itinerary.title} itinerary ?" } do %>
-          <i class="fa-solid fa-xmark"></i> Delete
-        <% end %>
+          <i class="fa-solid fa-envelope"></i></i> Send
+      <% end %>
+      <%#= link_to itinerary_path(itinerary), class:"btn btn-sm btn-outline-dark btn-tabinow d-block", data: { turbo_method: :delete  , turbo_confirm: "Deleting #{itinerary.title} itinerary ?" } do %>
+        <%# <i class="fa-solid fa-xmark"></i> Delete %>
+        <%# end %>
       <% else %>
         <small>Want to save itinerary?</small>
         <%= link_to    new_user_registration_path(itinerary_id: itinerary.id), class:"btn btn-sm btn-outline-primary btn-tabinow d-block my-2" do %>
