@@ -1,6 +1,6 @@
 class ItinerariesController < ApplicationController
   before_action :set_itinerary, except: %i[index new create move]
-  skip_before_action :authenticate_user!, only: %i[create show]
+  skip_before_action :authenticate_user!, only: %i[create show preview]
 
   def index
     @itineraries = policy_scope(Itinerary)
@@ -108,10 +108,10 @@ class ItinerariesController < ApplicationController
     send_data(pdf,
               filename: "#{@itinerary.title}- #{@itinerary.client.name} ",
               type: 'application/pdf')
-    # render layout: "pdf", locals: { itinerary: @itinerary }
   end
 
   def preview
+    render layout: "pdf", locals: { itinerary: @itinerary }
   end
 
   private
