@@ -8,18 +8,56 @@
 
 .filter-pill {
   cursor: pointer;
-  color: darken($primary, 30);
-  background-color: rgba($primary, 0.4);
   border-radius: 40px;
   text-decoration: none;
   padding: 4px 12px;
   font-size: 0.8rem;
   margin-top: 8px;
+  opacity: 0.7;
+}
+
+.filter-pill.accommodation {
+  color: darken($purple, 30);
+  background-color: rgba($purple, 0.4);
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.filter-pill.accommodation.selected {
+  background-color: $purple;
+}
+
+.filter-pill.activity {
+  color: darken($pink, 30);
+  background-color: rgba($pink, 0.4);
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.filter-pill.activity.selected {
+  background-color: $pink;
+}
+
+.filter-pill.restaurant {
+  color: darken($magenta, 30);
+  background-color: rgba($magenta, 0.4);
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.filter-pill.restaurant.selected {
+  background-color: $magenta;
 }
 
 .filter-pill.selected {
-  background-color: $primary;
   color: $white;
+  opacity: 1;
 
   &:hover {
     opacity: 0.8;
