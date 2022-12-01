@@ -19,7 +19,7 @@
       </div>
       <div class="row" data-controller="form">
         <div class="mb-1 col-12">
-          <%= f.input :location, label: "Tour destination", placeholder: "Tokyo" %>
+          <%= f.input :location, label: "Where do you want to go?", placeholder: "Tokyo" %>
         </div>
         <div class="mb-1 col-12 col-md-6">
           <%= f.input :start_date, class:"form-control", html5: true, input_html: { min: Time.now.to_s[0...10], data: { form_target:"startDate", action: "change->form#setEndDate" }} %>
@@ -30,7 +30,7 @@
       <div class="d-flex justify-content-evenly">
       <div class="wrapper">
       <header>
-        <h2>Price Range</h2>
+        <h2>What's your budget?</h2>
       </header>
         <div class="d-flex">
           <div class="price-input">
