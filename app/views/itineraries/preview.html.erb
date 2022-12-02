@@ -1,8 +1,8 @@
-<title><%= @itinerary.title %>, by <%= User.find(Itinerary.last.client_id).name %></title>
+<title><%= @itinerary.title %> by <%= User.find(@itinerary.client_id).name %></title>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="Itinerary created by <%= current_user.name %> for trip to <%= @itinerary.location %>">
 <!-- Facebook Open Graph data -->
-<meta property="og:title" content="<%= @itinerary.title %> by <%= User.find(Itinerary.last.client_id).name %>" />
+<meta property="og:title" content="<%= @itinerary.title %> by <%= User.find(@itinerary.client_id).name %>" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="<%= request.original_url %>" />
 <meta property="og:image" content="<%= meta_image %>" />
@@ -11,7 +11,7 @@
 <!-- Twitter Card data -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="<%= DEFAULT_META["twitter_account"] %>">
-<meta name="twitter:title" content="<%= @itinerary.title %> by <%= User.find(Itinerary.last.client_id).name %>">
+<meta name="twitter:title" content="<%= @itinerary.title %> by <%= User.find(@itinerary.client_id).name %>">
 <meta name="twitter:description" content="Checkout my itineraryfor my <%= @itinerary.location %> trip starting on <%= @itinerary.start_date %> until <%= @itinerary.end_date %>!">
 <meta name="twitter:creator" content="<%= DEFAULT_META["twitter_account"] %>">
 <meta name="twitter:image:src" content="<%= meta_image %>">
