@@ -8,7 +8,7 @@
     <meta property="og:title" content="<%= @itinerary.title %> by <%= User.find(@itinerary.client_id).name %>" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="<%= request.original_url %>" />
-    <meta property="og:image" content="<%= meta_image %>" />
+    <meta property="og:image" content="<%= image_url('tabinow_og_img.jpg') %> />
     <meta property="og:description" content="Checkout my itineraryfor my <%= @itinerary.location %> trip starting on <%= @itinerary.start_date %> until <%= @itinerary.end_date %>!" />
     <meta property="og:site_name" content="TabiNow.tour" />
     <!-- Twitter Card data -->
