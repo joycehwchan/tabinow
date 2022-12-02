@@ -109,7 +109,7 @@ class MorningApiJob < ApplicationJob
 
     activities_results.delete(activity_selected)
 
-    activities_results.take(10).each do |unused_activity|
+    activities_results.take(0).each do |unused_activity|
       unused_activity["location"]["display_address"].nil? ? activity_location = location : activity_location = unused_activity["location"]["display_address"].first
       activity_latitude = unused_activity["coordinates"]["latitude"]
       activity_longitude = unused_activity["coordinates"]["longitude"]
@@ -137,7 +137,7 @@ class MorningApiJob < ApplicationJob
 
     restaurants_results.delete(restaurants_selected)
 
-    restaurants_results.take(10).each do |unused_restaurant|
+    restaurants_results.take(0).each do |unused_restaurant|
       unused_restaurant["location"]["display_address"].nil? ? restaurant_location = location : restaurant_location = unused_restaurant["location"]["display_address"].first
       restaurant_latitude = unused_restaurant["coordinates"]["latitude"]
       restaurant_longitude = unused_restaurant["coordinates"]["longitude"]
