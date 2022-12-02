@@ -1,6 +1,6 @@
 <title><%= @itinerary.title %> by <%= User.find(@itinerary.client_id).name %></title>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Itinerary created by <%= current_user.name %> for trip to <%= @itinerary.location %>">
+<meta name="description" content="Itinerary created by <%= User.find(@itinerary.client_id).name %> for trip to <%= @itinerary.location %>">
 <!-- Facebook Open Graph data -->
 <meta property="og:title" content="<%= @itinerary.title %> by <%= User.find(@itinerary.client_id).name %>" />
 <meta property="og:type" content="website" />
