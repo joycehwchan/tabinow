@@ -17,7 +17,7 @@ main {
   display: flex;
   flex-wrap: nowrap;
   height: -webkit-fill-available;
-  min-height: calc(100vh - 64px); // 100vh - navbar height
+  min-height: calc(100vh - 66px); // 100vh - navbar height
   overflow-x: auto;
   // overflow-y: hidden;
 }

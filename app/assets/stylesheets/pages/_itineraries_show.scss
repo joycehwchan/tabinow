@@ -6,12 +6,12 @@
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
-  max-height: calc(100vh - 64px);
+  max-height: calc(100vh - 66px);
   overflow: hidden;
 
   .left-container {
     padding: 0 12px;
-    height: calc(100vh - 64px - 16px);
+    height: calc(100vh - 66px - 16px);
     // overflow: hidden;
     width: 70%;
 
@@ -33,7 +33,7 @@
     padding: 12px;
     padding-top: 0;
     // background-color: rgba($secondary, 0.8);
-    height: calc(100vh - 64px - 16px);
+    height: calc(100vh - 66px - 16px);
     // overflow: auto;
     width: 30%;
     transition: width 200ms;
@@ -58,7 +58,7 @@
   }
 
   .overview-days-container {
-    height: calc(100vh - 64px - 16px);
+    height: calc(100vh - 66px - 16px);
     overflow: auto;
     padding-right: 16px;
 
