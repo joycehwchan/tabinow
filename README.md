@@ -1,11 +1,15 @@
 # TabiNow
 
-Project description goes here
+A travel itinerary generator build with Ruby on Rails.
 
+<div align="center">
+<img width="640" alt="TabiNow01" src="https://user-images.githubusercontent.com/109743083/205537183-9d299cf9-fe7e-4ed0-87e1-f26755c8421d.png">
+<img width="640" alt="TabiNow02" src="https://user-images.githubusercontent.com/109743083/205537107-030a5d65-fba0-4110-a3ae-4f051e6de371.png">
+</div>
 
 <br>
-App home: https://tabinow.tours/
-   
+👉 App home: https://tabinow.tours/
+<br>
 
 ## Getting Started
 ### Setup
