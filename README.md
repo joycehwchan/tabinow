@@ -55,8 +55,8 @@ rails s
 
 ## Team Members
 - [Joyce Chan](https://www.linkedin.com/in/joycehwchan/)
-- [Fred faeger](https://www.linkedin.com/in/fredfaeger/)
-- [Christopher](https://www.linkedin.com/in/christopher-crespo-374533240/)
+- [Fredrik Kawahara Faeger](https://www.linkedin.com/in/fredfaeger/)
+- [Christopher Crespo](https://www.linkedin.com/in/christopher-crespo-374533240/)
 - [Hafid Qarchi](https://www.linkedin.com/in/hafid-qa/)
 
 ## Contributing
