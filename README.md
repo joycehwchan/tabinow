@@ -28,7 +28,7 @@ Create `.env` file
 ```
 touch .env
 ```
-Inside `.env`, set these variables. For any APIs, see group Slack channel.
+Inside `.env`, set these variables.
 ```
 CLOUDINARY_URL=your_own_cloudinary_url_key
 HOTELS_API_KEY=your_own_hotels_api_key
